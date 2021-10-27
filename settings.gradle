@@ -1,0 +1,4 @@
+rootProject.name = "AllTimers"
+
+include ':lib_common'
+include ':app'

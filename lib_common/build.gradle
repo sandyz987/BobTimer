@@ -1,0 +1,34 @@
+apply from: config
+
+// 全局依赖都导入到这里来，因为各个模块都会依赖本模块
+dependencies {
+    api deps.arouter.api
+    api deps.kotlin.runtime
+    api deps.kotlin.core
+    api deps.support.app_compat
+    api deps.support.design
+    api deps.support.constraint
+    api deps.rxjava.runtime
+    api deps.rxjava.rxandroid
+    api deps.rxjava.rxkotlin
+    api deps.gson.runtime
+    api deps.okhttp.okhttp3
+    api deps.okhttp.logging_interceptor
+    api deps.retrofit.adapter_rxjava2
+    api deps.retrofit.converter_gson
+    api deps.retrofit.runtime
+    api deps.calculator.runtime
+    api deps.rxpermissions.runtime
+    api deps.eventbus.runtime
+    api deps.poi.runtime
+    api deps.mpChart.runtime
+    api deps.pickerView.runtime
+    api deps.lifecycle.extensions
+    api deps.lifecycle.viewmodel_ktx
+    api deps.lifecycle.common_java8
+    api deps.lifecycle.reactivestrean
+    api deps.room.runtime
+    api deps.room.rxjava
+
+
+}
