@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.ScrollView
 import android.widget.TextView
 import com.sandyz.lib_common.R
 
@@ -38,12 +39,15 @@ class OptionalPopWindow private constructor(val context: Context?) : PopupWindow
     class Builder {
         var optionalPopWindow: OptionalPopWindow? = null
         var context: Context? = null
-        var mainView: View? = null
+        var mainView: LinearLayout? = null
+        var parentView: View? = null
         var childCount = 0
         fun with(context: Context): Builder {
             optionalPopWindow = OptionalPopWindow(context)
             this.context = context
-            mainView = LayoutInflater.from(context).inflate(R.layout.common_popwindow_options, null, false)
+            mainView = LayoutInflater.from(context).inflate(R.layout.common_popwindow_options, null, false).also {
+                parentView = it
+            }.findViewById(R.id.popwindow_mainview)
             return this
         }
 
@@ -52,14 +56,14 @@ class OptionalPopWindow private constructor(val context: Context?) : PopupWindow
                 throw IllegalStateException("$TAG Can't add option without context!")
             }
             val view = LayoutInflater.from(context).inflate(R.layout.common_popwindow_option_normal, null, false)
-            view.findViewById<TextView>(R.id.qa_popwindow_tv_option).text = optionText
-            view.findViewById<TextView>(R.id.qa_popwindow_tv_option).setOnClickListener {
+            view.findViewById<TextView>(R.id.popwindow_tv_option).text = optionText
+            view.findViewById<TextView>(R.id.popwindow_tv_option).setOnClickListener {
                 optionalPopWindow!!.dismiss()
                 onClickCallback()
             }
             childCount++
-            (mainView as LinearLayout).addView(view)
-            (mainView as LinearLayout).invalidate()
+            mainView?.addView(view)
+            mainView?.invalidate()
             return this
         }
 
@@ -69,11 +73,11 @@ class OptionalPopWindow private constructor(val context: Context?) : PopupWindow
          * @param alignMode 对齐方式
          * @param offsetY 要在view的下面多少的位置？
          */
-        fun show(view: View, alignMode: AlignMode, offsetY: Int) {
-            if (optionalPopWindow == null || mainView == null || context == null || childCount == 0) {
+        fun show(view: View, alignMode: AlignMode = AlignMode.CENTER, offsetY: Int = 0) {
+            if (optionalPopWindow == null || parentView == null || context == null || childCount == 0) {
                 throw IllegalStateException("$TAG IllegalState!")
             }
-            optionalPopWindow!!.contentView = mainView
+            optionalPopWindow!!.contentView = parentView
 
             // 先测量mainView，以免取到measuredWidth为0
             mainView!!.measure(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -88,11 +92,14 @@ class OptionalPopWindow private constructor(val context: Context?) : PopupWindow
             // 如果是正中间，则修改Y坐标为正中间
             var offsetYt = offsetY
             if (alignMode == AlignMode.CENTER) {
-                offsetYt = -(View.MeasureSpec.getSize(mainView!!.measuredHeight) + view.height) / 2
+                offsetYt = -(View.MeasureSpec.getSize(parentView!!.measuredHeight) + view.height) / 2
             }
 
             // 隐藏最后一个选项的分割线
-            (mainView as LinearLayout).getChildAt((mainView as LinearLayout).childCount - 1).findViewById<View>(R.id.qa_divide_line).visibility = View.GONE
+            mainView?.let {
+                it.getChildAt(it.childCount - 1).findViewById<View>(R.id.qa_divide_line).visibility = View.GONE
+            }
+
             // 显示弹窗
             optionalPopWindow!!.showAsDropDown(view, offsetXt, offsetYt, Gravity.START)
             optionalPopWindow!!.showBackgroundAnimator()

@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.sandyz.lib_common.widgets.MaxHeightScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="#ffffff"
-    android:orientation="vertical">
+    android:background="@drawable/common_popupwindow_bg"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="vertical"
+    app:maxHeight="200dp">
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/popwindow_mainview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    </LinearLayout>
+</com.sandyz.lib_common.widgets.MaxHeightScrollView>

@@ -51,11 +51,11 @@ object TimeUtil {
      * @param timestamp
      * @return
      */
-    fun timestampFormate(timestamp: Long): Long {
+    fun timestampFormat(timestamp: Long): Long {
         var timestamp = timestamp
         val timestampStr = timestamp.toString() + ""
         if (timestampStr.length == 13) {
-            timestamp = timestamp / 1000
+            timestamp /= 1000
         }
         return timestamp
     }
@@ -214,7 +214,7 @@ object TimeUtil {
     fun monthStr(timeStamp: Long): String {
         val inputTime = Calendar.getInstance()
         var s = ""
-        inputTime.timeInMillis = timeStamp
+        inputTime.timeInMillis = timeStamp * 1000
         val calendar = Calendar.getInstance()
         val sdf = SimpleDateFormat("yyyy" + " / " + "M" + " / " + "d" + " ")
         if (sdf.format(inputTime.time) == sdf.format(calendar.time)) {
@@ -354,5 +354,6 @@ object TimeUtil {
         println(getChatTimeStr(timeStamp))         //2020/10/27 上午 10:50   10月25日下午 6:50     昨天 下午 6:50          上午 10:50 （12小时制）
         println(getTimeStr(timeStamp))             //2020/10/27              星期一                昨天                    10:50
         println(formatDisplayTimestamp(timeStamp)) //2020年10月27日           星期一               昨天 18:50               14分钟前
+        println(monthStr(timeStamp))               //2021 / 10 / 25          2021 / 10 / 27 (今天)
     }
 }

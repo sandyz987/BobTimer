@@ -3,4 +3,5 @@
     <style name="common_transparent_dialog" parent="Theme.AppCompat.Dialog">
         <item name="android:windowBackground">@null</item>
     </style>
+
 </resources>
