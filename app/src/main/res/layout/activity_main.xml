@@ -15,4 +15,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.sandyz.lib_common.extensions.ScrollBackgroundView
+        android:id="@+id/scrollbg_view"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </com.sandyz.lib_common.extensions.ScrollBackgroundView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
