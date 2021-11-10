@@ -1,4 +1,6 @@
+include ':module_schedule'
 rootProject.name = "AllTimers"
 
 include ':lib_common'
-include ':app'
+include ':module_app'
+include ':module_main'

@@ -18,6 +18,7 @@ buildscript {
     ext {
         config = "${rootDir}/config.gradle"
         api_config = "${rootDir}/api_config.gradle"
+        kotlin_version = '1.4.21'
     }
 }
 
