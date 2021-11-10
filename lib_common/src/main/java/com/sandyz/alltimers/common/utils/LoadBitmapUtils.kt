@@ -3,14 +3,16 @@ package com.sandyz.alltimers.common.utils
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import androidx.annotation.IdRes
+import android.graphics.Matrix
+import android.util.Log
+import androidx.annotation.DrawableRes
 
 
-class LoadBitmapUtils {
+object LoadBitmapUtils {
     fun decodeBitmapFromResource(
         res: Resources?,
-        @IdRes resId: Int,
-        decodeWidth: Int,
+        @DrawableRes resId: Int,
+        decodeWidth: Float,
         decodeHeight: Int
     ): Bitmap? {
         val options = BitmapFactory.Options()
@@ -30,6 +32,81 @@ class LoadBitmapUtils {
         }
         options.inJustDecodeBounds = false
         options.inSampleSize = inSampleSize
-        return BitmapFactory.decodeResource(res, resId, options)
+        val bitmap = BitmapFactory.decodeResource(res, resId, options)?: return null
+        val matrix = Matrix().apply {
+            postScale((decodeWidth / bitmap.width.toFloat()), (decodeHeight / bitmap.height.toFloat()))
+        }
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+    }
+
+    fun decodeBitmapFromResourceByWidth(
+        res: Resources?,
+        @DrawableRes resId: Int,
+        decodeWidth: Int
+    ): Bitmap? {
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true //预加载
+        BitmapFactory.decodeResource(res, resId, options)
+        val imgWidth = options.outWidth //要加载的图片的宽
+        val imgHeight = options.outHeight //要加载的图片的高
+        val heightDivWidth = imgHeight / imgWidth.toFloat()
+        val decodeHeight = decodeWidth * heightDivWidth
+        var inSampleSize = 1
+        if (imgWidth > decodeWidth || imgHeight > decodeHeight) {
+            val halfWidth = imgWidth / 2
+            val halfHeight = imgHeight / 2
+            while (halfWidth / inSampleSize >= decodeWidth &&
+                halfHeight / inSampleSize >= decodeHeight
+            ) {
+                inSampleSize *= 2
+            }
+        }
+        options.inJustDecodeBounds = false
+        options.inSampleSize = inSampleSize
+        val bitmap = BitmapFactory.decodeResource(res, resId, options)?: return null
+        val matrix = Matrix().apply {
+            postScale((decodeWidth.toFloat() / bitmap.width), (decodeHeight / bitmap.height))
+        }
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+    }
+
+    fun decodeBitmapFromResourceByHeight(
+        res: Resources?,
+        @DrawableRes resId: Int,
+        decodeHeight: Int
+    ): Bitmap? {
+        val options = BitmapFactory.Options()
+        options.inJustDecodeBounds = true //预加载
+        BitmapFactory.decodeResource(res, resId, options)
+        Log.e("sandyzhang", "${options.outWidth}")
+        val imgWidth = options.outWidth //要加载的图片的宽
+        val imgHeight = options.outHeight //要加载的图片的高
+        val widthDivHeight = imgWidth / imgHeight.toFloat()
+        val decodeWidth = decodeHeight * widthDivHeight
+        var inSampleSize = 1
+        if (imgWidth > decodeWidth || imgHeight > decodeHeight) {
+            val halfWidth = imgWidth / 2
+            val halfHeight = imgHeight / 2
+            while (halfWidth / inSampleSize >= decodeWidth &&
+                halfHeight / inSampleSize >= decodeHeight
+            ) {
+                inSampleSize *= 2
+            }
+        }
+        options.inJustDecodeBounds = false
+        options.inSampleSize = inSampleSize
+        val bitmap = BitmapFactory.decodeResource(res, resId, options)?: return null
+        val matrix = Matrix().apply {
+            postScale((decodeWidth / bitmap.width), (decodeHeight / bitmap.height.toFloat()))
+        }
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+    }
+
+    fun resizeBitmap(bitmapSrc: Bitmap?, targetWidth: Int, targetHeight: Int): Bitmap? {
+        val bitmap = bitmapSrc?: return null
+        val matrix = Matrix().apply {
+            postScale((targetWidth / bitmap.width.toFloat()), (targetHeight / bitmap.height.toFloat()))
+        }
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     }
 }

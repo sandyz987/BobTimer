@@ -24,4 +24,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <com.sandyz.alltimers.common.widgets.DynamicTimeDisplayView
+        android:id="@+id/dynamic_time"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/vp_main"
+        app:text="6-66" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

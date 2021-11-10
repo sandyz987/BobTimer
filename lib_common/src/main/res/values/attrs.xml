@@ -3,4 +3,8 @@
     <declare-styleable name="MaxHeightScrollView" tools:ignore="ResourceName">
         <attr name="maxHeight" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="DynamicTimeDisplayView" tools:ignore="ResourceName">
+        <attr name="text" format="string" />
+    </declare-styleable>
 </resources>
