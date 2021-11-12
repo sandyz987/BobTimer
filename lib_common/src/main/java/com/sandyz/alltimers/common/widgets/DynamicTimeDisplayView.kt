@@ -1,7 +1,5 @@
 package com.sandyz.alltimers.common.widgets
 
-import android.animation.FloatEvaluator
-import android.animation.TypeEvaluator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.TypedArray
@@ -11,9 +9,10 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import android.view.animation.LinearInterpolator
-import androidx.annotation.DrawableRes
-import androidx.annotation.FloatRange
+import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.AnticipateOvershootInterpolator
+import android.view.animation.Interpolator
 import com.sandyz.alltimers.common.R
 import com.sandyz.alltimers.common.utils.LoadBitmapUtils
 import com.sandyz.alltimers.common.utils.ResourceGetter
@@ -25,7 +24,6 @@ class DynamicTimeDisplayView @JvmOverloads constructor(
 
     private var mWidth = 0
     private var mHeight = 0
-    private val drawablePaint = Paint()
     private val bitmapMap = mutableMapOf<Char, Bitmap>()
     private val mAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
         addUpdateListener {
@@ -35,29 +33,69 @@ class DynamicTimeDisplayView @JvmOverloads constructor(
             invalidate()
         }
     }
-    var drawer: Drawer = LinearDrawerImpl()
-    var duration: Long = 400L
-    var interpolator = LinearInterpolator()
+    var drawer: Drawer = OvershootDrawerImpl()
 
     interface Drawer {
         fun drawBitmap(canvas: Canvas?, fraction: Float, originBitmap: Bitmap?, targetBitmap: Bitmap?)
+        fun getInterpolator(): Interpolator
+        fun getDuration(): Long
     }
 
-    inner class LinearDrawerImpl : Drawer {
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        // 允许绘制超出边界
+        (parent as ViewGroup).clipChildren = false
+    }
+
+    inner class DefaultDrawerImpl : Drawer {
+        private val drawablePaint by lazy { Paint() }
         override fun drawBitmap(canvas: Canvas?, fraction: Float, originBitmap: Bitmap?, targetBitmap: Bitmap?) {
             originBitmap?.let {
+                drawablePaint.alpha = (255 - fraction * 255).toInt()
+                canvas?.save()
+                canvas?.translate(0f, -mHeight * fraction * 0.5f)
+                canvas?.drawBitmap(it, 0f, 0f, drawablePaint)
+                canvas?.restore()
+            }
+            targetBitmap?.let {
+                drawablePaint.alpha = (fraction * 255).toInt()
+                canvas?.save()
+                canvas?.translate(0f, (-mHeight * fraction + mHeight) * 0.5f)
+                canvas?.drawBitmap(it, 0f, 0f, drawablePaint)
+                canvas?.restore()
+            }
+        }
+
+        override fun getInterpolator() = AccelerateDecelerateInterpolator()
+        override fun getDuration() = 600L
+    }
+
+    inner class OvershootDrawerImpl : Drawer {
+        private val drawablePaint by lazy { Paint() }
+        override fun drawBitmap(canvas: Canvas?, fraction: Float, originBitmap: Bitmap?, targetBitmap: Bitmap?) {
+            val tmpAlpha = when {
+                fraction < 0 -> 0f
+                fraction > 1 -> 1f
+                else -> fraction
+            }
+            originBitmap?.let {
+                drawablePaint.alpha = (255 - tmpAlpha * 255).toInt()
                 canvas?.save()
                 canvas?.translate(0f, -mHeight * fraction)
                 canvas?.drawBitmap(it, 0f, 0f, drawablePaint)
                 canvas?.restore()
             }
             targetBitmap?.let {
+                drawablePaint.alpha = (tmpAlpha * 255).toInt()
                 canvas?.save()
-                canvas?.translate(0f, -mHeight * fraction + mHeight)
+                canvas?.translate(0f, (-mHeight * fraction + mHeight))
                 canvas?.drawBitmap(it, 0f, 0f, drawablePaint)
                 canvas?.restore()
             }
         }
+
+        override fun getInterpolator() = AnticipateOvershootInterpolator()
+        override fun getDuration() = 600L
     }
 
 
@@ -70,8 +108,8 @@ class DynamicTimeDisplayView @JvmOverloads constructor(
             if (mAnimator.isStarted) {
                 mAnimator.cancel()
             }
-            mAnimator.interpolator = interpolator
-            mAnimator.duration = duration
+            mAnimator.interpolator = drawer.getInterpolator()
+            mAnimator.duration = drawer.getDuration()
             mAnimator.start()
         }
 
