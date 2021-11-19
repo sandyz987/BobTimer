@@ -78,7 +78,6 @@ object LoadBitmapUtils {
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true //预加载
         BitmapFactory.decodeResource(res, resId, options)
-        Log.e("sandyzhang", "${options.outWidth}")
         val imgWidth = options.outWidth //要加载的图片的宽
         val imgHeight = options.outHeight //要加载的图片的高
         val widthDivHeight = imgWidth / imgHeight.toFloat()

@@ -29,6 +29,7 @@ dependencies {
     api deps.lifecycle.reactivestrean
     api deps.room.runtime
     api deps.room.rxjava
+    api deps.glide.runtime
 
 
 }

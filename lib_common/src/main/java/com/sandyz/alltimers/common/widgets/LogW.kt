@@ -6,4 +6,7 @@ object LogW {
     fun d(string: String){
         Log.d("sandyzhang",string)
     }
+    fun e(string: String) {
+        Log.e("sandyzhang",string)
+    }
 }
