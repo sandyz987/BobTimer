@@ -1,5 +1,6 @@
-package com.sandyz.alltimers.common.widgets
+package com.sandyz.alltimers.common.widgets.backgroundscroll
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Handler
@@ -10,8 +11,10 @@ import android.view.VelocityTracker
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Scroller
+import androidx.annotation.FloatRange
 import androidx.core.view.children
 import com.sandyz.alltimers.common.extensions.getScreenWidth
+import com.sandyz.alltimers.common.widgets.LogW
 import kotlin.math.abs
 
 class ScrollBackgroundView @JvmOverloads constructor(
@@ -56,6 +59,11 @@ class ScrollBackgroundView @JvmOverloads constructor(
     // 上次修改背景的位置，用于计算deltaX坐标的偏移量，根据这个偏移量去更新子view的位置
     private var lastPos = 0
 
+    init {
+        setWillNotDraw(false)
+        clipChildren = false
+    }
+
     /**
      * 设置要显示的背景，注意，请自行压缩
      */
@@ -97,6 +105,10 @@ class ScrollBackgroundView @JvmOverloads constructor(
                 picOriginY = mImageView.top.toFloat()
                 // 停止惯性滑动
                 handler.removeCallbacks(mFlingRunnable)
+                smoothScrollAnimator?.let {
+                    if (it.isStarted)
+                        it.cancel()
+                }
                 isFling = false
                 return false
             }
@@ -116,7 +128,8 @@ class ScrollBackgroundView @JvmOverloads constructor(
                 val dx = event.rawX - originX
                 val dy = event.rawY - originY
                 // 判断是否是拖动
-                if (!isScrolling || abs(dx) > 10f || abs(dy) > 10f) {
+                if (!isScrolling && (abs(dx) > 10f || abs(dy) > 10f)) {
+                    LogW.e("${abs(dx)} dy : ${abs(dy)}")
                     isScrolling = true
                 }
                 if (isScrolling) {
@@ -127,11 +140,14 @@ class ScrollBackgroundView @JvmOverloads constructor(
             }
             MotionEvent.ACTION_UP -> {
                 // 开始惯性滚动
+                LogW.d("-up: ${isScrolling}")
+
                 if (isScrolling) {
                     startFling(-velocityTracker.xVelocity)
                     isScrolling = false
                 } else {
                     // 没有拖动，则响应点击事件
+                    LogW.d("up")
                     performClick()
                 }
                 return true
@@ -145,7 +161,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
     override fun performClick(): Boolean {
         // 将子view的长按拖动全部取消
         children.forEach {
-            if (it is ScrollImageView) {
+            if (it is ScrollFrameLayout) {
                 if (it.shouldScrollWithBackground) {
                     it.isScrolling = false
                 }
@@ -180,12 +196,45 @@ class ScrollBackgroundView @JvmOverloads constructor(
     private fun updateChildrenPosition(pos: Int) {
         val dx = pos - lastPos
         children.forEach {
-            if (it is ScrollImageView) {
+            if (it is ScrollFrameLayout) {
                 val layoutParams = it.layoutParams as LayoutParams
                 layoutParams.leftMargin += dx
             }
         }
         lastPos = pos
+    }
+
+    fun setChildPosition(scrollFrameLayout: ScrollFrameLayout, posX: Int, posY: Int) {
+        scrollFrameLayout.post {
+            val childLayoutParams = scrollFrameLayout.layoutParams as? LayoutParams ?: return@post
+            val ivLayoutParams = mImageView.layoutParams as LayoutParams
+            childLayoutParams.leftMargin = posX + ivLayoutParams.leftMargin
+            childLayoutParams.topMargin = posY + ivLayoutParams.topMargin
+            scrollFrameLayout.layoutParams = childLayoutParams
+            requestLayout()
+        }
+    }
+
+    fun setChildPosition(widgetName: String, posX: Int, posY: Int) {
+        children.forEach {
+            if (it is ScrollFrameLayout && it.getName() == widgetName) {
+                setChildPosition(it, posX, posY)
+            }
+        }
+    }
+
+    fun getChildPosition(widgetName: String): Pair<Int, Int>? {
+        children.forEach {
+            if (it is ScrollFrameLayout && it.getName() == widgetName) {
+                val ivLayoutParams = mImageView.layoutParams as LayoutParams
+                val childLayoutParams = it.layoutParams as LayoutParams
+                return Pair(
+                    -ivLayoutParams.leftMargin + childLayoutParams.leftMargin,
+                    -ivLayoutParams.topMargin + childLayoutParams.topMargin
+                )
+            }
+        }
+        return null
     }
 
     private val mFlingRunnable = object : Runnable {
@@ -213,5 +262,38 @@ class ScrollBackgroundView @JvmOverloads constructor(
             0
         )
         mHandler.post(mFlingRunnable)
+    }
+
+    private var smoothScrollAnimator: ValueAnimator? = null
+    fun scrollToPercent(@FloatRange(from = 0.0, to = 1.0) percent: Float, smoothly: Boolean = true) {
+        post {
+            smoothScrollAnimator?.let {
+                if (it.isStarted) {
+                    it.cancel()
+                }
+            }
+            val maxWidth = mSizeFix * mHeight - context.getScreenWidth()
+            if (smoothly) {
+                val start = (mImageView.layoutParams as? LayoutParams?)?.leftMargin ?: return@post
+                val end = (-maxWidth * percent).toInt()
+                smoothScrollAnimator = ValueAnimator.ofInt(start, end).apply {
+                    duration = 600L
+                    addUpdateListener {
+                        updateBackgroundPosition(it.animatedValue as Int)
+                    }
+                    start()
+                }
+            } else {
+                updateBackgroundPosition((-maxWidth * percent).toInt())
+            }
+        }
+    }
+
+    fun onBind() {
+        children.forEach {
+            if (it is ScrollFrameLayout) {
+                it.onBind()
+            }
+        }
     }
 }

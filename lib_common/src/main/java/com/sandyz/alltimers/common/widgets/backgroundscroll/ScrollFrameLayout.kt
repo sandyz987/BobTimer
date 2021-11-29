@@ -1,23 +1,19 @@
-package com.sandyz.alltimers.common.widgets
+package com.sandyz.alltimers.common.widgets.backgroundscroll
 
-import android.animation.Animator
 import android.animation.ObjectAnimator
 import android.content.Context
-import android.os.Handler
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.widget.FrameLayout
-import android.widget.ImageView
-import androidx.core.animation.doOnCancel
+import kotlinx.android.synthetic.main.common_dialog_choose.view.*
 import kotlin.math.abs
 
 /**
  * 作为ScrollBackgroundView的子view使用
  */
-class ScrollImageView @JvmOverloads constructor(
+class ScrollFrameLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
-) : androidx.appcompat.widget.AppCompatImageView(context, attrs, defStyleAttr) {
+) : FrameLayout(context, attrs, defStyleAttr) {
 
     // 是否在长按拖动修改位置
     var isScrolling = false
@@ -29,6 +25,7 @@ class ScrollImageView @JvmOverloads constructor(
                 cancelAnim()
             }
         }
+
     // 背景拖动时，是否要随着背景拖动
     var shouldScrollWithBackground = true
 
@@ -51,6 +48,12 @@ class ScrollImageView @JvmOverloads constructor(
     // 计算拖动的总偏移量
     private var totalDX = 0f
     private var totalDY = 0f
+    var scrollChild: ScrollChild? = null
+
+    init {
+        setWillNotDraw(false)
+        clipChildren = false
+    }
 
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
@@ -66,7 +69,7 @@ class ScrollImageView @JvmOverloads constructor(
                 val layoutParams = layoutParams as FrameLayout.LayoutParams
                 originLeft = layoutParams.leftMargin
                 originTop = layoutParams.topMargin
-                postDelayed(scrollCallback, 1000L)
+                postDelayed(scrollCallback, 800L)
                 parent.requestDisallowInterceptTouchEvent(true)
 
                 return true
@@ -126,5 +129,13 @@ class ScrollImageView @JvmOverloads constructor(
             animator.end()
 
         }
+    }
+
+    fun getName(): String? {
+        return scrollChild?.getName()
+    }
+
+    fun onBind() {
+        scrollChild?.onBind(this)
     }
 }
