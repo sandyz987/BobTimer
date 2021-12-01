@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.VelocityTracker
 import android.widget.FrameLayout
@@ -13,8 +14,9 @@ import android.widget.ImageView
 import android.widget.Scroller
 import androidx.annotation.FloatRange
 import androidx.core.view.children
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.sandyz.alltimers.common.extensions.getScreenWidth
-import com.sandyz.alltimers.common.widgets.LogW
 import kotlin.math.abs
 
 class ScrollBackgroundView @JvmOverloads constructor(
@@ -129,7 +131,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
                 val dy = event.rawY - originY
                 // 判断是否是拖动
                 if (!isScrolling && (abs(dx) > 10f || abs(dy) > 10f)) {
-                    LogW.e("${abs(dx)} dy : ${abs(dy)}")
+                    parent.requestDisallowInterceptTouchEvent(true)
                     isScrolling = true
                 }
                 if (isScrolling) {
@@ -140,14 +142,12 @@ class ScrollBackgroundView @JvmOverloads constructor(
             }
             MotionEvent.ACTION_UP -> {
                 // 开始惯性滚动
-                LogW.d("-up: ${isScrolling}")
 
                 if (isScrolling) {
                     startFling(-velocityTracker.xVelocity)
                     isScrolling = false
                 } else {
                     // 没有拖动，则响应点击事件
-                    LogW.d("up")
                     performClick()
                 }
                 return true
@@ -162,9 +162,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
         // 将子view的长按拖动全部取消
         children.forEach {
             if (it is ScrollFrameLayout) {
-                if (it.shouldScrollWithBackground) {
-                    it.isScrolling = false
-                }
+                it.isScrolling = false
             }
         }
         return super.performClick()
@@ -196,7 +194,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
     private fun updateChildrenPosition(pos: Int) {
         val dx = pos - lastPos
         children.forEach {
-            if (it is ScrollFrameLayout) {
+            if (it is ScrollFrameLayout && it.shouldScrollWithBackground) {
                 val layoutParams = it.layoutParams as LayoutParams
                 layoutParams.leftMargin += dx
             }
@@ -204,34 +202,52 @@ class ScrollBackgroundView @JvmOverloads constructor(
         lastPos = pos
     }
 
-    fun setChildPosition(scrollFrameLayout: ScrollFrameLayout, posX: Int, posY: Int) {
+    /**
+     * 设置子view的位置
+     */
+    fun setChildPosition(scrollFrameLayout: ScrollFrameLayout, posX: Int, posY: Int, shouldScrollWithBackground: Boolean = true) {
         scrollFrameLayout.post {
             val childLayoutParams = scrollFrameLayout.layoutParams as? LayoutParams ?: return@post
             val ivLayoutParams = mImageView.layoutParams as LayoutParams
-            childLayoutParams.leftMargin = posX + ivLayoutParams.leftMargin
-            childLayoutParams.topMargin = posY + ivLayoutParams.topMargin
+            if (shouldScrollWithBackground) {
+                childLayoutParams.leftMargin = posX + ivLayoutParams.leftMargin
+                childLayoutParams.topMargin = posY + ivLayoutParams.topMargin
+            } else {
+                childLayoutParams.leftMargin = posX
+                childLayoutParams.topMargin = posY
+            }
             scrollFrameLayout.layoutParams = childLayoutParams
             requestLayout()
         }
     }
 
-    fun setChildPosition(widgetName: String, posX: Int, posY: Int) {
+    /**
+     * 设置子view的位置
+     */
+    fun setChildPosition(widgetName: String, posX: Int, posY: Int, shouldScrollWithBackground: Boolean = true) {
         children.forEach {
             if (it is ScrollFrameLayout && it.getName() == widgetName) {
-                setChildPosition(it, posX, posY)
+                setChildPosition(it, posX, posY, shouldScrollWithBackground)
             }
         }
     }
 
+    /**
+     * 获取子view相对于背景的位置，用于保存子view位置
+     */
     fun getChildPosition(widgetName: String): Pair<Int, Int>? {
         children.forEach {
             if (it is ScrollFrameLayout && it.getName() == widgetName) {
                 val ivLayoutParams = mImageView.layoutParams as LayoutParams
                 val childLayoutParams = it.layoutParams as LayoutParams
-                return Pair(
-                    -ivLayoutParams.leftMargin + childLayoutParams.leftMargin,
-                    -ivLayoutParams.topMargin + childLayoutParams.topMargin
-                )
+                return if (it.shouldScrollWithBackground) {
+                    Pair(
+                        -ivLayoutParams.leftMargin + childLayoutParams.leftMargin,
+                        -ivLayoutParams.topMargin + childLayoutParams.topMargin
+                    )
+                } else {
+                    Pair(childLayoutParams.leftMargin, childLayoutParams.topMargin)
+                }
             }
         }
         return null
@@ -264,6 +280,9 @@ class ScrollBackgroundView @JvmOverloads constructor(
         mHandler.post(mFlingRunnable)
     }
 
+    /**
+     * 背景滚动到指定位置
+     */
     private var smoothScrollAnimator: ValueAnimator? = null
     fun scrollToPercent(@FloatRange(from = 0.0, to = 1.0) percent: Float, smoothly: Boolean = true) {
         post {
@@ -289,10 +308,70 @@ class ScrollBackgroundView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * 刷新子view的显示
+     */
     fun onBind() {
         children.forEach {
             if (it is ScrollFrameLayout) {
                 it.onBind()
+            }
+        }
+    }
+
+
+    fun fromSerializationData() {
+        val sp = context.getSharedPreferences("widget", Context.MODE_PRIVATE)
+        val widgetListString = sp.getString("widget", "[]")
+        Log.e("ScrollBackgroundView", "fromWidget: $widgetListString")
+        val list = try {
+            Gson().fromJson<List<WidgetInf>>(widgetListString, object : TypeToken<List<WidgetInf>>() {}.type)
+        } catch (e: Exception) {
+            mutableListOf()
+        }
+        list.forEach {
+            addWidget(it.name, it.posX, it.posY)
+        }
+    }
+
+    fun saveSerializationData() {
+        val sp = context.getSharedPreferences("widget", Context.MODE_PRIVATE)
+        val list = mutableListOf<WidgetInf>()
+        children.forEach {
+            if (it is ScrollFrameLayout && it.scrollChild != null) {
+                val positionPair = getChildPosition(it.scrollChild!!.getName()) ?: return@forEach
+                val posX = positionPair.first
+                val posY = positionPair.second
+                if (!it.getName().isNullOrEmpty())
+                    list.add(WidgetInf(it.getName()!!, posX, posY, it.scrollChild!!.getWidth(context), it.scrollChild!!.getHeight(context)))
+            }
+        }
+        val editor = sp.edit()
+        val widgetListString = Gson().toJson(list)
+        editor.putString("widget", widgetListString)
+        Log.e("ScrollBackgroundView", "saveWidget: $widgetListString")
+        editor.apply()
+    }
+
+    fun addWidget(widgetName: String, posX: Int = 0, posY: Int = 0) {
+        removeWidget(widgetName)
+        getWidgetClass(widgetName)?.let {
+            addView(it.getChildView(this).also { childView ->
+                childView.scrollChild = it
+                childView.layoutParams = LayoutParams(it.getWidth(context), it.getHeight(context))
+                childView.shouldScrollWithBackground = it.shouldScrollWithBackground()
+                setChildPosition(childView, posX, posY, it.shouldScrollWithBackground())
+            })
+        }
+    }
+
+    fun removeWidget(widgetName: String) {
+        children.forEachIndexed { index, view ->
+            if (view is ScrollFrameLayout) {
+                if (view.getName() == widgetName) {
+                    removeViewAt(index)
+                    return
+                }
             }
         }
     }

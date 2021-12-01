@@ -18,21 +18,16 @@ class SelectDateDialog(
 
     fun show() {
         val pvTime =
-            TimePickerBuilder(
-                context
-            ) { date, _ ->
+            TimePickerBuilder(context) { date, _ ->
                 onOptionSelected.invoke(date.year + 1900, date.month + 1, date.date)
-            }
-                .apply {
-                    when (scale) {
-                        "year" -> setType(booleanArrayOf(true, false, false, false, false, false))
-                        "month" -> setType(booleanArrayOf(true, true, false, false, false, false))
-                        "day" -> setType(booleanArrayOf(true, true, true, false, false, false))
-                        else -> setType(booleanArrayOf(true, true, true, false, false, false))
-                    }
+            }.apply {
+                when (scale) {
+                    "year" -> setType(booleanArrayOf(true, false, false, false, false, false))
+                    "month" -> setType(booleanArrayOf(true, true, false, false, false, false))
+                    "day" -> setType(booleanArrayOf(true, true, true, false, false, false))
+                    else -> setType(booleanArrayOf(true, true, true, false, false, false))
                 }
-                .build()
+            }.build()
         pvTime.show()
-
     }
 }

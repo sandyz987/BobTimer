@@ -13,7 +13,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/lib_common" />
             <option value="$PROJECT_DIR$/module_app" />
+            <option value="$PROJECT_DIR$/module_calendar" />
+            <option value="$PROJECT_DIR$/module_concentrate" />
             <option value="$PROJECT_DIR$/module_main" />
+            <option value="$PROJECT_DIR$/module_mine" />
             <option value="$PROJECT_DIR$/module_schedule" />
           </set>
         </option>

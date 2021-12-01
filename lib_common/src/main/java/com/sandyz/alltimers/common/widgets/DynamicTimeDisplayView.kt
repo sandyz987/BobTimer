@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -121,7 +120,6 @@ class DynamicTimeDisplayView @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val width = mText.length * MeasureSpec.getSize(heightMeasureSpec) * CHAR_WIDTH_PROPORTION
-        Log.e("Sandyzhang", "onMeasure: ${mText}, ${width}")
         val widthMS = MeasureSpec.makeMeasureSpec(width.toInt(), MeasureSpec.EXACTLY)
         setMeasuredDimension(widthMS, heightMeasureSpec)
     }
@@ -151,7 +149,6 @@ class DynamicTimeDisplayView @JvmOverloads constructor(
             mHeight * CHAR_WIDTH_PROPORTION,
             mHeight
         )?.also {
-            Log.e("sandyzhang", "pic: ${it.width}, ${it.height}")
             bitmapMap[c] = it
         }
     }

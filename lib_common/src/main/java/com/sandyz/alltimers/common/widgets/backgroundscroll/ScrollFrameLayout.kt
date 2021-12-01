@@ -21,6 +21,7 @@ class ScrollFrameLayout @JvmOverloads constructor(
             field = value
             if (value) {
                 startAnim()
+                bringToFront()
             } else {
                 cancelAnim()
             }
