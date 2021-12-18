@@ -1,12 +1,11 @@
-package com.sandyz.alltimers.common.widgets.backgroundscroll
+package com.sandyz.alltimers.myhome.backgroundscroll
 
 import android.content.Context
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.sandyz.alltimers.common.R
 import com.sandyz.alltimers.common.extensions.dp2px
+import com.sandyz.alltimers.myhome.R
 
 
 /**
@@ -83,7 +82,7 @@ class RecorderWidget : ScrollChild() {
 
     override fun onBind(v: View) {
         v.findViewWithTag<ImageView>("RecorderImageView")?.let {
-            Glide.with(v.context).load(R.drawable.common_ic_gif).into(it)
+            Glide.with(v.context).load(R.drawable.myhome_ic_gif).into(it)
         }
     }
 
@@ -104,7 +103,7 @@ class RabbitWidget : ScrollChild() {
 
     override fun onBind(v: View) {
         v.findViewWithTag<ImageView>("rabbit")?.let {
-            Glide.with(v.context).load(R.drawable.common_ic_rabbit).into(it)
+            Glide.with(v.context).load(R.drawable.myhome_ic_rabbit).into(it)
         }
     }
 

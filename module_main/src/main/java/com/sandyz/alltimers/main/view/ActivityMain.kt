@@ -1,10 +1,11 @@
-package com.sandyz.alltimers.main
+package com.sandyz.alltimers.main.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sandyz.alltimers.common.config.MAIN_MAIN
-import com.sandyz.alltimers.main.adapter.MainAdapter
+import com.sandyz.alltimers.main.R
+import com.sandyz.alltimers.main.view.adapter.MainAdapter
 import kotlinx.android.synthetic.main.main_activity_main.*
 
 @Route(path = MAIN_MAIN)
@@ -13,9 +14,8 @@ class ActivityMain : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity_main)
         vp_main.adapter = MainAdapter(this)
-//        vp_main.isUserInputEnabled = false
-
-
+        vp_main.setCurrentItem(2, false)
+        vp_main.isUserInputEnabled = false
 
 
 //        dynamic_time.setOnClickListener {

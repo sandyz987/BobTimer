@@ -5,5 +5,6 @@ const val MAIN_LOGIN = "/main/login"
 
 const val SCHEDULE_ENTRY = "/schedule/entry"
 const val CONCENTRATE_ENTRY = "/concentrate/entry"
+const val HOME_ENTRY = "/home/entry"
 const val CALENDAR_ENTRY = "/calendar/entry"
 const val MINE_ENTRY = "/mine/entry"

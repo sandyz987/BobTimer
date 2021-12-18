@@ -52,6 +52,7 @@ dependencies {
     implementation project(':module_main')
     implementation project(':module_schedule')
     implementation project(':module_concentrate')
+    implementation project(':module_myhome')
     implementation project(':module_calendar')
     implementation project(':module_mine')
 

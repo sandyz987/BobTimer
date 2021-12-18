@@ -5,7 +5,7 @@
     <application
         android:name="com.sandyz.alltimers.common.BaseApp"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name="com.sandyz.alltimers.main.ActivityMain">
+        <activity android:name="com.sandyz.alltimers.main.view.ActivityMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

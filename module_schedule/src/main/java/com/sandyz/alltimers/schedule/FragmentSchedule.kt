@@ -18,23 +18,5 @@ class FragmentSchedule : Fragment() {
         return inflater.inflate(R.layout.schedule_fragment_schedule, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        LoadBitmapUtils.decodeBitmapFromResourceByHeight(resources, R.drawable.common_ic_background_test, requireContext().getScreenHeight())?.let {
-            dynamic_time.setBitmap(
-                it
-            )
-        }
-        dynamic_time.addWidget("recorder")
-        dynamic_time.addWidget("rabbit")
-        dynamic_time.scrollToPercent(0.5f)
-        dynamic_time.fromSerializationData()
-        dynamic_time.onBind()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        dynamic_time.saveSerializationData()
-    }
 
 }

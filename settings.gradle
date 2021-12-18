@@ -1,3 +1,4 @@
+include ':module_myhome'
 include ':module_mine'
 include ':module_calendar'
 include ':module_concentrate'

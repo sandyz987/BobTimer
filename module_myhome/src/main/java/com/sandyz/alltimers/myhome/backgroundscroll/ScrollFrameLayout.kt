@@ -1,11 +1,10 @@
-package com.sandyz.alltimers.common.widgets.backgroundscroll
+package com.sandyz.alltimers.myhome.backgroundscroll
 
 import android.animation.ObjectAnimator
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.FrameLayout
-import kotlinx.android.synthetic.main.common_dialog_choose.view.*
 import kotlin.math.abs
 
 /**

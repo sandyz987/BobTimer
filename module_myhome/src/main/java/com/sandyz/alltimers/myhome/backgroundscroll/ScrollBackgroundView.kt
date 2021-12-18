@@ -1,4 +1,4 @@
-package com.sandyz.alltimers.common.widgets.backgroundscroll
+package com.sandyz.alltimers.myhome.backgroundscroll
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -127,11 +127,12 @@ class ScrollBackgroundView @JvmOverloads constructor(
             }
             MotionEvent.ACTION_MOVE -> {
                 // 如果能来到这里说明子view决定不消费事件
+                parent.requestDisallowInterceptTouchEvent(true)
                 val dx = event.rawX - originX
                 val dy = event.rawY - originY
                 // 判断是否是拖动
                 if (!isScrolling && (abs(dx) > 10f || abs(dy) > 10f)) {
-                    parent.requestDisallowInterceptTouchEvent(true)
+
                     isScrolling = true
                 }
                 if (isScrolling) {
