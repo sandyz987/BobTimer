@@ -2,7 +2,7 @@ package com.sandyz.alltimers.myhome.backgroundscroll
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Handler
 import android.os.Looper
 import android.util.AttributeSet
@@ -12,8 +12,10 @@ import android.view.VelocityTracker
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Scroller
+import androidx.annotation.DrawableRes
 import androidx.annotation.FloatRange
 import androidx.core.view.children
+import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sandyz.alltimers.common.extensions.getScreenWidth
@@ -31,11 +33,17 @@ class ScrollBackgroundView @JvmOverloads constructor(
     private var mImageView: ImageView = ImageView(context).also { addView(it) }
 
     // 背景的图片
-    private var mBitmap: Bitmap? = null
+//    private var mBitmap: Bitmap? = null
+    private var bgResourceId: Int = 0
 
     // 控件的大小
     private var mWidth = 0
-    private var mHeight = 0
+    var mHeight = 0
+
+    // 底图的原始像素大小
+    var mBgWidth = 0
+    var mBgHeight = 0
+
 
     // 点击事件原始坐标，用于判断是拖动还是点按
     private var originX = 0f
@@ -69,11 +77,11 @@ class ScrollBackgroundView @JvmOverloads constructor(
     /**
      * 设置要显示的背景，注意，请自行压缩
      */
-    fun setBitmap(bitmap: Bitmap) {
-        mBitmap = bitmap
-        // 下一帧直到测量完毕，再调用refresh，刷新显示，否则宽高数值是没有的。
-        requestLayout()
-    }
+//    fun setBitmap(bitmap: Bitmap) {
+//        mBitmap = bitmap
+//        // 下一帧直到测量完毕，再调用refresh，刷新显示，否则宽高数值是没有的。
+//        requestLayout()
+//    }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -87,12 +95,29 @@ class ScrollBackgroundView @JvmOverloads constructor(
      */
     private fun refresh() {
         // 获取图片长宽比
-        val bitmap = mBitmap ?: return
-        mSizeFix = bitmap.width.toFloat() / bitmap.height.toFloat()
+//        val bitmap = mBitmap ?: return
+        mSizeFix = mBgWidth / mBgHeight.toFloat()
 
-        mImageView.setImageBitmap(bitmap)
+//        mImageView.setImageBitmap(bitmap)
         mImageView.scaleType = ImageView.ScaleType.FIT_XY
         updateBackgroundPosition(0)
+    }
+
+    fun setBgResourceId(@DrawableRes id: Int) {
+        bgResourceId = id
+        val option = BitmapFactory.Options().apply {
+            inJustDecodeBounds = true
+        }
+        BitmapFactory.decodeResource(resources, id, option)
+        mBgWidth = option.outWidth
+        mBgHeight = option.outHeight
+        Log.e("sandyzhang", "$mBgWidth, $mBgHeight")
+        refresh()
+
+        post {
+            Log.e("sandyzhang", "iv: ${mImageView.width}, ${mImageView.height}")
+            Glide.with(context).load(id).into(mImageView)
+        }
     }
 
     /**
@@ -227,7 +252,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
      */
     fun setChildPosition(widgetName: String, posX: Int, posY: Int, shouldScrollWithBackground: Boolean = true) {
         children.forEach {
-            if (it is ScrollFrameLayout && it.getName() == widgetName) {
+            if (it is ScrollFrameLayout && it.getWidgetType() == widgetName) {
                 setChildPosition(it, posX, posY, shouldScrollWithBackground)
             }
         }
@@ -238,7 +263,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
      */
     fun getChildPosition(widgetName: String): Pair<Int, Int>? {
         children.forEach {
-            if (it is ScrollFrameLayout && it.getName() == widgetName) {
+            if (it is ScrollFrameLayout && it.getWidgetType() == widgetName) {
                 val ivLayoutParams = mImageView.layoutParams as LayoutParams
                 val childLayoutParams = it.layoutParams as LayoutParams
                 return if (it.shouldScrollWithBackground) {
@@ -331,7 +356,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
             mutableListOf()
         }
         list.forEach {
-            addWidget(it.name, it.posX, it.posY)
+            addWidget(it.name, it.type, it.posX, it.posY)
         }
     }
 
@@ -340,11 +365,20 @@ class ScrollBackgroundView @JvmOverloads constructor(
         val list = mutableListOf<WidgetInf>()
         children.forEach {
             if (it is ScrollFrameLayout && it.scrollChild != null) {
-                val positionPair = getChildPosition(it.scrollChild!!.getName()) ?: return@forEach
+                val positionPair = getChildPosition(it.scrollChild!!.getWidgetType()) ?: return@forEach
                 val posX = positionPair.first
                 val posY = positionPair.second
-                if (!it.getName().isNullOrEmpty())
-                    list.add(WidgetInf(it.getName()!!, posX, posY, it.scrollChild!!.getWidth(context), it.scrollChild!!.getHeight(context)))
+                if (!it.getWidgetType().isNullOrEmpty())
+                    list.add(
+                        WidgetInf(
+                            it.getWidgetName(),
+                            it.getWidgetType()!!,
+                            posX,
+                            posY,
+                            it.scrollChild!!.getWidth(context),
+                            it.scrollChild!!.getHeight(context)
+                        )
+                    )
             }
         }
         val editor = sp.edit()
@@ -354,11 +388,13 @@ class ScrollBackgroundView @JvmOverloads constructor(
         editor.apply()
     }
 
-    fun addWidget(widgetName: String, posX: Int = 0, posY: Int = 0) {
-        removeWidget(widgetName)
-        getWidgetClass(widgetName)?.let {
+    fun addWidget(widgetName: String, widgetType: String, posX: Int = 0, posY: Int = 0) {
+        removeWidgetByName(widgetName)
+        getWidgetClass(widgetType)?.let {
             addView(it.getChildView(this).also { childView ->
+                childView.mName = widgetName
                 childView.scrollChild = it
+                childView.canMove = it.canMove()
                 childView.layoutParams = LayoutParams(it.getWidth(context), it.getHeight(context))
                 childView.shouldScrollWithBackground = it.shouldScrollWithBackground()
                 setChildPosition(childView, posX, posY, it.shouldScrollWithBackground())
@@ -366,12 +402,32 @@ class ScrollBackgroundView @JvmOverloads constructor(
         }
     }
 
-    fun removeWidget(widgetName: String) {
+    fun findWidget(name: String): ScrollFrameLayout? {
         children.forEachIndexed { index, view ->
             if (view is ScrollFrameLayout) {
-                if (view.getName() == widgetName) {
+                if (view.getWidgetName() == name) {
+                    return view
+                }
+            }
+        }
+        return null
+    }
+
+    fun removeAllTypeWidget(widgetType: String) {
+        children.forEachIndexed { index, view ->
+            if (view is ScrollFrameLayout) {
+                if (view.getWidgetType() == widgetType) {
                     removeViewAt(index)
-                    return
+                }
+            }
+        }
+    }
+
+    fun removeWidgetByName(widgetName: String) {
+        children.forEachIndexed { index, view ->
+            if (view is ScrollFrameLayout) {
+                if (view.getWidgetName() == widgetName) {
+                    removeViewAt(index)
                 }
             }
         }

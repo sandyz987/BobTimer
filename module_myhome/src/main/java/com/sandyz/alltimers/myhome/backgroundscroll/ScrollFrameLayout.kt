@@ -14,6 +14,8 @@ class ScrollFrameLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
+    var mName: String = ""
+
     // 是否在长按拖动修改位置
     var isScrolling = false
         set(value) {
@@ -28,6 +30,10 @@ class ScrollFrameLayout @JvmOverloads constructor(
 
     // 背景拖动时，是否要随着背景拖动
     var shouldScrollWithBackground = true
+
+    // 是否可以长按拖动
+    var canMove = true
+
 
     private val scrollCallback = Runnable { isScrolling = true }
 
@@ -57,6 +63,9 @@ class ScrollFrameLayout @JvmOverloads constructor(
 
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (!canMove) {
+            return super.onTouchEvent(event)
+        }
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 removeCallbacks(scrollCallback)
@@ -131,8 +140,12 @@ class ScrollFrameLayout @JvmOverloads constructor(
         }
     }
 
-    fun getName(): String? {
-        return scrollChild?.getName()
+    fun getWidgetType(): String? {
+        return scrollChild?.getWidgetType()
+    }
+
+    fun getWidgetName(): String {
+        return mName
     }
 
     fun onBind() {
