@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <declare-styleable name="BottomNavButton" tools:ignore="ResourceName">
-        <attr name="checked_src" format="reference"/>
-        <attr name="no_checked_src" format="reference"/>
+        <attr name="checked_src" format="reference" />
+        <attr name="no_checked_src" format="reference" />
+        <attr name="label" format="string" />
+        <attr name="label_color" format="color" />
+    </declare-styleable>
+    <declare-styleable name="DynamicBackgroundFrameLayout" tools:ignore="ResourceName">
+        <attr name="background_src" format="reference" />
     </declare-styleable>
 </resources>

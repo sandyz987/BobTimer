@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sandyz.alltimers.common.config.MAIN_MAIN
+import com.sandyz.alltimers.common.extensions.toast
 import com.sandyz.alltimers.main.R
 import com.sandyz.alltimers.main.view.adapter.MainAdapter
 import kotlinx.android.synthetic.main.main_activity_main.*
@@ -31,6 +32,8 @@ class ActivityMain : AppCompatActivity() {
 
 
 
+        bottom_navi_schedule.setOnClickListener {
+        }
 
     }
 

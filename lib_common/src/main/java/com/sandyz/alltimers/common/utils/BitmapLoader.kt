@@ -4,17 +4,19 @@ import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
-import android.util.Log
 import androidx.annotation.DrawableRes
 
 
-object LoadBitmapUtils {
+object BitmapLoader {
     fun decodeBitmapFromResource(
         res: Resources?,
         @DrawableRes resId: Int,
-        decodeWidth: Float,
+        decodeWidth: Int,
         decodeHeight: Int
     ): Bitmap? {
+        if (decodeHeight <= 0 || decodeWidth <= 0) {
+            return null
+        }
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true //预加载
         BitmapFactory.decodeResource(res, resId, options)
@@ -32,7 +34,7 @@ object LoadBitmapUtils {
         }
         options.inJustDecodeBounds = false
         options.inSampleSize = inSampleSize
-        val bitmap = BitmapFactory.decodeResource(res, resId, options)?: return null
+        val bitmap = BitmapFactory.decodeResource(res, resId, options) ?: return null
         val matrix = Matrix().apply {
             postScale((decodeWidth / bitmap.width.toFloat()), (decodeHeight / bitmap.height.toFloat()))
         }
@@ -44,6 +46,9 @@ object LoadBitmapUtils {
         @DrawableRes resId: Int,
         decodeWidth: Int
     ): Bitmap? {
+        if (decodeWidth <= 0) {
+            return null
+        }
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true //预加载
         BitmapFactory.decodeResource(res, resId, options)
@@ -63,7 +68,7 @@ object LoadBitmapUtils {
         }
         options.inJustDecodeBounds = false
         options.inSampleSize = inSampleSize
-        val bitmap = BitmapFactory.decodeResource(res, resId, options)?: return null
+        val bitmap = BitmapFactory.decodeResource(res, resId, options) ?: return null
         val matrix = Matrix().apply {
             postScale((decodeWidth.toFloat() / bitmap.width), (decodeHeight / bitmap.height))
         }
@@ -75,6 +80,9 @@ object LoadBitmapUtils {
         @DrawableRes resId: Int,
         decodeHeight: Int
     ): Bitmap? {
+        if (decodeHeight <= 0) {
+            return null
+        }
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true //预加载
         BitmapFactory.decodeResource(res, resId, options)
@@ -94,7 +102,7 @@ object LoadBitmapUtils {
         }
         options.inJustDecodeBounds = false
         options.inSampleSize = inSampleSize
-        val bitmap = BitmapFactory.decodeResource(res, resId, options)?: return null
+        val bitmap = BitmapFactory.decodeResource(res, resId, options) ?: return null
         val matrix = Matrix().apply {
             postScale((decodeWidth / bitmap.width), (decodeHeight / bitmap.height.toFloat()))
         }
@@ -102,7 +110,7 @@ object LoadBitmapUtils {
     }
 
     fun resizeBitmap(bitmapSrc: Bitmap?, targetWidth: Int, targetHeight: Int): Bitmap? {
-        val bitmap = bitmapSrc?: return null
+        val bitmap = bitmapSrc ?: return null
         val matrix = Matrix().apply {
             postScale((targetWidth / bitmap.width.toFloat()), (targetHeight / bitmap.height.toFloat()))
         }

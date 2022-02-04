@@ -7,9 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sandyz.alltimers.common.config.SCHEDULE_ENTRY
-import com.sandyz.alltimers.common.extensions.getScreenHeight
-import com.sandyz.alltimers.common.utils.LoadBitmapUtils
-import kotlinx.android.synthetic.main.schedule_fragment_schedule.*
 
 @Route(path = SCHEDULE_ENTRY)
 class FragmentSchedule : Fragment() {

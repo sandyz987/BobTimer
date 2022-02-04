@@ -3,91 +3,89 @@ package com.sandyz.alltimers.main.view.costom
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.view.MotionEvent
-import androidx.core.content.res.ResourcesCompat
+import android.view.View
+import com.sandyz.alltimers.common.extensions.dp2px
+import com.sandyz.alltimers.common.extensions.drawTextBottom
+import com.sandyz.alltimers.common.extensions.sp
+import com.sandyz.alltimers.common.utils.BitmapLoader
 import com.sandyz.alltimers.main.R
-import kotlin.math.abs
 
-//底下导航栏的按钮 增加动画效果 左右晃动
-//同时解决了onclick的判断问题
+class BottomNavButton @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
 
-class BottomNavButton : androidx.appcompat.widget.AppCompatImageView {
+    private var paint = Paint()
+    private lateinit var anim: ValueAnimator
+    private var textWidth = 0f
+    private var textHeight = 0f
+    private val margin = context.dp2px(2)
+    private var text: String = ""
+        set(value) {
+            field = value
+            paint.textSize = context.sp(14).toFloat()
+            val metrics = Paint.FontMetrics()
+            paint.getFontMetrics(metrics)
+            textWidth = paint.measureText(text)
+            textHeight = if (text.isNotBlank()) metrics.bottom - metrics.top else 0f
+            selectedBitmap = BitmapLoader.decodeBitmapFromResource(resources, selectedPicId, mWidth, (mHeight - textHeight - margin).toInt())
+            noSelectedBitmap = BitmapLoader.decodeBitmapFromResource(resources, noSelectedPicId, mWidth, (mHeight - textHeight - margin).toInt())
+        }
 
-    private lateinit var paint : Paint
-    private lateinit var anim : ValueAnimator
-    private var s : String? = null
-    private var endSrcId = 0
-    private var startSrcId = 0
+    private var noSelectedPicId = 0
+    private var selectedBitmap: Bitmap? = null
+    private var noSelectedBitmap: Bitmap? = null
+    private var selectedPicId = 0
+    private var textColor = 0
     private var trX = 0f
-    private var mSelected = false
-    private var startX = 0f
-    private var startY = 0f
+    var mSelected = false
+        set(value) {
+            field = value
+            invalidate()
+        }
+    private var mWidth = 0
+    private var mHeight = 0
 
-    constructor(context: Context): super(context)
+    init {
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.BottomNavButton)
 
-    constructor(context: Context, attributeSet: AttributeSet): super(context, attributeSet){
-        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.BottomNavButton)
-
-        paint = Paint()
         paint.isAntiAlias = true
-        paint.color = Color.GRAY
-        s = "hhhh"
-        endSrcId = typedArray.getResourceId(R.styleable.BottomNavButton_checked_src,0)
-        startSrcId = typedArray.getResourceId(R.styleable.BottomNavButton_no_checked_src,0)
+        noSelectedPicId = typedArray.getResourceId(R.styleable.BottomNavButton_no_checked_src, 0)
+        selectedPicId = typedArray.getResourceId(R.styleable.BottomNavButton_checked_src, 0)
+        textColor = typedArray.getColor(R.styleable.BottomNavButton_label_color, 0)
+        paint.color = textColor
+        text = typedArray.getString(R.styleable.BottomNavButton_label) ?: ""
+
         typedArray.recycle()
-        setImageDrawable(ResourcesCompat.getDrawable(resources,startSrcId,null))
     }
 
-    constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int): super(context, attributeSet, defStyleAttr)
-
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        setMeasuredDimension(measuredHeight + 100,(measuredHeight * 1.0f).toInt())
-
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        mHeight = h
+        mWidth = w
+        text = text
     }
+
 
     override fun onDraw(canvas: Canvas?) {
-        canvas?.translate(trX,0f)
         super.onDraw(canvas)
-        paint.textSize = 30f
-        val textWidth = paint.measureText(s)
-        val textHeight = 40f
-        canvas?.translate(width/2f,height.toFloat() - (0.25f*measuredWidth))
-        s?.let { canvas?.drawText(it,-textWidth/2f, textHeight,paint) }
+
+        if (mSelected) {
+            selectedBitmap?.let { canvas?.drawBitmap(it, trX, 0f, paint) }
+        } else {
+            noSelectedBitmap?.let { canvas?.drawBitmap(it, trX, 0f, paint) }
+        }
+        canvas?.drawTextBottom(text, mWidth / 2f + trX, mHeight.toFloat(), paint, Paint.Align.CENTER)
+
     }
 
-    private fun onClick(){
+
+    override fun performClick(): Boolean {
         startAnimation1()
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when(event?.action){
-            MotionEvent.ACTION_DOWN -> {
-                startX = event.rawX
-                startY = event.rawX
-            }
-            MotionEvent.ACTION_UP -> {
-                if (abs(event.rawX-startX) <50f && abs(event.rawX-startY) <50f){
-                    onClick()
-                }
-            }
-        }
-        return super.onTouchEvent(event)
-
-    }
-
-    fun setSelect(boolean: Boolean){
-        mSelected = boolean
-        if (mSelected){
-            setImageDrawable(ResourcesCompat.getDrawable(resources,endSrcId,null))
-        }else{
-            setImageDrawable(ResourcesCompat.getDrawable(resources,startSrcId,null))
-        }
-        invalidate()
+        return super.performClick()
     }
 
 
@@ -96,11 +94,11 @@ class BottomNavButton : androidx.appcompat.widget.AppCompatImageView {
         anim.repeatCount = 0
         anim.repeatMode = ValueAnimator.REVERSE
         anim.duration = 300
-        anim.addUpdateListener(ValueAnimator.AnimatorUpdateListener { animation ->
+        anim.addUpdateListener { animation ->
             val value = animation.animatedValue as Float
             trX = value
             postInvalidate()
-        })
+        }
         anim.start()
     }
 }

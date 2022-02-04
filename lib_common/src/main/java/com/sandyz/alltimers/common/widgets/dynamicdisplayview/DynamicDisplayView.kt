@@ -1,22 +1,20 @@
-package com.sandyz.alltimers.common.widgets
+package com.sandyz.alltimers.common.widgets.dynamicdisplayview
 
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
-import android.view.animation.AnticipateOvershootInterpolator
 import android.view.animation.Interpolator
 import com.sandyz.alltimers.common.R
-import com.sandyz.alltimers.common.utils.LoadBitmapUtils
+import com.sandyz.alltimers.common.utils.BitmapLoader
 import com.sandyz.alltimers.common.utils.ResourceGetter
+import com.sandyz.alltimers.common.widgets.dynamicdisplayview.drawer.OvershootDrawerImpl
 
-class DynamicTimeDisplayView @JvmOverloads constructor(
+class DynamicDisplayView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
@@ -35,7 +33,7 @@ class DynamicTimeDisplayView @JvmOverloads constructor(
     var drawer: Drawer = OvershootDrawerImpl()
 
     interface Drawer {
-        fun drawBitmap(canvas: Canvas?, fraction: Float, originBitmap: Bitmap?, targetBitmap: Bitmap?)
+        fun drawBitmap(canvas: Canvas?, fraction: Float, originBitmap: Bitmap?, targetBitmap: Bitmap?, h: Int)
         fun getInterpolator(): Interpolator
         fun getDuration(): Long
     }
@@ -45,58 +43,6 @@ class DynamicTimeDisplayView @JvmOverloads constructor(
         // 允许绘制超出边界
         (parent as ViewGroup).clipChildren = false
     }
-
-    inner class DefaultDrawerImpl : Drawer {
-        private val drawablePaint by lazy { Paint() }
-        override fun drawBitmap(canvas: Canvas?, fraction: Float, originBitmap: Bitmap?, targetBitmap: Bitmap?) {
-            originBitmap?.let {
-                drawablePaint.alpha = (255 - fraction * 255).toInt()
-                canvas?.save()
-                canvas?.translate(0f, -mHeight * fraction * 0.5f)
-                canvas?.drawBitmap(it, 0f, 0f, drawablePaint)
-                canvas?.restore()
-            }
-            targetBitmap?.let {
-                drawablePaint.alpha = (fraction * 255).toInt()
-                canvas?.save()
-                canvas?.translate(0f, (-mHeight * fraction + mHeight) * 0.5f)
-                canvas?.drawBitmap(it, 0f, 0f, drawablePaint)
-                canvas?.restore()
-            }
-        }
-
-        override fun getInterpolator() = AccelerateDecelerateInterpolator()
-        override fun getDuration() = 600L
-    }
-
-    inner class OvershootDrawerImpl : Drawer {
-        private val drawablePaint by lazy { Paint() }
-        override fun drawBitmap(canvas: Canvas?, fraction: Float, originBitmap: Bitmap?, targetBitmap: Bitmap?) {
-            val tmpAlpha = when {
-                fraction < 0 -> 0f
-                fraction > 1 -> 1f
-                else -> fraction
-            }
-            originBitmap?.let {
-                drawablePaint.alpha = (255 - tmpAlpha * 255).toInt()
-                canvas?.save()
-                canvas?.translate(0f, -mHeight * fraction)
-                canvas?.drawBitmap(it, 0f, 0f, drawablePaint)
-                canvas?.restore()
-            }
-            targetBitmap?.let {
-                drawablePaint.alpha = (tmpAlpha * 255).toInt()
-                canvas?.save()
-                canvas?.translate(0f, (-mHeight * fraction + mHeight))
-                canvas?.drawBitmap(it, 0f, 0f, drawablePaint)
-                canvas?.restore()
-            }
-        }
-
-        override fun getInterpolator() = AnticipateOvershootInterpolator()
-        override fun getDuration() = 600L
-    }
-
 
     private var preText = ""
     var mText = ""
@@ -143,10 +89,10 @@ class DynamicTimeDisplayView @JvmOverloads constructor(
 
     private fun getBitmap(c: Char): Bitmap? {
         // 如果缓存中有则直接取。
-        return bitmapMap[c] ?: LoadBitmapUtils.decodeBitmapFromResource(
+        return bitmapMap[c] ?: BitmapLoader.decodeBitmapFromResource(
             resources,
             getDrawableId(c),
-            mHeight * CHAR_WIDTH_PROPORTION,
+            (mHeight * CHAR_WIDTH_PROPORTION).toInt(),
             mHeight
         )?.also {
             bitmapMap[c] = it
@@ -168,7 +114,7 @@ class DynamicTimeDisplayView @JvmOverloads constructor(
                             translate(index * mHeight * CHAR_WIDTH_PROPORTION, 0f)
                         },
                         mAnimator.animatedValue as Float,
-                        originBitmap, targetBitmap
+                        originBitmap, targetBitmap, mHeight
                     )
                     canvas?.restore()
                 } else {
@@ -180,7 +126,8 @@ class DynamicTimeDisplayView @JvmOverloads constructor(
                         },
                         1f,
                         null,
-                        bitmap
+                        bitmap,
+                        mHeight
                     )
                     canvas?.restore()
                 }
@@ -195,7 +142,8 @@ class DynamicTimeDisplayView @JvmOverloads constructor(
                     },
                     1f,
                     null,
-                    bitmap
+                    bitmap,
+                    mHeight
                 )
                 canvas?.restore()
             }

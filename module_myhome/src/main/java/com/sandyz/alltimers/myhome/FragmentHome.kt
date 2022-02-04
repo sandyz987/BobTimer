@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sandyz.alltimers.common.config.HOME_ENTRY
-import com.sandyz.alltimers.common.extensions.getScreenHeight
-import com.sandyz.alltimers.common.utils.LoadBitmapUtils
 import com.sandyz.alltimers.myhome.backgroundscroll.pasteWidget
 import kotlinx.android.synthetic.main.myhome_fragment_home.*
 
