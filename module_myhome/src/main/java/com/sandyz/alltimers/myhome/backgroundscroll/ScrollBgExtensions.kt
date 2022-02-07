@@ -13,8 +13,8 @@ fun ScrollBackgroundView.pasteWidget(
     onClickAction: (() -> Unit)?
 ) {
     post {
-        Log.e("sandyzhang", "$mHeight / $mBgHeight")
-        val scale = mHeight / mBgHeight.toFloat()
+        Log.e("sandyzhang", "$height / $mBgHeight")
+        val scale = height / mBgHeight.toFloat()
         val width = (rightPx - leftPx) * scale
         val height = (bottomPx - topPx) * scale
         val left = leftPx * scale

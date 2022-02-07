@@ -72,7 +72,7 @@ class ScrollFrameLayout @JvmOverloads constructor(
                 lastY = event.rawY
                 totalDX = 0f
                 totalDY = 0f
-                val layoutParams = layoutParams as FrameLayout.LayoutParams
+                val layoutParams = layoutParams as LayoutParams
                 originLeft = layoutParams.leftMargin
                 originTop = layoutParams.topMargin
                 postDelayed(scrollCallback, 800L)
@@ -113,7 +113,7 @@ class ScrollFrameLayout @JvmOverloads constructor(
         if (parent !is ScrollBackgroundView) {
             return
         }
-        val layoutParams = layoutParams as FrameLayout.LayoutParams
+        val layoutParams = layoutParams as LayoutParams
         val dx = event.rawX - lastX
         val dy = event.rawY - lastY
         totalDX += dx

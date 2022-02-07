@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.sandyz.alltimers.common.extensions.dp2px
-import com.sandyz.alltimers.myhome.R
 
 
 /**
@@ -13,12 +13,6 @@ import com.sandyz.alltimers.myhome.R
  */
 fun getWidgetClass(widgetType: String): ScrollChild? {
     return when (widgetType) {
-        "recorder" -> {
-            RecorderWidget()
-        }
-        "rabbit" -> {
-            RabbitWidget()
-        }
         "fixed" -> {
             FixedWidget()
         }
@@ -76,57 +70,31 @@ abstract class ScrollChild {
      * 组件是否可以移动
      */
     abstract fun canMove(): Boolean
+
+    /**
+     * 大背景开始移动
+     */
+    abstract fun startMove(v: View)
+
+    /**
+     * 大背景停止移动
+     */
+    abstract fun finishMove(v: View)
 }
 
-class RecorderWidget : ScrollChild() {
-    override fun getWidgetType() = "recorder"
-    override fun shouldScrollWithBackground() = true
-    override fun canMove() = true
-    override fun getChildView(parent: View): ScrollFrameLayout {
-        val scrollFrameLayout = ScrollFrameLayout(parent.context)
-        val iv = ImageView(parent.context)
-        iv.tag = "RecorderImageView"
-        scrollFrameLayout.addView(iv)
-        return scrollFrameLayout
-    }
-
-    override fun onBind(v: View) {
-        v.findViewWithTag<ImageView>("RecorderImageView")?.let {
-            Glide.with(v.context).load(R.drawable.myhome_ic_gif).into(it)
-        }
-    }
-
-    override fun getWidth(context: Context) = context.dp2px(150)
-    override fun getHeight(context: Context) = context.dp2px(150)
-}
-
-class RabbitWidget : ScrollChild() {
-    override fun getWidgetType() = "rabbit"
-    override fun shouldScrollWithBackground() = false
-    override fun canMove() = true
-
-    override fun getChildView(parent: View): ScrollFrameLayout {
-        val scrollFrameLayout = ScrollFrameLayout(parent.context)
-        val iv = ImageView(parent.context)
-        iv.tag = "rabbit"
-        scrollFrameLayout.addView(iv)
-        return scrollFrameLayout
-    }
-
-    override fun onBind(v: View) {
-        v.findViewWithTag<ImageView>("rabbit")?.let {
-            Glide.with(v.context).load(R.drawable.myhome_ic_rabbit).into(it)
-        }
-    }
-
-    override fun getWidth(context: Context) = context.dp2px(150)
-    override fun getHeight(context: Context) = context.dp2px(150)
-}
 
 class FixedWidget : ScrollChild() {
-    override fun getWidgetType() = "rabbit"
+    override fun getWidgetType() = "fixedWidget"
     override fun shouldScrollWithBackground() = true
     override fun canMove() = false
+    override fun startMove(v: View) {
+        (v.findViewWithTag<ImageView>("fixed")?.drawable as? GifDrawable?)?.stop()
+    }
+
+    override fun finishMove(v: View) {
+        (v.findViewWithTag<ImageView>("fixed")?.drawable as? GifDrawable?)?.start()
+    }
+
     var drawableId: Int = 0
 
     override fun getChildView(parent: View): ScrollFrameLayout {
@@ -140,7 +108,9 @@ class FixedWidget : ScrollChild() {
 
     override fun onBind(v: View) {
         v.findViewWithTag<ImageView>("fixed")?.let {
-            Glide.with(v.context).load(drawableId).into(it)
+            if (drawableId != 0) {
+                Glide.with(v.context).load(drawableId).into(it)
+            }
         }
     }
 

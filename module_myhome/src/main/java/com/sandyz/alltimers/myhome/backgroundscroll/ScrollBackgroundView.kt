@@ -30,15 +30,14 @@ class ScrollBackgroundView @JvmOverloads constructor(
     private var mSizeFix = 1f
 
     // 背景的超大图片框
-    private var mImageView: ImageView = ImageView(context).also { addView(it) }
+    private var mBackgroundImage: ImageView = ImageView(context).also { addView(it) }
 
     // 背景的图片
-//    private var mBitmap: Bitmap? = null
     private var bgResourceId: Int = 0
 
     // 控件的大小
     private var mWidth = 0
-    var mHeight = 0
+    private var mHeight = 0
 
     // 底图的原始像素大小
     var mBgWidth = 0
@@ -54,6 +53,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
     private var picOriginY = 0f
 
     // 用于拖动惯性
+    private val mHandler by lazy { Handler(Looper.getMainLooper()) }
     private val mScroller by lazy { Scroller(context) }
 
     // 惯性计算器
@@ -98,7 +98,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
         mSizeFix = mBgWidth / mBgHeight.toFloat()
 
 //        mImageView.setImageBitmap(bitmap)
-        mImageView.scaleType = ImageView.ScaleType.FIT_XY
+        mBackgroundImage.scaleType = ImageView.ScaleType.FIT_XY
         updateBackgroundPosition(0)
     }
 
@@ -114,8 +114,8 @@ class ScrollBackgroundView @JvmOverloads constructor(
         refresh()
 
         post {
-            Log.e("sandyzhang", "iv: ${mImageView.width}, ${mImageView.height}")
-            Glide.with(context).load(id).into(mImageView)
+            Log.e("sandyzhang", "iv: ${mBackgroundImage.width}, ${mBackgroundImage.height}")
+            Glide.with(context).load(id).into(mBackgroundImage)
         }
     }
 
@@ -127,8 +127,8 @@ class ScrollBackgroundView @JvmOverloads constructor(
             MotionEvent.ACTION_DOWN -> {
                 originX = event.rawX
                 originY = event.rawY
-                picOriginX = mImageView.left.toFloat()
-                picOriginY = mImageView.top.toFloat()
+                picOriginX = mBackgroundImage.left.toFloat()
+                picOriginY = mBackgroundImage.top.toFloat()
                 // 停止惯性滑动
                 handler.removeCallbacks(mFlingRunnable)
                 smoothScrollAnimator?.let {
@@ -136,9 +136,11 @@ class ScrollBackgroundView @JvmOverloads constructor(
                         it.cancel()
                 }
                 isFling = false
+                // 如果下方子view消费，则不再回到本view
                 return false
             }
         }
+        // 如果下方子view不消费，则返回本view
         return true
     }
 
@@ -156,7 +158,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
                 val dy = event.rawY - originY
                 // 判断是否是拖动
                 if (!isScrolling && (abs(dx) > 10f || abs(dy) > 10f)) {
-
+                    notifyChildMoving(true)
                     isScrolling = true
                 }
                 if (isScrolling) {
@@ -174,6 +176,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
                 } else {
                     // 没有拖动，则响应点击事件
                     performClick()
+                    notifyChildMoving(false)
                 }
                 return true
             }
@@ -193,6 +196,18 @@ class ScrollBackgroundView @JvmOverloads constructor(
         return super.performClick()
     }
 
+    private fun notifyChildMoving(isMoving: Boolean) {
+        children.forEach {
+            if (it is ScrollFrameLayout) {
+                if (isMoving) {
+                    it.scrollChild?.startMove(it)
+                } else {
+                    it.scrollChild?.finishMove(it)
+                }
+            }
+        }
+    }
+
     /**
      * 修改大背景的位置
      */
@@ -207,10 +222,11 @@ class ScrollBackgroundView @JvmOverloads constructor(
             pos = -((mSizeFix * mHeight - context.getScreenWidth())).toInt()
         }
         layoutParams.leftMargin = pos
-        mImageView.layoutParams = layoutParams
+        mBackgroundImage.layoutParams = layoutParams
         // 同时，修改自己的子View的位置
         updateChildrenPosition(pos)
         requestLayout()
+//        ViewCompat.postOnAnimation()
     }
 
     /**
@@ -233,7 +249,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
     fun setChildPosition(scrollFrameLayout: ScrollFrameLayout, posX: Int, posY: Int, shouldScrollWithBackground: Boolean = true) {
         scrollFrameLayout.post {
             val childLayoutParams = scrollFrameLayout.layoutParams as? LayoutParams ?: return@post
-            val ivLayoutParams = mImageView.layoutParams as LayoutParams
+            val ivLayoutParams = mBackgroundImage.layoutParams as LayoutParams
             if (shouldScrollWithBackground) {
                 childLayoutParams.leftMargin = posX + ivLayoutParams.leftMargin
                 childLayoutParams.topMargin = posY + ivLayoutParams.topMargin
@@ -263,7 +279,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
     fun getChildPosition(widgetName: String): Pair<Int, Int>? {
         children.forEach {
             if (it is ScrollFrameLayout && it.getWidgetType() == widgetName) {
-                val ivLayoutParams = mImageView.layoutParams as LayoutParams
+                val ivLayoutParams = mBackgroundImage.layoutParams as LayoutParams
                 val childLayoutParams = it.layoutParams as LayoutParams
                 return if (it.shouldScrollWithBackground) {
                     Pair(
@@ -282,18 +298,19 @@ class ScrollBackgroundView @JvmOverloads constructor(
         override fun run() {
             if (isFling && (mScroller.computeScrollOffset()) && mScroller.currVelocity > 500f) {
                 updateBackgroundPosition(-mScroller.currX)
-                handler.post(this)
+                mHandler.post(this)
             } else {
                 isFling = false
+                notifyChildMoving(false)
             }
         }
     }
 
     private fun startFling(vx: Float) {
         isFling = true
-        handler.removeCallbacks(mFlingRunnable)
+        mHandler.removeCallbacks(mFlingRunnable)
         mScroller.fling(
-            -(mImageView.layoutParams as LayoutParams).leftMargin,
+            -(mBackgroundImage.layoutParams as LayoutParams).leftMargin,
             0,
             vx.toInt(),
             0,
@@ -302,7 +319,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
             0,
             0
         )
-        handler.post(mFlingRunnable)
+        mHandler.post(mFlingRunnable)
     }
 
     /**
@@ -318,7 +335,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
             }
             val maxWidth = mSizeFix * mHeight - context.getScreenWidth()
             if (smoothly) {
-                val start = (mImageView.layoutParams as? LayoutParams?)?.leftMargin ?: return@post
+                val start = (mBackgroundImage.layoutParams as? LayoutParams?)?.leftMargin ?: return@post
                 val end = (-maxWidth * percent).toInt()
                 smoothScrollAnimator = ValueAnimator.ofInt(start, end).apply {
                     duration = 600L
