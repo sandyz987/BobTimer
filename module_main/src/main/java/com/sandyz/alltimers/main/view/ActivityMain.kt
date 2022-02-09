@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sandyz.alltimers.common.config.MAIN_MAIN
-import com.sandyz.alltimers.common.extensions.toast
 import com.sandyz.alltimers.main.R
 import com.sandyz.alltimers.main.view.adapter.MainAdapter
 import kotlinx.android.synthetic.main.main_activity_main.*
@@ -15,7 +14,7 @@ class ActivityMain : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity_main)
         vp_main.adapter = MainAdapter(this)
-        vp_main.setCurrentItem(2, false)
+        vp_main.setCurrentItem(0, false)
         vp_main.isUserInputEnabled = false
 
 
@@ -30,9 +29,12 @@ class ActivityMain : AppCompatActivity() {
 //            dynamic_time.mText = stringBuilder.toString()
 //        }
 
-
-
         bottom_navi_schedule.setOnClickListener {
+            vp_main.setCurrentItem(0, false)
+        }
+
+        bottom_navi_concentrate.setOnClickListener {
+            vp_main.setCurrentItem(1, false)
         }
 
     }

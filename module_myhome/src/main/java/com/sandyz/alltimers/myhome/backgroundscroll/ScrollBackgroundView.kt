@@ -3,8 +3,6 @@ package com.sandyz.alltimers.myhome.backgroundscroll
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.BitmapFactory
-import android.os.Handler
-import android.os.Looper
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -53,7 +51,6 @@ class ScrollBackgroundView @JvmOverloads constructor(
     private var picOriginY = 0f
 
     // 用于拖动惯性
-    private val mHandler by lazy { Handler(Looper.getMainLooper()) }
     private val mScroller by lazy { Scroller(context) }
 
     // 惯性计算器
@@ -298,7 +295,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
         override fun run() {
             if (isFling && (mScroller.computeScrollOffset()) && mScroller.currVelocity > 500f) {
                 updateBackgroundPosition(-mScroller.currX)
-                mHandler.post(this)
+                handler.post(this)
             } else {
                 isFling = false
                 notifyChildMoving(false)
@@ -308,7 +305,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
 
     private fun startFling(vx: Float) {
         isFling = true
-        mHandler.removeCallbacks(mFlingRunnable)
+        handler.removeCallbacks(mFlingRunnable)
         mScroller.fling(
             -(mBackgroundImage.layoutParams as LayoutParams).leftMargin,
             0,
@@ -319,7 +316,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
             0,
             0
         )
-        mHandler.post(mFlingRunnable)
+        handler.post(mFlingRunnable)
     }
 
     /**
