@@ -4,7 +4,8 @@
         <attr name="maxHeight" format="dimension" />
     </declare-styleable>
 
-    <declare-styleable name="DynamicTimeDisplayView" tools:ignore="ResourceName">
+    <declare-styleable name="DynamicDisplayView" tools:ignore="ResourceName">
         <attr name="text" format="string" />
+        <attr name="textSize" format="integer" />
     </declare-styleable>
 </resources>

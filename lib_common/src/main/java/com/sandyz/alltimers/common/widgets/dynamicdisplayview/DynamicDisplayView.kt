@@ -9,7 +9,9 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Interpolator
+import androidx.core.view.ViewCompat
 import com.sandyz.alltimers.common.R
+import com.sandyz.alltimers.common.extensions.sp
 import com.sandyz.alltimers.common.utils.BitmapLoader
 import com.sandyz.alltimers.common.utils.ResourceGetter
 import com.sandyz.alltimers.common.widgets.dynamicdisplayview.drawer.OvershootDrawerImpl
@@ -21,19 +23,26 @@ class DynamicDisplayView @JvmOverloads constructor(
 
     private var mWidth = 0
     private var mHeight = 0
+    var mTextSize = 24
     private val bitmapMap = mutableMapOf<Char, Bitmap>()
+    private val onAnimRunnable = object : Runnable {
+        override fun run() {
+            invalidate()
+        }
+    }
     private val mAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
         addUpdateListener {
             if (it.animatedValue as Float >= 1.0) {
                 it.cancel()
             }
-            invalidate()
+            ViewCompat.postOnAnimation(this@DynamicDisplayView, onAnimRunnable)
         }
+
     }
     var drawer: Drawer = OvershootDrawerImpl()
 
     interface Drawer {
-        fun drawBitmap(canvas: Canvas?, fraction: Float, originBitmap: Bitmap?, targetBitmap: Bitmap?, h: Int)
+        fun drawBitmap(view: DynamicDisplayView, canvas: Canvas?, fraction: Float, originalChar: Char, targetChar: Char, h: Int, w: Int)
         fun getInterpolator(): Interpolator
         fun getDuration(): Long
     }
@@ -59,8 +68,9 @@ class DynamicDisplayView @JvmOverloads constructor(
         }
 
     init {
-        val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.DynamicTimeDisplayView)
-        mText = typedArray.getString(R.styleable.DynamicTimeDisplayView_text) ?: ""
+        val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.DynamicDisplayView)
+        mText = typedArray.getString(R.styleable.DynamicDisplayView_text) ?: ""
+        mTextSize = typedArray.getInt(R.styleable.DynamicDisplayView_textSize, 24)
         typedArray.recycle()
     }
 
@@ -87,7 +97,7 @@ class DynamicDisplayView @JvmOverloads constructor(
     }
 
 
-    private fun getBitmap(c: Char): Bitmap? {
+    fun getBitmap(c: Char): Bitmap? {
         // 如果缓存中有则直接取。
         return bitmapMap[c] ?: BitmapLoader.decodeBitmapFromResource(
             resources,
@@ -106,44 +116,43 @@ class DynamicDisplayView @JvmOverloads constructor(
         if (mText.length == preText.length) {
             mText.forEachIndexed { index, char ->
                 if (char != preText[index] && mAnimator.isStarted) {
-                    val originBitmap = getBitmap(preText[index])
-                    val targetBitmap = getBitmap(mText[index])
+//                    val originBitmap = getBitmap(preText[index])
+//                    val targetBitmap = getBitmap(mText[index])
                     canvas?.save()
                     drawer.drawBitmap(
-                        canvas?.apply {
-                            translate(index * mHeight * CHAR_WIDTH_PROPORTION, 0f)
-                        },
+                        this,
+                        canvas?.apply { translate(index * mHeight * CHAR_WIDTH_PROPORTION, 0f) },
                         mAnimator.animatedValue as Float,
-                        originBitmap, targetBitmap, mHeight
+                        preText[index], mText[index],
+                        mHeight,
+                        (mHeight * CHAR_WIDTH_PROPORTION).toInt()
                     )
                     canvas?.restore()
                 } else {
-                    val bitmap = getBitmap(char)
                     canvas?.save()
                     drawer.drawBitmap(
-                        canvas?.apply {
-                            translate(index * mHeight * CHAR_WIDTH_PROPORTION, 0f)
-                        },
+                        this,
+                        canvas?.apply { translate(index * mHeight * CHAR_WIDTH_PROPORTION, 0f) },
                         1f,
-                        null,
-                        bitmap,
-                        mHeight
+                        ' ',
+                        char,
+                        mHeight,
+                        (mHeight * CHAR_WIDTH_PROPORTION).toInt()
                     )
                     canvas?.restore()
                 }
             }
         } else {
             mText.forEachIndexed { index, char ->
-                val bitmap = getBitmap(char)
                 canvas?.save()
                 drawer.drawBitmap(
-                    canvas?.apply {
-                        translate(index * mHeight * CHAR_WIDTH_PROPORTION, 0f)
-                    },
+                    this,
+                    canvas?.apply { translate(index * mHeight * CHAR_WIDTH_PROPORTION, 0f) },
                     1f,
-                    null,
-                    bitmap,
-                    mHeight
+                    ' ',
+                    char,
+                    mHeight,
+                    (mHeight * CHAR_WIDTH_PROPORTION).toInt()
                 )
                 canvas?.restore()
             }

@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.Log
 import android.view.MotionEvent
 import android.view.VelocityTracker
 import android.view.View
@@ -14,6 +15,7 @@ import android.widget.Scroller
 import androidx.annotation.DrawableRes
 import com.sandyz.alltimers.common.extensions.dp2px
 import com.sandyz.alltimers.common.utils.BitmapLoader
+import com.sandyz.alltimers.concentrate.R
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -26,44 +28,43 @@ class RollDiskView @JvmOverloads constructor(
     private var mWidth = 0
     private var minutes = 0
         set(value) {
-            field = value
+            if (value >= 0) {
+                if (value / 60 != 0) {
+                    hours += value / 60
+                }
+                field = value % 60
+            } else {
+                if (-(value - 59) / 60 != 0) {
+                    hours -= -(value - 59) / 60
+                }
+                field = value % 60 + 60
+            }
             onTimeChange?.invoke(hours, minutes)
         }
     private var hours = 0
         set(value) {
             field = value
-            onTimeChange?.invoke(hours, minutes)
         }
     var onTimeChange: ((Int, Int) -> Unit)? = null
 
-    private var tmpDegreeAdd = 0f
-    private var currentDegrees = 0f
+    private val pointerBitmap: Bitmap? =
+        BitmapLoader.decodeBitmapFromResourceByWidth(resources, R.drawable.concentrate_ic_roll_pointer, context.dp2px(64))
+
+
+    private var currentDegreeFixed = 0f
+    private var currentDegree = 0f
         set(value) {
             field = value
-            val targetDegree = if ((currentDegrees % 10) < 5) {
-                currentDegrees - (currentDegrees % 10)
-            } else {
-                currentDegrees - (currentDegrees % 10) + 10
+            // 计算最近的角度参照
+            val targetDegree = currentDegree - (currentDegree % 10) - if ((currentDegree % 10 >= 0)) 0 else 10
+
+            if (currentDegree <= currentDegreeFixed - 10) {
+                minutes += 5
+                currentDegreeFixed = targetDegree + 10
+            } else if (currentDegree >= currentDegreeFixed + 10) {
+                minutes -= 5
+                currentDegreeFixed = targetDegree
             }
-
-            if (((targetDegree - tmpDegree) < 0 && (targetDegree - currentDegrees) > 0)) {
-                minutes += 1
-                tmpDegree = value
-
-            } else if (((targetDegree - tmpDegree) > 0 && (targetDegree - currentDegrees) < 0)) {
-                minutes -= 1
-                tmpDegree = value
-
-            }
-//            if (abs(targetDegree - value) < 10 && abs(targetDegree - tmpDegree) > 10) {
-//                if (tmpDegree < value) {
-//                    minutes -= 1
-//                } else {
-//                    minutes += 1
-//                }
-//                tmpDegree = value
-//            }
-
         }
 
     private var lastDegrees = 0f
@@ -72,6 +73,7 @@ class RollDiskView @JvmOverloads constructor(
         isAntiAlias = true
         strokeWidth = 10f
         strokeCap = Paint.Cap.ROUND
+        color = resources.getColor(R.color.concentrate_color_roll_disk, null)
     }
 
     fun setDiskImageId(@DrawableRes id: Int) {
@@ -98,7 +100,7 @@ class RollDiskView @JvmOverloads constructor(
         return when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 originX = event.x
-                lastDegrees = currentDegrees
+                lastDegrees = currentDegree
                 handler.removeCallbacks(mFlingRunnable)
                 isFling = false
                 true
@@ -106,9 +108,8 @@ class RollDiskView @JvmOverloads constructor(
 
             MotionEvent.ACTION_MOVE -> {
 
-
                 val dx = originX - event.x
-                currentDegrees =
+                currentDegree =
                     lastDegrees - getDegree(dx, event)
                 invalidate()
                 true
@@ -134,22 +135,40 @@ class RollDiskView @JvmOverloads constructor(
 
         canvas?.translate(mWidth / 2f, mWidth.toFloat())
 
+        // 画圆盘
         canvas?.save()
-        canvas?.rotate(currentDegrees)
+        canvas?.rotate(currentDegree)
         canvas?.translate(-mWidth.toFloat(), -mWidth.toFloat())
         diskImage?.let { canvas?.drawBitmap(it, 0f, 0f, paint) }
         canvas?.restore()
 
-        val r = mWidth.toFloat() / 1.414f - context.dp2px(16)
+        // 画刻度
+        var r = mWidth.toFloat() / 1.414f - context.dp2px(32)
         for (degree in 5 until 365 step 10) {
             canvas?.save()
-            canvas?.rotate(degree.toFloat() + currentDegrees)
-
+            canvas?.rotate(degree.toFloat() + currentDegree)
             canvas?.translate(-r, -r)
-            canvas?.drawLine(0f, 0f, context.dp2px(16).toFloat(), context.dp2px(16).toFloat(), paint)
-
+            canvas?.drawLine(0f, 0f, context.dp2px(12).toFloat(), context.dp2px(12).toFloat(), paint)
             canvas?.restore()
         }
+
+        // 画当前选定的角度
+        canvas?.save()
+        canvas?.rotate(-currentDegreeFixed + currentDegree + 45)
+        r = mWidth.toFloat() / 1.414f
+        canvas?.translate(-r, -r)
+//        canvas?.drawLine(0f, 0f, context.dp2px(16).toFloat(), context.dp2px(16).toFloat(), paint)
+        canvas?.rotate(-45f)
+        pointerBitmap?.let {
+            canvas?.translate(-it.width / 2f, context.dp2px(-24).toFloat())
+            canvas?.drawBitmap(it, 0f, 0f, paint)
+        }
+        canvas?.restore()
+
+
+
+
+
         canvas?.restore()
 
 
@@ -169,7 +188,7 @@ class RollDiskView @JvmOverloads constructor(
     private val mFlingRunnable = object : Runnable {
         override fun run() {
             if (isFling && (mScroller.computeScrollOffset())) {
-                currentDegrees = lastDegrees + mScroller.currX
+                currentDegree = lastDegrees + mScroller.currX
                 invalidate()
                 handler.post(this)
             } else {
@@ -180,27 +199,38 @@ class RollDiskView @JvmOverloads constructor(
     }
 
     private var anim: ValueAnimator? = null
+
+    // 圆盘回弹
     private fun fixPosition() {
         anim?.cancel()
-        (currentDegrees % 10)
-        val targetDegree = if ((currentDegrees % 10) < 5) {
-            currentDegrees - (currentDegrees % 10)
+        val targetDegree = if ((currentDegree % 10) >= 0) {
+            if ((currentDegree % 10) < 5) {
+                currentDegree - (currentDegree % 10)
+            } else {
+                currentDegree - (currentDegree % 10) + 10
+            }
         } else {
-            currentDegrees - (currentDegrees % 10) + 10
+            if (-(currentDegree % 10) < 5) {
+                currentDegree - (currentDegree % 10)
+            } else {
+                currentDegree - (currentDegree % 10) - 10
+            }
         }
-        anim = ValueAnimator.ofFloat(currentDegrees, targetDegree).apply {
+        Log.e("sandyzhang", "%${(currentDegree % 10)}  cur:$currentDegree target:$targetDegree")
+        anim = ValueAnimator.ofFloat(currentDegree, targetDegree).apply {
             duration = 200L
             interpolator = OvershootInterpolator()
             addUpdateListener {
-                currentDegrees = it.animatedValue as Float
+                currentDegree = it.animatedValue as Float
                 invalidate()
             }
             start()
         }
     }
 
+    // 惯性滚动
     private fun startFling(vx: Float) {
-        lastDegrees = currentDegrees
+        lastDegrees = currentDegree
         isFling = true
         handler.removeCallbacks(mFlingRunnable)
         mScroller.fling(

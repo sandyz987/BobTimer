@@ -20,10 +20,12 @@ class FragmentConcentrate : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        concentrate_roll_disk.setDiskImageId(R.drawable.concentrate_circle)
+        concentrate_roll_disk.setDiskImageId(R.drawable.concentrate_ic_roll_disk_pic)
         concentrate_roll_disk.onTimeChange = { h, m ->
-            concentrate_display.text = "$h:$m"
-            Log.e("sandyzhangtime", "$h:$m")
+            val hours = if (h <= 9) "0$h" else "$h"
+            val minutes = if (m <= 9) "0$m" else "$m"
+            concentrate_display.mText = "$hours:$minutes"
+            Log.e("sandyzhangtime", "$hours:$minutes")
         }
     }
 
