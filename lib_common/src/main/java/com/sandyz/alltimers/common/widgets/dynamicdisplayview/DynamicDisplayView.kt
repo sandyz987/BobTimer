@@ -24,7 +24,7 @@ class DynamicDisplayView @JvmOverloads constructor(
     private var mWidth = 0
     private var mHeight = 0
     var mTextSize = 24
-    private val bitmapMap = mutableMapOf<Char, Bitmap>()
+    private val bitmapMap = mutableMapOf<Char, Bitmap?>()
     private val onAnimRunnable = object : Runnable {
         override fun run() {
             invalidate()
@@ -99,13 +99,17 @@ class DynamicDisplayView @JvmOverloads constructor(
 
     fun getBitmap(c: Char): Bitmap? {
         // 如果缓存中有则直接取。
-        return bitmapMap[c] ?: BitmapLoader.decodeBitmapFromResource(
-            resources,
-            getDrawableId(c),
-            (mHeight * CHAR_WIDTH_PROPORTION).toInt(),
-            mHeight
-        )?.also {
-            bitmapMap[c] = it
+        return if (bitmapMap.containsKey(c)) {
+            bitmapMap[c]
+        } else {
+            BitmapLoader.decodeBitmapFromResource(
+                resources,
+                getDrawableId(c),
+                (mHeight * CHAR_WIDTH_PROPORTION).toInt(),
+                mHeight
+            ).also {
+                bitmapMap[c] = it
+            }
         }
     }
 

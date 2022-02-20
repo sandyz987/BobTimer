@@ -20,10 +20,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/main_constraintlayout"
+        </androidx.viewpager2.widget.ViewPager2>
+
+        <com.sandyz.alltimers.main.view.costom.BottomNavConstraintLayout
+            android:id="@+id/main_bottom_nav_constraintlayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:clipChildren="false"
@@ -36,7 +38,6 @@
                 android:layout_width="38dp"
                 android:layout_height="57dp"
                 android:layout_marginBottom="8dp"
-                android:background="?selectableItemBackgroundBorderless"
                 app:checked_src="@drawable/main_ic_mine"
                 app:label="日程"
                 app:label_color="#995B3A"
@@ -49,12 +50,11 @@
                 android:id="@+id/bottom_navi_concentrate"
                 android:layout_width="38dp"
                 android:layout_height="0dp"
-                android:background="?selectableItemBackgroundBorderless"
                 app:checked_src="@drawable/main_ic_mine"
                 app:label="专注"
                 app:label_color="#995B3A"
                 app:layout_constraintBottom_toBottomOf="@+id/bottom_navi_schedule"
-                app:layout_constraintEnd_toStartOf="@+id/main_bottom_navi_concentrate_mine2"
+                app:layout_constraintEnd_toStartOf="@+id/main_bottom_navi_add"
                 app:layout_constraintStart_toEndOf="@+id/bottom_navi_schedule"
                 app:layout_constraintTop_toTopOf="@+id/bottom_navi_schedule"
                 app:no_checked_src="@drawable/main_ic_concentrate" />
@@ -63,7 +63,6 @@
                 android:id="@+id/bottom_navi_concentrate_mine"
                 android:layout_width="38dp"
                 android:layout_height="0dp"
-                android:background="?selectableItemBackgroundBorderless"
                 app:checked_src="@drawable/main_ic_mine"
                 app:label="我的"
                 app:label_color="#995B3A"
@@ -77,31 +76,28 @@
                 android:id="@+id/main_bottom_navi_concentrate_mine"
                 android:layout_width="38dp"
                 android:layout_height="0dp"
-                android:background="?selectableItemBackgroundBorderless"
                 app:checked_src="@drawable/main_ic_mine"
                 app:label="日历"
                 app:label_color="#995B3A"
                 app:layout_constraintBottom_toBottomOf="@+id/bottom_navi_concentrate"
                 app:layout_constraintEnd_toStartOf="@+id/bottom_navi_concentrate_mine"
-                app:layout_constraintStart_toEndOf="@+id/main_bottom_navi_concentrate_mine2"
+                app:layout_constraintStart_toEndOf="@+id/main_bottom_navi_add"
                 app:layout_constraintTop_toTopOf="@+id/bottom_navi_concentrate"
                 app:no_checked_src="@drawable/main_ic_calendar" />
 
             <com.sandyz.alltimers.main.view.costom.BottomNavButton
-                android:id="@+id/main_bottom_navi_concentrate_mine2"
+                android:id="@+id/main_bottom_navi_add"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="24dp"
-                android:background="?selectableItemBackgroundBorderless"
+                android:layout_marginBottom="16dp"
                 app:checked_src="@drawable/main_ic_add"
                 app:label_color="#995B3A"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:no_checked_src="@drawable/main_ic_add" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.sandyz.alltimers.main.view.costom.BottomNavConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

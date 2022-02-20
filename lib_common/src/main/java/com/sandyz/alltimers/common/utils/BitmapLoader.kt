@@ -14,6 +14,9 @@ object BitmapLoader {
         decodeWidth: Int,
         decodeHeight: Int
     ): Bitmap? {
+        if (resId == 0) {
+            return null
+        }
         if (decodeHeight <= 0 || decodeWidth <= 0) {
             return null
         }
@@ -46,6 +49,9 @@ object BitmapLoader {
         @DrawableRes resId: Int,
         decodeWidth: Int
     ): Bitmap? {
+        if (resId == 0) {
+            return null
+        }
         if (decodeWidth <= 0) {
             return null
         }
@@ -80,6 +86,9 @@ object BitmapLoader {
         @DrawableRes resId: Int,
         decodeHeight: Int
     ): Bitmap? {
+        if (resId == 0) {
+            return null
+        }
         if (decodeHeight <= 0) {
             return null
         }

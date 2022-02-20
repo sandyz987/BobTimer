@@ -1,6 +1,7 @@
 package com.sandyz.alltimers.main.view
 
 import android.os.Bundle
+import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sandyz.alltimers.common.config.MAIN_MAIN

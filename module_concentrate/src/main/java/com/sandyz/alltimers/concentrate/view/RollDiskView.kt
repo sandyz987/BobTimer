@@ -16,6 +16,7 @@ import androidx.annotation.DrawableRes
 import com.sandyz.alltimers.common.extensions.dp2px
 import com.sandyz.alltimers.common.utils.BitmapLoader
 import com.sandyz.alltimers.concentrate.R
+import kotlin.math.max
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -43,7 +44,7 @@ class RollDiskView @JvmOverloads constructor(
         }
     private var hours = 0
         set(value) {
-            field = value
+            field = max(value, 0)
         }
     var onTimeChange: ((Int, Int) -> Unit)? = null
 
@@ -73,7 +74,7 @@ class RollDiskView @JvmOverloads constructor(
         isAntiAlias = true
         strokeWidth = 10f
         strokeCap = Paint.Cap.ROUND
-        color = resources.getColor(R.color.concentrate_color_roll_disk, null)
+        color = resources.getColor(R.color.concentrate_color_roll_disk)
     }
 
     fun setDiskImageId(@DrawableRes id: Int) {
@@ -154,7 +155,7 @@ class RollDiskView @JvmOverloads constructor(
 
         // 画当前选定的角度
         canvas?.save()
-        canvas?.rotate(-currentDegreeFixed + currentDegree + 45)
+        canvas?.rotate(45f)
         r = mWidth.toFloat() / 1.414f
         canvas?.translate(-r, -r)
 //        canvas?.drawLine(0f, 0f, context.dp2px(16).toFloat(), context.dp2px(16).toFloat(), paint)
