@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sandyz.alltimers.main">
 
-    <application
-        android:name="com.sandyz.alltimers.common.BaseApp"
-        android:theme="@style/Theme.AllTimers">
+    <application>
         <activity android:name="com.sandyz.alltimers.main.view.ActivityMain">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

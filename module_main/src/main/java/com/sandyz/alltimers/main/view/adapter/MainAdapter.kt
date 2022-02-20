@@ -11,9 +11,9 @@ class MainAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> ServiceManager.getService(SCHEDULE_ENTRY)
-            1 -> ServiceManager.getService(CONCENTRATE_ENTRY)
-            2 -> ServiceManager.getService(HOME_ENTRY)
+            0 -> ServiceManager.getService(HOME_ENTRY)
+            1 -> ServiceManager.getService(SCHEDULE_ENTRY)
+            2 -> ServiceManager.getService(CONCENTRATE_ENTRY)
             3 -> ServiceManager.getService(CALENDAR_ENTRY)
             4 -> ServiceManager.getService(MINE_ENTRY)
             else -> ServiceManager.getService(SCHEDULE_ENTRY)

@@ -109,4 +109,8 @@ def realtimeblurview = [:]
 realtimeblurview.runtime = "com.github.mmin18:realtimeblurview:1.2.1"
 deps.realtimeblurview = realtimeblurview
 
+def overscroll = [:]
+overscroll.runtime = "me.everything:overscroll-decor-android:1.0.4"
+deps.overscroll = overscroll
+
 ext.deps = deps

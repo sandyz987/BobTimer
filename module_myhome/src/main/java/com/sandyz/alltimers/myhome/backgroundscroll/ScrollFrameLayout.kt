@@ -65,6 +65,7 @@ class ScrollFrameLayout @JvmOverloads constructor(
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
+                if (!canMove) return false
                 removeCallbacks(scrollCallback)
                 originX = event.rawX
                 originY = event.rawY

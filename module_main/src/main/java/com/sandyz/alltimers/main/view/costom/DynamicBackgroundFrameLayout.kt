@@ -40,7 +40,7 @@ class DynamicBackgroundFrameLayout @JvmOverloads constructor(
         mHeight = h
         bgBitmap = BitmapLoader.decodeBitmapFromResourceByWidth(resources, bgSrcId, mWidth / 6)
         handler.removeCallbacks(animationRunnable)
-        handler.post(animationRunnable)
+        handler?.post(animationRunnable)
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -67,7 +67,7 @@ class DynamicBackgroundFrameLayout @JvmOverloads constructor(
     private val animationRunnable = object : Runnable {
         override fun run() {
             offset += 2
-            handler.postDelayed(this, 20)
+            handler?.postDelayed(this, 20)
             invalidate()
         }
     }

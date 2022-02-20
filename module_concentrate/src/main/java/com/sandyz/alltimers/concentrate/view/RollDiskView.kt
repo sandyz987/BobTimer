@@ -12,7 +12,6 @@ import android.view.VelocityTracker
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import android.widget.Scroller
-import androidx.annotation.DrawableRes
 import com.sandyz.alltimers.common.extensions.dp2px
 import com.sandyz.alltimers.common.utils.BitmapLoader
 import com.sandyz.alltimers.concentrate.R
@@ -35,10 +34,16 @@ class RollDiskView @JvmOverloads constructor(
                 }
                 field = value % 60
             } else {
-                if (-(value - 59) / 60 != 0) {
-                    hours -= -(value - 59) / 60
+
+                if (hours >= 1) {
+                    if (-(value - 59) / 60 != 0) {
+                        hours -= -(value - 59) / 60
+                    }
+                    field = value % 60 + 60
+                } else {
+                    field = 0
+                    hours = 0
                 }
-                field = value % 60 + 60
             }
             onTimeChange?.invoke(hours, minutes)
         }
@@ -77,18 +82,11 @@ class RollDiskView @JvmOverloads constructor(
         color = resources.getColor(R.color.concentrate_color_roll_disk)
     }
 
-    fun setDiskImageId(@DrawableRes id: Int) {
-        post {
-            diskImage = BitmapLoader.decodeBitmapFromResourceByWidth(resources, id, mWidth * 2)
-            invalidate()
-        }
-    }
-
-
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         mHeight = h
         mWidth = w
+        diskImage = BitmapLoader.decodeBitmapFromResourceByWidth(resources, R.drawable.concentrate_ic_roll_disk_pic, mWidth * 2)
     }
 
     private fun getDegree(dx: Float, event: MotionEvent): Float =
@@ -191,7 +189,7 @@ class RollDiskView @JvmOverloads constructor(
             if (isFling && (mScroller.computeScrollOffset())) {
                 currentDegree = lastDegrees + mScroller.currX
                 invalidate()
-                handler.post(this)
+                handler?.post(this)
             } else {
                 isFling = false
                 fixPosition()
@@ -244,7 +242,7 @@ class RollDiskView @JvmOverloads constructor(
             0,
             0
         )
-        handler.post(mFlingRunnable)
+        handler?.post(mFlingRunnable)
     }
 
 }

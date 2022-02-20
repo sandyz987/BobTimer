@@ -295,7 +295,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
         override fun run() {
             if (isFling && (mScroller.computeScrollOffset()) && mScroller.currVelocity > 500f) {
                 updateBackgroundPosition(-mScroller.currX)
-                handler.post(this)
+                handler?.post(this)
             } else {
                 isFling = false
                 notifyChildMoving(false)
@@ -316,7 +316,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
             0,
             0
         )
-        handler.post(mFlingRunnable)
+        handler?.post(mFlingRunnable)
     }
 
     /**

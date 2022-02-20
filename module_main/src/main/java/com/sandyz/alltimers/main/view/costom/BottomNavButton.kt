@@ -6,8 +6,10 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
+import com.sandyz.alltimers.common.BaseApp
 import com.sandyz.alltimers.common.extensions.dp2px
 import com.sandyz.alltimers.common.extensions.drawTextBottom
 import com.sandyz.alltimers.common.extensions.sp
@@ -33,6 +35,12 @@ class BottomNavButton @JvmOverloads constructor(
             textHeight = if (text.isNotBlank()) metrics.bottom - metrics.top else 0f
             selectedBitmap = BitmapLoader.decodeBitmapFromResource(resources, selectedPicId, mWidth, (mHeight - textHeight - margin).toInt())
             noSelectedBitmap = BitmapLoader.decodeBitmapFromResource(resources, noSelectedPicId, mWidth, (mHeight - textHeight - margin).toInt())
+        }
+    var typeface: Typeface? = null
+        set(value) {
+            field = value
+            paint.typeface = value
+            invalidate()
         }
 
     private var noSelectedPicId = 0
@@ -62,10 +70,16 @@ class BottomNavButton @JvmOverloads constructor(
         typedArray.recycle()
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        typeface = BaseApp.typeface
+    }
+
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         mHeight = h
         mWidth = w
+        // notify
         text = text
     }
 

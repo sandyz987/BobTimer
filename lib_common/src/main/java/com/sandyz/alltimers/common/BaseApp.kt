@@ -5,7 +5,10 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.graphics.Typeface
 import android.os.Build
+import android.util.Log
+import androidx.core.content.res.ResourcesCompat
 import com.alibaba.android.arouter.launcher.ARouter
 
 
@@ -17,16 +20,19 @@ open class BaseApp : Application() {
 
         const val foregroundService = "foreground"
         var time = 0L
+        var typeface: Typeface? = null
     }
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         context = base
         time = System.currentTimeMillis()
+        typeface = ResourcesCompat.getFont(context, R.font.summer_typeface)
     }
 
     override fun onCreate() {
         super.onCreate()
+        initTypeface()
         createChannel()
         initRouter()
     }
@@ -48,4 +54,12 @@ open class BaseApp : Application() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+
+    private fun initTypeface() {
+        Log.e("sandyzhang", "setfont")
+        val field = Typeface::class.java.getDeclaredField("SERIF")
+        field.isAccessible = true
+        field.set(null, typeface)
+    }
+
 }

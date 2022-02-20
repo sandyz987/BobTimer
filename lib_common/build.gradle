@@ -30,6 +30,8 @@ dependencies {
     api deps.room.runtime
     api deps.room.rxjava
     api deps.glide.runtime
+    api deps.overscroll.runtime
+
 
 
 }

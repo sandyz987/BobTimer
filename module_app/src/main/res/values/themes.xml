@@ -2,6 +2,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.AllTimers" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:typeface">serif</item>
 <!--        &lt;!&ndash; Primary brand color. &ndash;&gt;-->
 <!--        <item name="colorPrimary">@color/blue_primary</item>-->
 <!--        <item name="colorPrimaryVariant">@color/blue_dark</item>-->
