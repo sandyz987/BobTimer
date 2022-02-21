@@ -39,7 +39,7 @@ class DynamicDisplayView @JvmOverloads constructor(
         }
 
     }
-    var drawer: Drawer = OvershootDrawerImpl()
+    var drawer: Drawer? = null
 
     interface Drawer {
         fun drawBitmap(view: DynamicDisplayView, canvas: Canvas?, fraction: Float, originalChar: Char, targetChar: Char, h: Int, w: Int)
@@ -62,8 +62,8 @@ class DynamicDisplayView @JvmOverloads constructor(
             if (mAnimator.isStarted) {
                 mAnimator.cancel()
             }
-            mAnimator.interpolator = drawer.getInterpolator()
-            mAnimator.duration = drawer.getDuration()
+            mAnimator.interpolator = drawer?.getInterpolator()
+            mAnimator.duration = drawer?.getDuration()?: 300L
             mAnimator.start()
         }
 
@@ -123,7 +123,7 @@ class DynamicDisplayView @JvmOverloads constructor(
 //                    val originBitmap = getBitmap(preText[index])
 //                    val targetBitmap = getBitmap(mText[index])
                     canvas?.save()
-                    drawer.drawBitmap(
+                    drawer?.drawBitmap(
                         this,
                         canvas?.apply { translate(index * mHeight * CHAR_WIDTH_PROPORTION, 0f) },
                         mAnimator.animatedValue as Float,
@@ -134,7 +134,7 @@ class DynamicDisplayView @JvmOverloads constructor(
                     canvas?.restore()
                 } else {
                     canvas?.save()
-                    drawer.drawBitmap(
+                    drawer?.drawBitmap(
                         this,
                         canvas?.apply { translate(index * mHeight * CHAR_WIDTH_PROPORTION, 0f) },
                         1f,
@@ -149,7 +149,7 @@ class DynamicDisplayView @JvmOverloads constructor(
         } else {
             mText.forEachIndexed { index, char ->
                 canvas?.save()
-                drawer.drawBitmap(
+                drawer?.drawBitmap(
                     this,
                     canvas?.apply { translate(index * mHeight * CHAR_WIDTH_PROPORTION, 0f) },
                     1f,
@@ -165,7 +165,7 @@ class DynamicDisplayView @JvmOverloads constructor(
     }
 
     companion object {
-        private const val CHAR_WIDTH_PROPORTION = 0.7f
+        private const val CHAR_WIDTH_PROPORTION = 0.6f
     }
 
 }

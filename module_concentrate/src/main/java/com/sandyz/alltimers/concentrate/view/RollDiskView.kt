@@ -13,20 +13,51 @@ import android.view.View
 import android.view.animation.OvershootInterpolator
 import android.widget.Scroller
 import com.sandyz.alltimers.common.extensions.dp2px
+import com.sandyz.alltimers.common.extensions.drawTextCenter
+import com.sandyz.alltimers.common.extensions.sp
 import com.sandyz.alltimers.common.utils.BitmapLoader
 import com.sandyz.alltimers.concentrate.R
-import kotlin.math.max
-import kotlin.math.pow
-import kotlin.math.sqrt
+import kotlin.math.*
 
 class RollDiskView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
 
 
+    var rollScale = 5
+    var currentSeconds = 0
+    fun setSeconds(seconds: Int) {
+        Log.e("sandyzhangs", "$seconds")
+        if (seconds == currentSeconds) return
+        if (seconds == currentSeconds + 1) {
+            fixPosition(currentDegree - 10)
+        }
+        if (seconds == currentSeconds - 1) {
+            fixPosition(currentDegree + 10)
+        }
+        currentSeconds = seconds
+        invalidate()
+    }
+
     private var mHeight = 0
     private var mWidth = 0
-    private var minutes = 0
+    var isStarted = false
+        set(value) {
+            field = value
+            if (value) {
+                // 开始计时
+                rollScale = 1
+            } else {
+                // 停止计时
+                rollScale = 5
+                currentSeconds = 0
+                hours = 0
+                minutes = 0
+            }
+            invalidate()
+            onStartEvent?.invoke(value)
+        }
+    var minutes = 0
         set(value) {
             if (value >= 0) {
                 if (value / 60 != 0) {
@@ -45,13 +76,17 @@ class RollDiskView @JvmOverloads constructor(
                     hours = 0
                 }
             }
-            onTimeChange?.invoke(hours, minutes)
+
+            if (!isStarted && isCountDown) {
+                onTimeCountDownSetChange?.invoke(hours, minutes)
+            }
         }
-    private var hours = 0
+    var hours = 0
         set(value) {
-            field = max(value, 0)
+            field = min(max(value, 0), 23)
         }
-    var onTimeChange: ((Int, Int) -> Unit)? = null
+    var onTimeCountDownSetChange: ((Int, Int) -> Unit)? = null
+    fun getCountDownTotalSeconds() = hours * 3600 + minutes * 60
 
     private val pointerBitmap: Bitmap? =
         BitmapLoader.decodeBitmapFromResourceByWidth(resources, R.drawable.concentrate_ic_roll_pointer, context.dp2px(64))
@@ -65,11 +100,14 @@ class RollDiskView @JvmOverloads constructor(
             val targetDegree = currentDegree - (currentDegree % 10) - if ((currentDegree % 10 >= 0)) 0 else 10
 
             if (currentDegree <= currentDegreeFixed - 10) {
-                minutes += 5
+                minutes += rollScale
                 currentDegreeFixed = targetDegree + 10
             } else if (currentDegree >= currentDegreeFixed + 10) {
-                minutes -= 5
+                minutes -= rollScale
                 currentDegreeFixed = targetDegree
+            }
+            if (isCountDown && !isStarted) {
+                currentSeconds = minutes + hours * 60
             }
         }
 
@@ -80,7 +118,9 @@ class RollDiskView @JvmOverloads constructor(
         strokeWidth = 10f
         strokeCap = Paint.Cap.ROUND
         color = resources.getColor(R.color.concentrate_color_roll_disk)
+        textSize = context.sp(12).toFloat()
     }
+    var onStartEvent: ((Boolean) -> Unit)? = null
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -89,6 +129,19 @@ class RollDiskView @JvmOverloads constructor(
         diskImage = BitmapLoader.decodeBitmapFromResourceByWidth(resources, R.drawable.concentrate_ic_roll_disk_pic, mWidth * 2)
     }
 
+
+    var isCountDown = true
+        set(value) {
+            field = value
+            if (value) {
+                minutes = 0
+                rollScale = 5
+            } else {
+                rollScale = 1
+            }
+            invalidate()
+        }
+
     private fun getDegree(dx: Float, event: MotionEvent): Float =
         (dx * 360) / (2 * Math.PI * (sqrt((event.x - mWidth / 2).pow(2) + (mWidth - event.y).pow(2)))).toFloat()
 
@@ -96,6 +149,9 @@ class RollDiskView @JvmOverloads constructor(
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         velocityTracker.addMovement(event)
         velocityTracker.computeCurrentVelocity(1000)
+        if (!isCountDown || isStarted) {
+            return false
+        }
         return when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 originX = event.x
@@ -108,15 +164,24 @@ class RollDiskView @JvmOverloads constructor(
             MotionEvent.ACTION_MOVE -> {
 
                 val dx = originX - event.x
-                currentDegree =
-                    lastDegrees - getDegree(dx, event)
-                invalidate()
+                if (abs(dx) > 5f) {
+                    currentDegree =
+                        lastDegrees - getDegree(dx, event)
+                    invalidate()
+                }
+
                 true
             }
 
             MotionEvent.ACTION_UP -> {
-                startFling(getDegree(velocityTracker.xVelocity, event))
-                true
+                val dx = originX - event.x
+                if (abs(dx) > 5f) {
+                    startFling(getDegree(velocityTracker.xVelocity, event))
+                    true
+                } else {
+                    performClick()
+                }
+
             }
 
             else -> super.onTouchEvent(event)
@@ -151,18 +216,31 @@ class RollDiskView @JvmOverloads constructor(
             canvas?.restore()
         }
 
-        // 画当前选定的角度
+        // 当前角度
+        for (degree in -5..90 step 10) {
+            val delta = (degree - 45) / 10
+            canvas?.save()
+            canvas?.rotate(degree.toFloat() + currentDegree - currentDegreeFixed)
+            canvas?.translate(-r, -r)
+            canvas?.rotate(-45f)
+            canvas?.drawTextCenter(getTimeStr(currentSeconds + delta * rollScale), 0f, context.dp2px(32).toFloat(), paint, Paint.Align.CENTER)
+            canvas?.restore()
+        }
+
+
+        // 画指针
         canvas?.save()
         canvas?.rotate(45f)
         r = mWidth.toFloat() / 1.414f
         canvas?.translate(-r, -r)
-//        canvas?.drawLine(0f, 0f, context.dp2px(16).toFloat(), context.dp2px(16).toFloat(), paint)
         canvas?.rotate(-45f)
         pointerBitmap?.let {
             canvas?.translate(-it.width / 2f, context.dp2px(-24).toFloat())
             canvas?.drawBitmap(it, 0f, 0f, paint)
         }
         canvas?.restore()
+
+
 
 
 
@@ -192,7 +270,7 @@ class RollDiskView @JvmOverloads constructor(
                 handler?.post(this)
             } else {
                 isFling = false
-                fixPosition()
+                fixPosition(currentDegree)
             }
         }
     }
@@ -200,22 +278,22 @@ class RollDiskView @JvmOverloads constructor(
     private var anim: ValueAnimator? = null
 
     // 圆盘回弹
-    private fun fixPosition() {
-        anim?.cancel()
-        val targetDegree = if ((currentDegree % 10) >= 0) {
-            if ((currentDegree % 10) < 5) {
-                currentDegree - (currentDegree % 10)
+    private fun fixPosition(degreeToBeFixed: Float) {
+        val targetDegree = if ((degreeToBeFixed % 10) >= 0) {
+            if ((degreeToBeFixed % 10) < 5) {
+                degreeToBeFixed - (degreeToBeFixed % 10)
             } else {
-                currentDegree - (currentDegree % 10) + 10
+                degreeToBeFixed - (degreeToBeFixed % 10) + 10
             }
         } else {
-            if (-(currentDegree % 10) < 5) {
-                currentDegree - (currentDegree % 10)
+            if (-(degreeToBeFixed % 10) < 5) {
+                degreeToBeFixed - (degreeToBeFixed % 10)
             } else {
-                currentDegree - (currentDegree % 10) - 10
+                degreeToBeFixed - (degreeToBeFixed % 10) - 10
             }
         }
-        Log.e("sandyzhang", "%${(currentDegree % 10)}  cur:$currentDegree target:$targetDegree")
+        Log.e("sandyzhang", "%${(degreeToBeFixed % 10)}  cur:$degreeToBeFixed target:$targetDegree")
+        anim?.cancel()
         anim = ValueAnimator.ofFloat(currentDegree, targetDegree).apply {
             duration = 200L
             interpolator = OvershootInterpolator()
@@ -243,6 +321,23 @@ class RollDiskView @JvmOverloads constructor(
             0
         )
         handler?.post(mFlingRunnable)
+    }
+
+    companion object {
+        fun getTimeStr(s: Int): String {
+            if (s < 0) return ""
+            val seconds = s % 60
+            val minutes = (s / 60) % 60
+            val hours = s / 3600
+            val secondsStr = if (seconds <= 9) "0$seconds" else "$seconds"
+            val hoursStr = if (hours <= 9) "0$hours" else "$hours"
+            val minutesStr = if (minutes <= 9) "0$minutes" else "$minutes"
+            return if (hours <= 0) {
+                "${minutesStr}:${secondsStr}"
+            } else {
+                "${hoursStr}:${minutesStr}:${secondsStr}"
+            }
+        }
     }
 
 }

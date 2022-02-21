@@ -2,4 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sandyz.alltimers.concentrate">
 
+    <application>
+        <service android:name=".service.TimerService" />
+        <receiver android:name=".FragmentConcentrate$TimerReceiver"/>
+    </application>
+
 </manifest>
