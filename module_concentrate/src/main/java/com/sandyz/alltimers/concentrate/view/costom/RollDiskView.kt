@@ -1,4 +1,4 @@
-package com.sandyz.alltimers.concentrate.view
+package com.sandyz.alltimers.concentrate.view.costom
 
 import android.animation.ValueAnimator
 import android.content.Context
@@ -126,7 +126,6 @@ class RollDiskView @JvmOverloads constructor(
         super.onSizeChanged(w, h, oldw, oldh)
         mHeight = h
         mWidth = w
-        diskImage = BitmapLoader.decodeBitmapFromResourceByWidth(resources, R.drawable.concentrate_ic_roll_disk_pic, mWidth * 2)
     }
 
 
@@ -272,6 +271,13 @@ class RollDiskView @JvmOverloads constructor(
                 isFling = false
                 fixPosition(currentDegree)
             }
+        }
+    }
+
+    init {
+        post {
+            diskImage = BitmapLoader.decodeBitmapFromResourceByWidth(resources, R.drawable.concentrate_ic_roll_disk_pic, mWidth * 2)
+            invalidate()
         }
     }
 

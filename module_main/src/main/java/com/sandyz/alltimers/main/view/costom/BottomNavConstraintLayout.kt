@@ -126,7 +126,7 @@ class BottomNavConstraintLayout @JvmOverloads constructor(
         paint.style = Paint.Style.FILL
         fillPath?.let { canvas?.drawPath(it, paint) }
 
-        paint.color = Color.WHITE
+        paint.color = Color.parseColor("#B58165")
         paint.style = Paint.Style.STROKE
         strokePath?.let { canvas?.drawPath(it, paint) }
 

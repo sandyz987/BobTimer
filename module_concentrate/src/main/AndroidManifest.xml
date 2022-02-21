@@ -4,7 +4,7 @@
 
     <application>
         <service android:name=".service.TimerService" />
-        <receiver android:name=".FragmentConcentrate$TimerReceiver"/>
+        <receiver android:name=".view.fragment.FragmentConcentrate$TimerReceiver"/>
     </application>
 
 </manifest>

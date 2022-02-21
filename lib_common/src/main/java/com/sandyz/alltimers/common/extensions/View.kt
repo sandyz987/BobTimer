@@ -12,7 +12,7 @@ import com.sandyz.alltimers.common.R
  *@description
  */
 
-fun View.setOnClickAction(action: () -> Unit) {
+fun View.setOnClickAction(action: (() -> Unit)?) {
     setOnTouchListener { v, event ->
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -27,7 +27,7 @@ fun View.setOnClickAction(action: () -> Unit) {
             }
             MotionEvent.ACTION_UP -> {
                 if (event.x >= 0 && event.x <= v.width && event.y >= 0 && event.y <= height) {
-                    action.invoke()
+                    action?.invoke()
                 }
                 v.alpha = 1f
             }
@@ -39,7 +39,7 @@ fun View.setOnClickAction(action: () -> Unit) {
     }
 }
 
-fun View.setOnClickActionWithScale(action: () -> Unit) {
+fun View.setOnClickActionWithScale(action: (() -> Unit)?) {
     setOnTouchListener { v, event ->
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
@@ -66,11 +66,11 @@ fun View.setOnClickActionWithScale(action: () -> Unit) {
                 val sizePair = v.getTag(R.id.common_tag_btn_size) as? Pair<Float, Float>
                 if (sizePair != null) {
                     if (event.x >= 0 && event.x <= sizePair.first && event.y >= 0 && event.y <= sizePair.second) {
-                        action.invoke()
+                        action?.invoke()
                     }
                 } else {
                     if (event.x >= 0 && event.x <= v.width && event.y >= 0 && event.y <= height) {
-                        action.invoke()
+                        action?.invoke()
                     }
                 }
                 upAnim(v)
