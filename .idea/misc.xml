@@ -11,6 +11,10 @@
         <entry key="..\:/AAprog/Android/AllTimers/module_concentrate/src/main/res/layout/concentrate_fragment_concentrate.xml" value="0.15172101449275363" />
         <entry key="..\:/AAprog/Android/AllTimers/module_concentrate/src/main/res/layout/fragment_concentrate.xml" value="0.15172101449275363" />
         <entry key="..\:/AAprog/Android/AllTimers/module_main/src/main/res/layout/main_activity_main.xml" value="0.15172101449275363" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_shape_list_shadow.xml" value="0.116" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/activity_schedule_edit.xml" value="0.12487335359675786" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_activity_schedule_edit.xml" value="0.25" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_fragment_schedule.xml" value="0.165" />
       </map>
     </option>
   </component>
