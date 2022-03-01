@@ -275,6 +275,8 @@ class RollDiskView @JvmOverloads constructor(
     }
 
     init {
+        Log.e("concentrate", "init:$this")
+
         post {
             diskImage = BitmapLoader.decodeBitmapFromResourceByWidth(resources, R.drawable.concentrate_ic_roll_disk_pic, mWidth * 2)
             invalidate()

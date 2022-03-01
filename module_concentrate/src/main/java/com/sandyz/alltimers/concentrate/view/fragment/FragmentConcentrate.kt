@@ -34,6 +34,7 @@ class FragmentConcentrate : BaseFragment() {
     private var service: TimerService? = null
     private var isBind = false
     private var onSecondsChange: ((Int) -> Unit)? = null
+    private var timerReceiver: TimerReceiver? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.concentrate_fragment_concentrate, container, false)
@@ -49,10 +50,14 @@ class FragmentConcentrate : BaseFragment() {
         val intentFilter = IntentFilter()
         intentFilter.addAction("com.sandyz.alltimers")
         intentFilter.priority = 100
-        val timerReceiver = TimerReceiver(WeakReference(this))
+        timerReceiver = TimerReceiver(WeakReference(this))
         context.registerReceiver(timerReceiver, intentFilter)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        context?.unregisterReceiver(timerReceiver)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,26 +70,18 @@ class FragmentConcentrate : BaseFragment() {
 
 
         concentrate_display.drawer = TimerDrawerImpl()
-        concentrate_roll_disk.onTimeCountDownSetChange = { h, m ->
+        concentrate_roll_disk?.onTimeCountDownSetChange = { h, m ->
             val hours = if (h <= 9) "0$h" else "$h"
             val minutes = if (m <= 9) "0$m" else "$m"
-            concentrate_display.mText = "${hours}时${minutes}分"
+            concentrate_display?.mText = "${hours}时${minutes}分"
             Log.e("sandyzhangtime", "${hours}时 ${minutes}分")
         }
         onSecondsChange = { s ->
-            concentrate_display.mText = RollDiskView.getTimeStr(s)
-            concentrate_roll_disk.setSeconds(s)
+            concentrate_display?.mText = RollDiskView.getTimeStr(s)
+            concentrate_roll_disk?.setSeconds(s)
         }
         concentrate_iv_switch.setOnClickAction {
-            if (concentrate_roll_disk.isCountDown) {
-                concentrate_iv_switch.text = "正计时"
-                concentrate_roll_disk.isCountDown = false
-                onSecondsChange?.invoke(0)
-            } else {
-                concentrate_iv_switch.text = "倒计时"
-                onSecondsChange?.invoke(0)
-                concentrate_roll_disk.isCountDown = true
-            }
+            setCountDown(!concentrate_roll_disk.isCountDown)
         }
         concentrate_roll_disk.onStartEvent = { isStarted ->
             concentrate_iv_switch.isEnabled = !isStarted
@@ -98,30 +95,48 @@ class FragmentConcentrate : BaseFragment() {
             }
         }
         concentrate_iv_start.setOnClickAction {
-            if (concentrate_roll_disk.isStarted) {
-                service?.stop()
-                concentrate_iv_start.text = "开始专注"
-                concentrate_roll_disk.isStarted = false
-                if (!concentrate_roll_disk.isCountDown) {
-                    onSecondsChange?.invoke(0)
-                }
-            } else {
-                if (concentrate_roll_disk.isCountDown) {
-                    if (concentrate_roll_disk.getCountDownTotalSeconds() != 0) {
-                        concentrate_iv_start.text = "停止专注"
-                        concentrate_roll_disk.isStarted = true
-                        concentrate_roll_disk.setSeconds(concentrate_roll_disk.getCountDownTotalSeconds())
-                        service?.startTimer(true, concentrate_roll_disk.getCountDownTotalSeconds())
-                    }
-                } else {
-                    service?.startTimer(false, 0)
-                    concentrate_iv_start.text = "停止专注"
-                    concentrate_roll_disk.isStarted = true
-                }
-            }
+            switch(!concentrate_roll_disk.isStarted)
         }
 
 
+    }
+
+    fun setCountDown(countDown: Boolean) {
+        if (countDown == concentrate_roll_disk.isCountDown) return
+        if (!countDown) {
+            concentrate_iv_switch.text = "正计时"
+            concentrate_roll_disk.isCountDown = false
+            onSecondsChange?.invoke(0)
+        } else {
+            concentrate_iv_switch.text = "倒计时"
+            onSecondsChange?.invoke(0)
+            concentrate_roll_disk.isCountDown = true
+        }
+    }
+
+    fun switch(start: Boolean) {
+        if (start == concentrate_roll_disk?.isStarted) return
+        if (!start) {
+            service?.stop()
+            concentrate_iv_start?.text = "开始专注"
+            concentrate_roll_disk?.isStarted = false
+            if (concentrate_roll_disk?.isCountDown != true) {
+                onSecondsChange?.invoke(0)
+            }
+        } else {
+            if (concentrate_roll_disk?.isCountDown == true) {
+                if (concentrate_roll_disk?.getCountDownTotalSeconds() != 0) {
+                    concentrate_iv_start?.text = "停止专注"
+                    concentrate_roll_disk?.isStarted = true
+                    concentrate_roll_disk?.setSeconds(concentrate_roll_disk.getCountDownTotalSeconds())
+                    concentrate_roll_disk?.getCountDownTotalSeconds()?.let { service?.startTimer(true, it) }
+                }
+            } else {
+                service?.startTimer(false, 0)
+                concentrate_iv_start?.text = "停止专注"
+                concentrate_roll_disk?.isStarted = true
+            }
+        }
     }
 
     fun setBackground(@DrawableRes id: Int) {
@@ -134,9 +149,12 @@ class FragmentConcentrate : BaseFragment() {
             isBind = true
             val myBinder: TimerService.MyBinder = binder as TimerService.MyBinder
             service = myBinder.service
+            Log.e("concentrate", "connected")
+
         }
 
         override fun onServiceDisconnected(name: ComponentName) {
+            Log.e("concentrate", "disconnected")
             isBind = false
         }
     }
@@ -144,8 +162,12 @@ class FragmentConcentrate : BaseFragment() {
     class TimerReceiver(private val fragment: WeakReference<FragmentConcentrate>) : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (intent != null) {
-                val s = intent.getIntExtra("seconds", 0)
-                fragment.get()?.onSecondsChange?.invoke(s)
+                val seconds = intent.getIntExtra("seconds", 0)
+                val isCountDown = intent.getBooleanExtra("isCountDown", false)
+                Log.e("concentrate", "seconds:$seconds")
+                fragment.get()?.setCountDown(isCountDown)
+                fragment.get()?.switch(true)
+                fragment.get()?.onSecondsChange?.invoke(seconds)
             }
         }
     }

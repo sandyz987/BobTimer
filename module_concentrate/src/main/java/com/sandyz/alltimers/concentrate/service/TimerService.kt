@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Binder
 import android.os.Handler
 import android.os.IBinder
+import android.util.Log
 
 class TimerService : Service() {
     private val myBinder: MyBinder = MyBinder()
@@ -17,17 +18,22 @@ class TimerService : Service() {
     private fun sendBroadcastCondition(seconds: Int) {
         val intent = Intent("com.sandyz.alltimers");
         intent.putExtra("seconds", seconds);
+        intent.putExtra("isCountDown", isCountDown);
         sendBroadcast(intent);
     }
 
     private var isCountDown = false
     private var currentSeconds = 0
+    private var isStarted = false
 
     fun startTimer(isCountDown: Boolean, seconds: Int) {
-        this.isCountDown = isCountDown
-        currentSeconds = seconds
-        handler.removeCallbacks(perSecondRunnable)
-        handler.post(perSecondRunnable)
+        if (!isStarted) {
+            this.isCountDown = isCountDown
+            currentSeconds = seconds
+            handler.removeCallbacks(perSecondRunnable)
+            handler.post(perSecondRunnable)
+            isStarted = true
+        }
     }
 
     private val handler = Handler()
@@ -46,6 +52,7 @@ class TimerService : Service() {
     }
 
     fun stop() {
+        isStarted = false
         handler.removeCallbacks(perSecondRunnable)
     }
 
@@ -61,9 +68,13 @@ class TimerService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.e("concentrate", "onDestroy")
     }
 
     override fun onUnbind(intent: Intent): Boolean {
+        Log.e("concentrate", "unbind")
+        stop()
+
         return super.onUnbind(intent)
     }
 }
