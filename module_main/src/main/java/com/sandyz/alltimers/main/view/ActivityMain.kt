@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sandyz.alltimers.common.base.BaseActivity
 import com.sandyz.alltimers.common.config.MAIN_MAIN
+import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.main.R
 import com.sandyz.alltimers.main.view.adapter.MainAdapter
 import kotlinx.android.synthetic.main.main_activity_main.*
@@ -30,23 +31,23 @@ class ActivityMain : BaseActivity() {
 //
 //            dynamic_time.mText = stringBuilder.toString()
 //        }
-        main_iv_back.setOnClickListener {
+        main_iv_back.setOnClickAction {
             navTo(0)
         }
 
-        main_bottom_navi_schedule.setOnClickListener {
+        main_bottom_navi_schedule.setOnClickAction {
             navTo(1)
         }
 
-        main_bottom_navi_concentrate.setOnClickListener {
+        main_bottom_navi_concentrate.setOnClickAction {
             navTo(2)
         }
 
-        main_bottom_navi_calendar.setOnClickListener {
+        main_bottom_navi_calendar.setOnClickAction {
             navTo(3)
         }
 
-        main_bottom_navi_mine.setOnClickListener {
+        main_bottom_navi_mine.setOnClickAction {
             navTo(4)
         }
 

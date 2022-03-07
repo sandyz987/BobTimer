@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MotionEvent
@@ -12,6 +13,7 @@ import android.view.VelocityTracker
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import android.widget.Scroller
+import androidx.core.content.res.ResourcesCompat
 import com.sandyz.alltimers.common.extensions.dp2px
 import com.sandyz.alltimers.common.extensions.drawTextCenter
 import com.sandyz.alltimers.common.extensions.sp
@@ -112,7 +114,7 @@ class RollDiskView @JvmOverloads constructor(
         }
 
     private var lastDegrees = 0f
-    private var diskImage: Bitmap? = null
+    private var diskImage: Drawable? = null
     private var paint = Paint().apply {
         isAntiAlias = true
         strokeWidth = 10f
@@ -124,8 +126,14 @@ class RollDiskView @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
+        if (mWidth != w) {
+            diskImage = ResourcesCompat.getDrawable(resources, R.drawable.concentrate_ic_roll_disk_pic, null)
+            diskImage?.setBounds(0, 0, w * 2, w * 2)
+            Log.e("concentrate", "loadImage:$diskImage, resources:$resources, width:$w, id:${R.drawable.concentrate_ic_roll_disk_pic}")
+        }
         mHeight = h
         mWidth = w
+        invalidate()
     }
 
 
@@ -202,7 +210,10 @@ class RollDiskView @JvmOverloads constructor(
         canvas?.save()
         canvas?.rotate(currentDegree)
         canvas?.translate(-mWidth.toFloat(), -mWidth.toFloat())
-        diskImage?.let { canvas?.drawBitmap(it, 0f, 0f, paint) }
+//        diskImage?.let { canvas?.drawBitmap(it, 0f, 0f, paint) }
+        if (canvas != null) {
+            diskImage?.draw(canvas)
+        }
         canvas?.restore()
 
         // 画刻度
@@ -277,10 +288,6 @@ class RollDiskView @JvmOverloads constructor(
     init {
         Log.e("concentrate", "init:$this")
 
-        post {
-            diskImage = BitmapLoader.decodeBitmapFromResourceByWidth(resources, R.drawable.concentrate_ic_roll_disk_pic, mWidth * 2)
-            invalidate()
-        }
     }
 
     private var anim: ValueAnimator? = null

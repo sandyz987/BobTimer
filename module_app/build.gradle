@@ -27,13 +27,10 @@ android {
             //ARouter
             arguments {
                 arg("AROUTER_MODULE_NAME", project.getName())
+                arg("room.schemaLocation", "$projectDir/schemas")
             }
         }
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
-        }
+
     }
 
     buildTypes {

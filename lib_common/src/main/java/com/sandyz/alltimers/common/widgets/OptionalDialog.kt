@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
 import com.sandyz.alltimers.common.R
+import com.sandyz.alltimers.common.extensions.setOnClickAction
 import kotlinx.android.synthetic.main.common_dialog_choose.view.*
 
 /**
@@ -24,11 +25,11 @@ object OptionalDialog {
         val dialog = builder.create()
         dialog.show()
 
-        view.tv_tip_deny.setOnClickListener {
+        view.tv_tip_deny.setOnClickAction {
             onDeny.invoke()
             dialog.dismiss()
         }
-        view.tv_tip_positive.setOnClickListener {
+        view.tv_tip_positive.setOnClickAction {
             onPositive.invoke()
             dialog.dismiss()
         }

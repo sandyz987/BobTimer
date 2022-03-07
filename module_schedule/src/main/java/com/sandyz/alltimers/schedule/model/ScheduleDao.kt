@@ -30,4 +30,7 @@ interface ScheduleDao {
 
     @Query("SELECT * FROM schedule_list LIMIT :limit")
     fun getAll(limit: Int): List<ScheduleData?>?
+
+    @Update
+    fun update(vararg scheduleData: ScheduleData?)
 }

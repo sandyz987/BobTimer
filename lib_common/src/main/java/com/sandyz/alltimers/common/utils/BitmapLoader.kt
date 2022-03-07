@@ -55,7 +55,7 @@ object BitmapLoader {
         if (decodeWidth <= 0) {
             return null
         }
-        val options = BitmapFactory.Options()
+        var options = BitmapFactory.Options()
         options.inJustDecodeBounds = true //预加载
         BitmapFactory.decodeResource(res, resId, options)
         val imgWidth = options.outWidth //要加载的图片的宽

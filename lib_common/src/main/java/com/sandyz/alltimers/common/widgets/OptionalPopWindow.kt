@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.PopupWindow
 import android.widget.TextView
 import com.sandyz.alltimers.common.R
+import com.sandyz.alltimers.common.extensions.setOnClickAction
 
 /**
  * created by zhangzhe
@@ -56,7 +57,7 @@ class OptionalPopWindow private constructor(val context: Context?) : PopupWindow
             }
             val view = LayoutInflater.from(context).inflate(R.layout.common_popwindow_option_normal, null, false)
             view.findViewById<TextView>(R.id.popwindow_tv_option).text = optionText
-            view.findViewById<TextView>(R.id.popwindow_tv_option).setOnClickListener {
+            view.findViewById<TextView>(R.id.popwindow_tv_option).setOnClickAction {
                 optionalPopWindow!!.dismiss()
                 onClickCallback()
             }

@@ -13,7 +13,9 @@ import androidx.annotation.DrawableRes
 import androidx.core.animation.doOnEnd
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.OrientationHelper
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sandyz.alltimers.common.base.BaseFragment
 import com.sandyz.alltimers.common.config.CONCENTRATE_ENTRY
@@ -42,21 +44,33 @@ class FragmentConcentrate : BaseFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.e("concentrate", "fragment:$this")
+
         // 绑定服务
         val intent = Intent(context, TimerService::class.java)
-        context.bindService(intent, conn, Context.BIND_AUTO_CREATE)
+        context?.bindService(intent, conn, Context.BIND_AUTO_CREATE)
 
         // 注册广播接收者
         val intentFilter = IntentFilter()
         intentFilter.addAction("com.sandyz.alltimers")
         intentFilter.priority = 100
         timerReceiver = TimerReceiver(WeakReference(this))
-        context.registerReceiver(timerReceiver, intentFilter)
+        context?.registerReceiver(timerReceiver, intentFilter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        context?.unregisterReceiver(timerReceiver)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        context?.unregisterReceiver(timerReceiver)
+        service?.stop()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,8 +79,8 @@ class FragmentConcentrate : BaseFragment() {
         val bgAdapter = ConcentrateBackgroundAdapter(this, concentrate_rv_bg)
         concentrate_rv_bg.adapter = bgAdapter
         OverScrollDecoratorHelper.setUpOverScroll(concentrate_rv_bg, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL)
-        val snapHelper = LinearSnapHelper()
-        snapHelper.attachToRecyclerView(concentrate_rv_bg)
+//        val snapHelper = LinearSnapHelper()
+//        snapHelper.attachToRecyclerView(concentrate_rv_bg)
 
 
         concentrate_display.drawer = TimerDrawerImpl()
@@ -164,7 +178,7 @@ class FragmentConcentrate : BaseFragment() {
             if (intent != null) {
                 val seconds = intent.getIntExtra("seconds", 0)
                 val isCountDown = intent.getBooleanExtra("isCountDown", false)
-                Log.e("concentrate", "seconds:$seconds")
+                Log.e("concentrate", "seconds:$seconds, isCountDown:$isCountDown")
                 fragment.get()?.setCountDown(isCountDown)
                 fragment.get()?.switch(true)
                 fragment.get()?.onSecondsChange?.invoke(seconds)

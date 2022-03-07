@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sandyz.alltimers.common.base.BaseFragment
 import com.sandyz.alltimers.common.config.SCHEDULE_ENTRY
+import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.schedule.R
 import com.sandyz.alltimers.schedule.view.activity.ActivityScheduleEdit
 import kotlinx.android.synthetic.main.schedule_fragment_schedule.*
@@ -22,7 +23,7 @@ class FragmentSchedule : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        schedule_view_bottom_shadow.setOnClickListener {
+        schedule_view_bottom_shadow.setOnClickAction {
             startActivity(Intent(context, ActivityScheduleEdit::class.java))
         }
     }

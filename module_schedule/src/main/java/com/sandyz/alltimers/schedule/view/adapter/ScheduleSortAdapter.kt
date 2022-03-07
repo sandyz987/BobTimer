@@ -1,4 +1,4 @@
-package com.sandyz.alltimers.concentrate.view.adapter
+package com.sandyz.alltimers.schedule.view.adapter
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -10,9 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sandyz.alltimers.common.extensions.setOnClickAction
-import com.sandyz.alltimers.concentrate.R
-import com.sandyz.alltimers.concentrate.view.fragment.FragmentConcentrate
-import kotlinx.android.synthetic.main.concentrate_item_background_selection.view.*
+import com.sandyz.alltimers.schedule.R
+import kotlinx.android.synthetic.main.schedule_item_sort.view.*
 
 /**
  *@author zhangzhe
@@ -20,27 +19,17 @@ import kotlinx.android.synthetic.main.concentrate_item_background_selection.view
  *@description
  */
 
-class ConcentrateBackgroundAdapter(private val concentrateFragment: FragmentConcentrate, private val rv: RecyclerView) :
-    RecyclerView.Adapter<ConcentrateBackgroundAdapter.ViewHolder>() {
+class ScheduleSortAdapter(private val rv: RecyclerView, private val list: MutableList<SortData>, private var selectedPos: Int) :
+    RecyclerView.Adapter<ScheduleSortAdapter.ViewHolder>() {
 
-
-    private var selectedPos = 0
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val tvBgName: TextView = v.concentrate_tv_bg_name
-        val ivBgIcon: ImageView = v.concentrate_iv_bg_icon
+        val tvBgName: TextView = v.schedule_tv_sort
+        val ivBgIcon: ImageView = v.schedule_iv_sort
     }
 
-    private val list = mutableListOf(
-        BackgroundData("运动", R.drawable.concentrate_ic_icon_sport, R.drawable.concentrate_ic_bg_sport),
-        BackgroundData("学习", R.drawable.concentrate_ic_icon_learn, R.drawable.concentrate_ic_bg_learn),
-        BackgroundData("兴趣", R.drawable.concentrate_ic_icon_interest, R.drawable.concentrate_ic_bg_interest),
-        BackgroundData("工作", R.drawable.concentrate_ic_icon_work, R.drawable.concentrate_ic_bg_work),
-        BackgroundData("冥想", R.drawable.concentrate_ic_icon_think, R.drawable.concentrate_ic_bg_think)
-    )
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.concentrate_item_background_selection, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.schedule_item_sort, parent, false)
         return ViewHolder(v)
     }
 
@@ -52,14 +41,13 @@ class ConcentrateBackgroundAdapter(private val concentrateFragment: FragmentConc
             unSelectAnim(holder.itemView, 0)
         }
         if (position == list.size) {
-            holder.tvBgName.text = ""
-            holder.ivBgIcon.setImageResource(R.drawable.concentrate_ic_icon_add)
+            holder.tvBgName.text = "添加"
+            holder.ivBgIcon.setImageResource(R.drawable.schedule_ic_sort_add)
         } else {
             holder.tvBgName.text = list[position].name
             holder.ivBgIcon.setImageResource(list[position].iconId)
             holder.itemView.setOnClickAction {
                 if (selectedPos != position) {
-                    concentrateFragment.setBackground(list[position].bgId)
                     selectAnim(holder.itemView, 200)
                     rv.findViewHolderForAdapterPosition(selectedPos)?.itemView?.let {
                         unSelectAnim(it, 200)
@@ -77,7 +65,7 @@ class ConcentrateBackgroundAdapter(private val concentrateFragment: FragmentConc
             v.pivotY = v.height / 2f
             selectAnimator?.cancel()
             selectAnimator = AnimatorSet().apply {
-                play(ObjectAnimator.ofFloat(v, "scaleX", v.scaleX, 1.1f)).with(ObjectAnimator.ofFloat(v, "scaleY", v.scaleY, 1.1f))
+                play(ObjectAnimator.ofFloat(v, "scaleX", v.scaleX, 1.2f)).with(ObjectAnimator.ofFloat(v, "scaleY", v.scaleY, 1.2f))
                 this.duration = duration
                 interpolator = OvershootInterpolator()
                 start()
@@ -100,10 +88,9 @@ class ConcentrateBackgroundAdapter(private val concentrateFragment: FragmentConc
         }
     }
 
-    data class BackgroundData(
+    data class SortData(
         val name: String,
-        val iconId: Int,
-        val bgId: Int
+        val iconId: Int
     )
 
     override fun getItemCount() = list.size + 1

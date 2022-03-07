@@ -2,6 +2,7 @@ package com.sandyz.alltimers.myhome.backgroundscroll
 
 import android.util.Log
 import android.widget.FrameLayout
+import com.sandyz.alltimers.common.extensions.setOnClickAction
 
 fun ScrollBackgroundView.pasteWidget(
     widgetName: String,
@@ -31,7 +32,7 @@ fun ScrollBackgroundView.pasteWidget(
                 childView.layoutParams = FrameLayout.LayoutParams(width.toInt(), height.toInt())
                 childView.shouldScrollWithBackground = it.shouldScrollWithBackground()
                 setChildPosition(childView, left.toInt(), top.toInt(), it.shouldScrollWithBackground())
-                childView.setOnClickListener {
+                childView.setOnClickAction {
                     onClickAction?.invoke()
                 }
                 it.drawableId = drawableId

@@ -5,6 +5,7 @@
     <application>
         <activity
             android:name=".view.activity.ActivityScheduleEdit"
+            android:launchMode="singleTop"
             android:exported="false" />
     </application>
 

@@ -1,4 +1,4 @@
-package com.sandyz.alltimers.main.view.costom
+package com.sandyz.alltimers.common.view.costom
 
 
 import android.content.Context
@@ -7,8 +7,8 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import com.sandyz.alltimers.common.R
 import com.sandyz.alltimers.common.utils.BitmapLoader
-import com.sandyz.alltimers.main.R
 
 class DynamicBackgroundFrameLayout @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

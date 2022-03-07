@@ -8,19 +8,19 @@ import java.io.Serializable
 @Entity(tableName = "schedule_list")
 data class ScheduleData(
     @ColumnInfo(name = "name")
-    val name: String,
-    @ColumnInfo(name = "icon")
-    val icon: String,
+    var name: String,
+    @ColumnInfo(name = "sort")
+    var sort: String,
     @ColumnInfo(name = "target_date")
-    val targetDate: Long,
+    var targetDate: Long,
     @ColumnInfo(name = "topping")
-    val topping: Boolean,
+    var topping: Boolean,
     @ColumnInfo(name = "remarks")
-    val remarks: String,
+    var remarks: String,
     @ColumnInfo(name = "remind_type")
-    val remindType: String,
+    var remindType: String,
     @ColumnInfo(name = "remind_period")
-    val remindPeriod: String
+    var remindPeriod: String
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
