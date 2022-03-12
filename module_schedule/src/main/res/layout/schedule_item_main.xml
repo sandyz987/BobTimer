@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,27 +9,52 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_iv_cover"
         app:layout_constraintEnd_toStartOf="@+id/schedule_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/schedule_iv_cover"
+        app:layout_constraintTop_toTopOf="@+id/schedule_iv_cover"
         app:srcCompat="@drawable/schedule_ic_sort_daily_item" />
 
     <ImageView
-        android:id="@+id/schedule_imageview2"
+        android:id="@+id/schedule_iv_cover"
         android:layout_width="0dp"
-        android:layout_height="78dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
         android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/schedule_ic_item_cover" />
+
+    <com.sandyz.alltimers.schedule.view.castom.SnapDelete
+        android:id="@+id/schedule_snap_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_iv_item_sort"
+        app:layout_constraintEnd_toEndOf="@+id/schedule_iv_cover"
+        app:layout_constraintStart_toStartOf="@+id/schedule_guideline2"
+        app:layout_constraintTop_toTopOf="@+id/schedule_iv_cover" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/schedule_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.207" />
+        app:layout_constraintGuide_percent="0.23" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/schedule_guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.26" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

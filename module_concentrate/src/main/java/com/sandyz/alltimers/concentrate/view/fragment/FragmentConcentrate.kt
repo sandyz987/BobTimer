@@ -12,10 +12,7 @@ import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.core.animation.doOnEnd
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSnapHelper
-import androidx.recyclerview.widget.OrientationHelper
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sandyz.alltimers.common.base.BaseFragment
 import com.sandyz.alltimers.common.config.CONCENTRATE_ENTRY

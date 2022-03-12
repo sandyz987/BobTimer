@@ -1,105 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/concentrate_cl_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/concentrate_ic_bg_sport"
-    android:clipChildren="false"
-    tools:context=".view.fragment.FragmentConcentrate">
+    android:background="#ffffff">
 
-    <TextView
-        android:id="@+id/concentrate_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="38dp"
-        android:layout_marginTop="24dp"
-        android:gravity="center"
-        android:text="专注"
-        android:textColor="#AD7557"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/concentrate_iv_switch"
-        android:layout_width="110dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/concentrate_ic_btn_switch"
-        android:gravity="center"
-        android:text="倒计时"
-        android:textColor="#AD7557"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/concentrate_guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/concentrate_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/concentrate_guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.89" />
-
-    <com.sandyz.alltimers.concentrate.view.costom.RollDiskView
-        android:id="@+id/concentrate_roll_disk"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/concentrate_guideline"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <com.sandyz.alltimers.common.widgets.dynamicdisplayview.DynamicDisplayView
-        android:id="@+id/concentrate_display"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/concentrate_iv_start"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/concentrate_roll_disk"
-        app:layout_constraintVertical_bias="0.84000003"
-        app:text="00时00分"
-        app:textSize="30" />
-
-    <TextView
-        android:id="@+id/concentrate_iv_start"
-        android:layout_width="130dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/concentrate_ic_btn_start"
-        android:gravity="center"
-        android:text="开始专注"
-        android:textColor="#AD7557"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/concentrate_guideline2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/concentrate_rv_bg"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/concentrate_cl_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/concentrate_ic_bg_sport"
         android:clipChildren="false"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/concentrate_textview" />
+        tools:context=".view.fragment.FragmentConcentrate">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/concentrate_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:text="专注"
+            android:textColor="#AD7557"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/concentrate_iv_switch"
+            android:layout_width="110dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/concentrate_ic_btn_switch"
+            android:gravity="center"
+            android:text="倒计时"
+            android:textColor="#AD7557"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/concentrate_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/concentrate_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/concentrate_guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.89" />
+
+        <com.sandyz.alltimers.concentrate.view.costom.RollDiskView
+            android:id="@+id/concentrate_roll_disk"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/concentrate_guideline"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <com.sandyz.alltimers.common.widgets.dynamicdisplayview.DynamicDisplayView
+            android:id="@+id/concentrate_display"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/concentrate_iv_start"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/concentrate_roll_disk"
+            app:layout_constraintVertical_bias="0.84000003"
+            app:text="00时00分"
+            app:textSize="30" />
+
+        <TextView
+            android:id="@+id/concentrate_iv_start"
+            android:layout_width="130dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/concentrate_ic_btn_start"
+            android:gravity="center"
+            android:text="开始专注"
+            android:textColor="#AD7557"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@+id/concentrate_guideline2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/concentrate_rv_bg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:clipChildren="false"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/concentrate_textview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

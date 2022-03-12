@@ -35,6 +35,7 @@ fun View.setOnClickAction(action: (() -> Unit)?) {
                 v.alpha = 1f
             }
         }
+        parent?.requestDisallowInterceptTouchEvent(true)
         true
     }
 }
@@ -79,6 +80,7 @@ fun View.setOnClickActionWithScale(action: (() -> Unit)?) {
                 upAnim(v)
             }
         }
+        parent?.requestDisallowInterceptTouchEvent(true)
         true
     }
 }

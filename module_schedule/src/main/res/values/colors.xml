@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="schedule_color_progress_background">#F9E2C5</color>
+    <color name="schedule_color_progress_stripe">#FFBF61</color>
+    <color name="schedule_color_progress_cover">#FF9B57</color>
+</resources>

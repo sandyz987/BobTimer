@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/schedule_shape_content"
+    android:clickable="true"
+    android:clipChildren="false"
+    android:focusable="true">
+
+    <TextView
+        android:id="@+id/schedule_item_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:text="结婚纪念日"
+        android:textColor="#3E291B"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/schedule_item_tv_target"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/schedule_item_tv_target"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="2022.3.10 周四"
+        android:textColor="#666666"
+        app:layout_constraintBottom_toTopOf="@+id/schedule_carrot_progress_bar"
+        app:layout_constraintStart_toStartOf="@+id/schedule_item_tv_title"
+        app:layout_constraintTop_toBottomOf="@id/schedule_item_tv_title" />
+
+    <com.sandyz.alltimers.schedule.view.castom.CarrotProgressBar
+        android:id="@+id/schedule_carrot_progress_bar"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:layout_marginBottom="4dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/schedule_guideline3"
+        app:layout_constraintStart_toStartOf="@+id/schedule_item_tv_target" />
+
+    <LinearLayout
+        android:id="@+id/schedule_linearlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/schedule_guideline3"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/schedule_item_tv_last_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6"
+            android:textColor="#FF8854"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DAYS"
+            android:textColor="#FF8854" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/schedule_guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.79" />
+</androidx.constraintlayout.widget.ConstraintLayout>
