@@ -18,7 +18,6 @@ import com.sandyz.alltimers.common.extensions.dp2px
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.schedule.R
 import java.lang.ref.WeakReference
-import java.time.Duration
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -154,9 +153,15 @@ class SnapDelete @JvmOverloads constructor(
         val optionView1Width = MeasureSpec.getSize(optionView1.measuredWidth) - context.dp2px(12)
         val optionView2Width = MeasureSpec.getSize(optionView2.measuredWidth) - context.dp2px(12)
         val optionView3Width = MeasureSpec.getSize(optionView3.measuredWidth) - context.dp2px(12)
-        val left1 = -(mOffset / mMaxTranslationX) * (mMaxTranslationX - optionView1Width) + mWidthSize - optionView1Width  - context.dp2px(12)
-        val left2 = -(mOffset / mMaxTranslationX) * (mMaxTranslationX - optionView1Width - optionView2Width) + mWidthSize - optionView2Width - context.dp2px(12)
-        val left3 = -(mOffset / mMaxTranslationX) * (mMaxTranslationX - optionView1Width - optionView2Width- optionView3Width) + mWidthSize - optionView3Width - context.dp2px(12)
+        val left1 = -(mOffset / mMaxTranslationX) * (mMaxTranslationX - optionView1Width) + mWidthSize - optionView1Width - context.dp2px(12)
+        val left2 =
+            -(mOffset / mMaxTranslationX) * (mMaxTranslationX - optionView1Width - optionView2Width) + mWidthSize - optionView2Width - context.dp2px(
+                12
+            )
+        val left3 =
+            -(mOffset / mMaxTranslationX) * (mMaxTranslationX - optionView1Width - optionView2Width - optionView3Width) + mWidthSize - optionView3Width - context.dp2px(
+                12
+            )
         shadowView.alpha = (mOffset / mMaxTranslationX) * 0.9f
         optionView1.layoutParams.apply {
             if (this is LayoutParams) {

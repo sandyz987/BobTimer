@@ -2,10 +2,11 @@ package com.sandyz.alltimers.main.view
 
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.sandyz.alltimers.common.base.BaseActivity
 import com.sandyz.alltimers.common.config.MAIN_MAIN
+import com.sandyz.alltimers.common.config.SHOP_RECHARGE
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.main.R
 import com.sandyz.alltimers.main.view.adapter.MainAdapter
@@ -51,6 +52,9 @@ class ActivityMain : BaseActivity() {
             navTo(4)
         }
 
+        main_bottom_navi_add.setOnClickAction {
+            ARouter.getInstance().build(SHOP_RECHARGE).navigation()
+        }
 
 
     }

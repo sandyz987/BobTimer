@@ -223,6 +223,20 @@ object TimeUtil {
         return sdf.format(inputTime.time) + s
     }
 
+    fun monthStrWithWeek(timeStamp: Long): String {
+        val inputTime = Calendar.getInstance()
+        var s = ""
+        inputTime.timeInMillis = timeStamp
+        val calendar = Calendar.getInstance()
+        val sdf = SimpleDateFormat("yyyy" + "." + "M" + "." + "d" + " ")
+        if (sdf.format(inputTime.time) == sdf.format(calendar.time)) {
+            s = " (今天)"
+        }
+        val weekDay = getWeekDayStr(inputTime[Calendar.DAY_OF_WEEK])
+        return sdf.format(inputTime.time) + weekDay + s
+    }
+
+
     fun dayStr(timeStamp: Long): String {
         val inputTime = Calendar.getInstance()
         var s = ""

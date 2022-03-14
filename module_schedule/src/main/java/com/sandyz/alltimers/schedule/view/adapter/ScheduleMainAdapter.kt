@@ -8,6 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.sandyz.alltimers.common.BaseApp
+import com.sandyz.alltimers.common.utils.TimeUtil
 import com.sandyz.alltimers.schedule.R
 import com.sandyz.alltimers.schedule.bean.ScheduleData
 import com.sandyz.alltimers.schedule.view.castom.CarrotProgressBar
@@ -54,7 +55,7 @@ class ScheduleMainAdapter(private val list: MutableList<ScheduleData>) :
             notifyItemRangeChanged(position, list.size - position)
         }
         holder.tvScheduleTitle.text = list[position].name
-        holder.tvScheduleTarget.text = list[position].targetDate.toString()
+        holder.tvScheduleTarget.text = TimeUtil.monthStrWithWeek(list[position].targetDate)
         holder.progress.progress = 0.7f
         holder.tvLastTime.text = "8"
 

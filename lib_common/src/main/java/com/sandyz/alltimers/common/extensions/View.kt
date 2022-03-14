@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.view.MotionEvent
 import android.view.View
 import com.sandyz.alltimers.common.R
+import kotlin.math.abs
 
 /**
  *@author zhangzhe
@@ -13,33 +14,43 @@ import com.sandyz.alltimers.common.R
  */
 
 fun View.setOnClickAction(action: (() -> Unit)?) {
-    setOnTouchListener { v, event ->
-        when (event.action) {
-            MotionEvent.ACTION_DOWN -> {
-                v.alpha = 0.6f
-            }
-            MotionEvent.ACTION_MOVE -> {
-                if (event.x >= 0 && event.x <= v.width && event.y >= 0 && event.y <= height) {
+    setOnTouchListener(object : View.OnTouchListener {
+        private var x: Float = 0f
+        private var y: Float = 0f
+        override fun onTouch(view: View?, event: MotionEvent?): Boolean {
+            val v = view ?: return true
+            when (event?.action) {
+                MotionEvent.ACTION_DOWN -> {
                     v.alpha = 0.6f
-                } else {
+                    x = event.x
+                    y = event.y
+                    parent?.requestDisallowInterceptTouchEvent(true)
+                }
+                MotionEvent.ACTION_MOVE -> {
+                    if ((event.x >= 0 && event.x <= v.width && event.y >= 0 && event.y <= height) && (abs(event.x - x) <= 20f && abs(event.y - y) <= 20f)) {
+                        parent?.requestDisallowInterceptTouchEvent(true)
+                        v.alpha = 0.6f
+                    } else {
+                        parent?.requestDisallowInterceptTouchEvent(false)
+                        v.alpha = 1f
+                    }
+                }
+                MotionEvent.ACTION_UP -> {
+                    if (event.x >= 0 && event.x <= v.width && event.y >= 0 && event.y <= height) {
+                        action?.invoke()
+                    }
+                    v.alpha = 1f
+                }
+                MotionEvent.ACTION_CANCEL -> {
                     v.alpha = 1f
                 }
             }
-            MotionEvent.ACTION_UP -> {
-                if (event.x >= 0 && event.x <= v.width && event.y >= 0 && event.y <= height) {
-                    action?.invoke()
-                }
-                v.alpha = 1f
-            }
-            MotionEvent.ACTION_CANCEL -> {
-                v.alpha = 1f
-            }
+            return true
         }
-        parent?.requestDisallowInterceptTouchEvent(true)
-        true
-    }
+    })
 }
 
+@Deprecated("remind has some bug")
 fun View.setOnClickActionWithScale(action: (() -> Unit)?) {
     setOnTouchListener { v, event ->
         when (event.action) {
@@ -80,7 +91,6 @@ fun View.setOnClickActionWithScale(action: (() -> Unit)?) {
                 upAnim(v)
             }
         }
-        parent?.requestDisallowInterceptTouchEvent(true)
         true
     }
 }

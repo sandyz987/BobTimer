@@ -31,7 +31,7 @@ dependencies {
     api deps.room.rxjava
     api deps.glide.runtime
     api deps.overscroll.runtime
-
+    api deps.viewpager3d.runtime
 
 
 }

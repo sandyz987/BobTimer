@@ -113,4 +113,8 @@ def overscroll = [:]
 overscroll.runtime = "me.everything:overscroll-decor-android:1.0.4"
 deps.overscroll = overscroll
 
+def viewpager3d = [:]
+viewpager3d.runtime = "com.bambootang:viewpager3d:1.4"
+deps.viewpager3d = viewpager3d
+
 ext.deps = deps

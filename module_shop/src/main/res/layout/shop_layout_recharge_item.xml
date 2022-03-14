@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shop_recharge_item_bg">
+
+    <TextView
+        android:id="@+id/shop_tv_with_discount"
+        android:layout_width="85dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/shop_recharge_item_with_discount_bg"
+        android:gravity="center"
+        android:text="限时折扣"
+        android:textColor="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/shop_tv_price"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/shop_recharge_item_price_bg"
+        android:gravity="center"
+        android:padding="6dp"
+        android:text="￥5"
+        android:textColor="#AD7557"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/shop_tv_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58000004">
+
+        <TextView
+            android:id="@+id/shop_tv_carrot_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500"
+            android:textColor="#995B3A"
+            android:textSize="34sp" />
+
+        <ImageView
+            android:id="@+id/shop_imageview"
+            android:layout_width="47dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            app:srcCompat="@drawable/shop_ic_carrot" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

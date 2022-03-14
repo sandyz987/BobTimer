@@ -20,7 +20,9 @@ data class ScheduleData(
     @ColumnInfo(name = "remind_type")
     var remindType: String,
     @ColumnInfo(name = "remind_period")
-    var remindPeriod: String
+    var remindPeriod: String,
+    @ColumnInfo(name = "show_progress")
+    var showProgress: Boolean
 ) : Serializable {
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

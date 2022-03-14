@@ -1,0 +1,30 @@
+package com.alltimers.shop.view.activity
+
+import android.os.Bundle
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alltimers.shop.R
+import com.alltimers.shop.bean.RechargeValue
+import com.alltimers.shop.view.adapter.HorizontalStackTransformerWithRotation
+import com.alltimers.shop.view.adapter.RechargePagerAdapter
+import com.sandyz.alltimers.common.base.BaseActivity
+import com.sandyz.alltimers.common.config.SHOP_RECHARGE
+import kotlinx.android.synthetic.main.shop_activity_recharge.*
+
+@Route(path = SHOP_RECHARGE)
+class ActivityRecharge : BaseActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.shop_activity_recharge)
+        shop_vp.adapter = RechargePagerAdapter(
+            mutableListOf(
+                RechargeValue(100, 1f, false),
+                RechargeValue(500, 5f, false),
+                RechargeValue(1000, 9f, false),
+                RechargeValue(2000, 17f, false),
+                RechargeValue(3000, 24f, false)
+            )
+        )
+        shop_vp.setPageTransformer(false, HorizontalStackTransformerWithRotation())
+        shop_vp.offscreenPageLimit = 5
+    }
+}

@@ -11,11 +11,17 @@
         <entry key="..\:/AAprog/Android/AllTimers/module_concentrate/src/main/res/drawable/concentrate_.xml" value="0.124" />
         <entry key="..\:/AAprog/Android/AllTimers/module_concentrate/src/main/res/layout/concentrate_fragment_concentrate.xml" value="0.15172101449275363" />
         <entry key="..\:/AAprog/Android/AllTimers/module_concentrate/src/main/res/layout/fragment_concentrate.xml" value="0.15172101449275363" />
-        <entry key="..\:/AAprog/Android/AllTimers/module_main/src/main/res/layout/main_activity_main.xml" value="0.15172101449275363" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_main/src/main/res/layout/main_activity_main.xml" value="0.25" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_ic_item_cover.xml" value="0.116" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_shape_list_shadow.xml" value="0.116" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_shape_shadow.xml" value="0.1165" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_shape_top.xml" value="0.1165" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_switch_bg.xml" value="0.1165" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_switch_bg_no_selected.xml" value="0.114" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_switch_bg_selected.xml" value="0.1" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_switch_circle.xml" value="0.114" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_switch_circle_no_selected.xml" value="0.114" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_switch_circle_selected.xml" value="0.1" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/shape_content.xml" value="0.116" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/activity_schedule_edit.xml" value="0.12487335359675786" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/layout_content.xml" value="0.12487335359675786" />
@@ -24,7 +30,7 @@
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/layout_edit.xml" value="0.12487335359675786" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/layout_shadow.xml" value="0.12487335359675786" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/layout_top.xml" value="0.12487335359675786" />
-        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_activity_schedule_edit.xml" value="0.25" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_activity_schedule_edit.xml" value="0.375" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_fragment_schedule.xml" value="0.25" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_item_main.xml" value="0.38603425559947296" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_layout_content.xml" value="0.25" />
@@ -33,6 +39,12 @@
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_layout_edit.xml" value="0.12487335359675786" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_layout_shadow.xml" value="0.12487335359675786" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_layout_top.xml" value="0.12487335359675786" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_shop/src/main/res/drawable/shop_recharge_item_bg.xml" value="0.1575" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_shop/src/main/res/drawable/shop_recharge_item_price_bg.xml" value="0.1575" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_shop/src/main/res/drawable/shop_recharge_item_with_discount_bg.xml" value="0.1575" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_shop/src/main/res/layout/activity_recharge.xml" value="0.13269927536231885" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_shop/src/main/res/layout/shop_activity_recharge.xml" value="0.165" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_shop/src/main/res/layout/shop_layout_recharge_item.xml" value="0.165" />
       </map>
     </option>
   </component>
@@ -41,5 +53,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.165" />
+      </ProjectState>
+    </option>
   </component>
 </project>
