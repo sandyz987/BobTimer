@@ -20,6 +20,7 @@ class ActivityMain : BaseActivity() {
         vp_main.adapter = MainAdapter(this)
         vp_main.setCurrentItem(0, false)
         vp_main.isUserInputEnabled = false
+        vp_main.offscreenPageLimit = 5
 
 
 //        dynamic_time.setOnClickListener {

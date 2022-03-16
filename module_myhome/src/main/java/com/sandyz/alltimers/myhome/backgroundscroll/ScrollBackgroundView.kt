@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sandyz.alltimers.common.extensions.getScreenWidth
+import kotlinx.android.synthetic.main.myhome_fragment_home.*
 import kotlin.math.abs
 
 class ScrollBackgroundView @JvmOverloads constructor(
@@ -28,7 +29,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
     private var mSizeFix = 1f
 
     // 背景的超大图片框
-    private var mBackgroundImage: ImageView = ImageView(context).also { addView(it) }
+    var mBackgroundImage: ImageView = ImageView(context).also { addView(it) }
 
     // 背景的图片
     private var bgResourceId: Int = 0
@@ -67,6 +68,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
 
     init {
         setWillNotDraw(false)
+        clipChildren = false
         clipChildren = false
     }
 
@@ -114,6 +116,12 @@ class ScrollBackgroundView @JvmOverloads constructor(
             Log.e("sandyzhang", "iv: ${mBackgroundImage.width}, ${mBackgroundImage.height}")
             Glide.with(context).load(id).into(mBackgroundImage)
         }
+    }
+
+    fun setSize(width: Int, height: Int) {
+        mBgWidth = width
+        mBgHeight = height
+        refresh()
     }
 
     /**
@@ -358,8 +366,10 @@ class ScrollBackgroundView @JvmOverloads constructor(
         }
     }
 
-
-    fun fromSerializationData() {
+    /**
+     * 返回值为true说明无缓存，使用默认配置
+     */
+    fun fromSerializationData(): Boolean {
         val sp = context.getSharedPreferences("widget", Context.MODE_PRIVATE)
         val widgetListString = sp.getString("widget", "[]")
         Log.e("ScrollBackgroundView", "fromWidget: $widgetListString")
@@ -367,10 +377,13 @@ class ScrollBackgroundView @JvmOverloads constructor(
             Gson().fromJson<List<WidgetInf>>(widgetListString, object : TypeToken<List<WidgetInf>>() {}.type)
         } catch (e: Exception) {
             mutableListOf()
+
         }
+        if (list.isEmpty()) return true
         list.forEach {
             addWidget(it.name, it.type, it.posX, it.posY)
         }
+        return false
     }
 
     fun saveSerializationData() {
@@ -381,7 +394,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
                 val positionPair = getChildPosition(it.scrollChild!!.getWidgetType()) ?: return@forEach
                 val posX = positionPair.first
                 val posY = positionPair.second
-                if (!it.getWidgetType().isNullOrEmpty())
+                if (!it.getWidgetType().isNullOrEmpty() || it.getWidgetType() == "fixed")
                     list.add(
                         WidgetInf(
                             it.getWidgetName(),
@@ -444,5 +457,25 @@ class ScrollBackgroundView @JvmOverloads constructor(
                 }
             }
         }
+    }
+
+    fun getVisibleLeft() = ((mBackgroundImage.layoutParams as? LayoutParams?)?.leftMargin ?: 0)
+
+    fun setWallPaper(@DrawableRes id: Int) {
+        pasteWidget("wallpaper", 0, 0, MAX_WIDTH, HORIZON + 20, id, null)
+    }
+
+    fun setFloor(@DrawableRes id: Int) {
+        pasteWidget("floor", 0, HORIZON, MAX_WIDTH, MAX_HEIGHT, id, null)
+    }
+
+    fun getRealHorizon() = (HORIZON / MAX_HEIGHT.toFloat()) * mBackgroundImage.height
+    fun getRealWidth() = mBackgroundImage.width
+    fun getRealHeight() = mBackgroundImage.height
+
+    companion object {
+        const val MAX_HEIGHT = 1600
+        const val MAX_WIDTH = 3000
+        const val HORIZON = 900
     }
 }

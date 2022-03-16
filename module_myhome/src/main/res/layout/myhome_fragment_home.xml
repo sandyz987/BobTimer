@@ -7,7 +7,7 @@
     tools:context=".FragmentHome">
 
     <com.sandyz.alltimers.myhome.backgroundscroll.ScrollBackgroundView
-        android:id="@+id/dynamic_time"
+        android:id="@+id/myhome_dynamic_bg"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:nestedScrollingEnabled="true"

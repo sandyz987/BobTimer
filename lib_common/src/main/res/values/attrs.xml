@@ -11,4 +11,15 @@
     <declare-styleable name="DynamicBackgroundFrameLayout" tools:ignore="ResourceName">
         <attr name="background_src" format="reference" />
     </declare-styleable>
+    <declare-styleable name="Selector" tools:ignore="ResourceName">
+        <attr name="hint" format="string" />
+        <attr name="hintSize" format="integer" />
+        <attr name="icSize" format="integer" />
+        <attr name="iconDrawable" format="reference" />
+        <attr name="selectDrawable" format="reference" />
+        <attr name="unselectDrawable" format="reference" />
+        <attr name="isSingleSelect" format="boolean" />
+        <attr name="isSelect" format="boolean" />
+        <attr name="hintColor" format="color" />
+    </declare-styleable>
 </resources>

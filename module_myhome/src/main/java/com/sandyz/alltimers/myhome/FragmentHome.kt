@@ -1,7 +1,6 @@
 package com.sandyz.alltimers.myhome
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,23 +18,23 @@ class FragmentHome : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        LoadBitmapUtils.decodeBitmapFromResourceByHeight(resources, R.drawable.myhome_ic_background_test, requireContext().getScreenHeight())?.let {
-//            dynamic_time.setBitmap(
-//                it
-//            )
-//        }
-        dynamic_time.setBgResourceId(R.drawable.myhome_ic_background)
-        dynamic_time.addWidget("0","recorder")
-        dynamic_time.addWidget("1","rabbit")
-        dynamic_time.pasteWidget("2", 50, 50, 300, 300, R.drawable.myhome_ic_gif, null)
-        dynamic_time.scrollToPercent(0.5f)
-//        dynamic_time.fromSerializationData()
-        dynamic_time.onBind()
+        myhome_dynamic_bg.setSize(3000, 1600)
+        myhome_dynamic_bg.scrollToPercent(0.3f, false)
+        myhome_dynamic_bg.setWallPaper(R.drawable.myhome_ic_wallpaper1)
+        myhome_dynamic_bg.setFloor(R.drawable.myhome_ic_floor1)
+
+        if (myhome_dynamic_bg.fromSerializationData()) {
+            myhome_dynamic_bg.addWidget("widget1", "widget1", myhome_dynamic_bg.getVisibleLeft(), 700)
+            myhome_dynamic_bg.addWidget("widget2", "widget2", myhome_dynamic_bg.getVisibleLeft(), 700)
+            myhome_dynamic_bg.addWidget("widget3", "widget3", myhome_dynamic_bg.getVisibleLeft(), 700)
+            myhome_dynamic_bg.addWidget("widget4", "widget4", myhome_dynamic_bg.getVisibleLeft(), 700)
+        }
+        myhome_dynamic_bg.onBind()
     }
 
     override fun onPause() {
         super.onPause()
-        dynamic_time.saveSerializationData()
+        myhome_dynamic_bg.saveSerializationData()
     }
 
 }

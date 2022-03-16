@@ -1,10 +1,13 @@
 package com.sandyz.alltimers.myhome.backgroundscroll
 
 import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
 import android.view.MotionEvent
+import android.view.animation.BounceInterpolator
 import android.widget.FrameLayout
+import com.sandyz.alltimers.common.extensions.fixToRange
 import kotlin.math.abs
 
 /**
@@ -22,9 +25,13 @@ class ScrollFrameLayout @JvmOverloads constructor(
             field = value
             if (value) {
                 startAnim()
+                alpha = 0.6f
                 bringToFront()
             } else {
+                removeCallbacks(scrollCallback)
                 cancelAnim()
+                alpha = 1.0f
+                gravityAnim()
             }
         }
 
@@ -43,7 +50,7 @@ class ScrollFrameLayout @JvmOverloads constructor(
 
     // 长按抖动的动画效果
     private val animator: ObjectAnimator =
-        ObjectAnimator.ofFloat(this, "rotation", 5f, 0f, -5f, 0f).setDuration(250L)
+        ObjectAnimator.ofFloat(this, "rotation", 3.5f, 0f, -3.5f, 0f).setDuration(250L)
 
     // 用于拖动时计算delta距离
     private var originLeft = 0
@@ -135,7 +142,6 @@ class ScrollFrameLayout @JvmOverloads constructor(
     private fun cancelAnim() {
         if (animator.isStarted) {
             animator.end()
-
         }
     }
 
@@ -149,5 +155,55 @@ class ScrollFrameLayout @JvmOverloads constructor(
 
     fun onBind() {
         scrollChild?.onBind(this)
+    }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        if (scrollChild?.getWidgetType() == "fixed") return
+        val parentScrollBgView = parent as? ScrollBackgroundView ?: return
+        pivotX = (right - left) / 2f
+        pivotY = (bottom - top) / 2f
+        val focus = bottom - 0.1f * (bottom - top)
+        if (focus > parentScrollBgView.getRealHorizon()) {
+            val percent =
+                ((focus - parentScrollBgView.getRealHorizon()) / (parentScrollBgView.getRealHeight() - parentScrollBgView.getRealHorizon()))
+                    .fixToRange(0f, 1f)
+            // 改变层次
+            elevation = 1f + 20f * percent
+            // 修改透视大小
+            scaleX = 1f + percent * 0.4f
+            scaleY = 1f + percent * 0.4f
+        } else {
+            elevation = 1f
+            scaleX = 1f
+            scaleY = 1f
+        }
+    }
+
+    private var gravityAnimator: ValueAnimator? = null
+    fun gravityAnim() {
+        if (scrollChild?.withGravity() == false) return
+        gravityAnimator?.cancel()
+        val parentScrollBgView = parent as? ScrollBackgroundView ?: return
+        val focus = bottom - 0.1f * (bottom - top)
+        if (focus < parentScrollBgView.getRealHorizon()) {
+            val start = top.toFloat()
+            val target = parentScrollBgView.getRealHorizon() - 0.9f * (bottom - top)
+            val percent = (target - start) / parentScrollBgView.getRealHorizon()
+            gravityAnimator = ValueAnimator.ofFloat(start, target).apply {
+                addUpdateListener {
+                    removeCallbacks(scrollCallback)
+                    if (parent !is ScrollBackgroundView) {
+                        return@addUpdateListener
+                    }
+                    val layoutParams = layoutParams as LayoutParams
+                    layoutParams.topMargin = (animatedValue as Float).toInt()
+                    parent.requestLayout()
+                }
+                interpolator = BounceInterpolator()
+                duration = (200L + 1000L * percent).toLong()
+                start()
+            }
+        }
     }
 }

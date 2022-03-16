@@ -32,7 +32,7 @@ fun ScrollBackgroundView.pasteWidget(
                 childView.layoutParams = FrameLayout.LayoutParams(width.toInt(), height.toInt())
                 childView.shouldScrollWithBackground = it.shouldScrollWithBackground()
                 setChildPosition(childView, left.toInt(), top.toInt(), it.shouldScrollWithBackground())
-                childView.setOnClickAction {
+                childView.setOnClickListener {
                     onClickAction?.invoke()
                 }
                 it.drawableId = drawableId

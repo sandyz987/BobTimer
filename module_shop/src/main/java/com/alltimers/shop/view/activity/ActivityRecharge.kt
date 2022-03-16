@@ -8,6 +8,9 @@ import com.alltimers.shop.view.adapter.HorizontalStackTransformerWithRotation
 import com.alltimers.shop.view.adapter.RechargePagerAdapter
 import com.sandyz.alltimers.common.base.BaseActivity
 import com.sandyz.alltimers.common.config.SHOP_RECHARGE
+import com.sandyz.alltimers.common.extensions.setOnClickAction
+import com.sandyz.alltimers.common.extensions.toast
+import com.sandyz.alltimers.common.widgets.OptionalDialog
 import kotlinx.android.synthetic.main.shop_activity_recharge.*
 
 @Route(path = SHOP_RECHARGE)
@@ -26,5 +29,13 @@ class ActivityRecharge : BaseActivity() {
         )
         shop_vp.setPageTransformer(false, HorizontalStackTransformerWithRotation())
         shop_vp.offscreenPageLimit = 5
+        shop_tv_buy.setOnClickAction {
+            toast("感谢支持，敬请期待~")
+        }
+        shop_iv_back.setOnClickAction {
+            OptionalDialog.show(this, "确定要返回吗？", {}) {
+                finish()
+            }
+        }
     }
 }

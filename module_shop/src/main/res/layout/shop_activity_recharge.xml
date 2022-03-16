@@ -9,11 +9,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:clipChildren="false">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:clipChildren="false">
 
             <ImageView
                 android:id="@+id/shop_imageview2"
@@ -46,8 +48,105 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/shop_imageview2" />
 
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/shop_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.15" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/shop_guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.85" />
+
+            <LinearLayout
+                android:id="@+id/shop_linearlayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/shop_recharge_selector_bg"
+                android:orientation="vertical"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                app:layout_constraintEnd_toStartOf="@+id/shop_guideline2"
+                app:layout_constraintStart_toStartOf="@+id/shop_guideline"
+                app:layout_constraintTop_toBottomOf="@+id/shop_vp">
+
+                <com.sandyz.alltimers.common.view.costom.Selector
+                    android:id="@+id/shop_selector_vx"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    app:hint="微信支付"
+                    app:hintColor="#8A4F30"
+                    app:hintSize="16"
+                    app:icSize="24"
+                    app:iconDrawable="@drawable/shop_ic_vx"
+                    app:isSelect="true"
+                    app:isSingleSelect="true"
+                    app:selectDrawable="@drawable/common_selector_clicked"
+                    app:unselectDrawable="@drawable/common_selector_no_clicked" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F9E4C5"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    />
+
+                <com.sandyz.alltimers.common.view.costom.Selector
+                    android:id="@+id/shop_selector_zfb"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    app:hint="支付宝支付"
+                    app:hintColor="#8A4F30"
+                    app:hintSize="16"
+                    app:icSize="24"
+                    app:isSelect="false"
+                    app:iconDrawable="@drawable/shop_ic_zfb"
+                    app:isSingleSelect="true"
+                    app:selectDrawable="@drawable/common_selector_clicked"
+                    app:unselectDrawable="@drawable/common_selector_no_clicked" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/shop_tv_buy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="90dp"
+                android:background="@drawable/common_btn_bg_1"
+                android:text="支付"
+                android:textColor="#ffffff"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/shop_imageview4" />
+
+            <ImageView
+                android:id="@+id/shop_imageview4"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/shop_linearlayout"
+                app:srcCompat="@drawable/shop_ic_rabbit_on_btn" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/shop_iv_back"
+        android:layout_width="50dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/common_btn_back_arrow" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
