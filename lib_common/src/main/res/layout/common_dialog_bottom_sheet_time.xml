@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/common_dialog_bg_1">
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/common_tl_year_type"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/common_tv_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/common_tv_cancel"
+        app:tabIndicatorColor="#FFAB5E"
+        app:tabTextColor="#995B3A">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/common_tabitem"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:text="公历" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/common_tabitem2"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:text="农历" />
+    </com.google.android.material.tabs.TabLayout>
+
+
+    <TextView
+        android:id="@+id/common_tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:text="取消"
+        android:textColor="#995B3A"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/common_iv_done"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="16dp"
+        android:padding="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/common_tv_cancel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/common_tv_cancel"
+        app:srcCompat="@drawable/common_ic_dialog_done" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/common_dialog_bg_time"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/common_iv_done"
+        app:layout_constraintStart_toStartOf="@+id/common_tv_cancel"
+        app:layout_constraintTop_toBottomOf="@+id/common_tv_cancel">
+
+        <LinearLayout
+            android:id="@+id/timepicker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:minHeight="150dp"
+            android:orientation="horizontal">
+
+            <com.contrarywind.view.WheelView
+                android:id="@+id/year"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.96" />
+
+            <com.contrarywind.view.WheelView
+                android:id="@+id/month"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.contrarywind.view.WheelView
+                android:id="@+id/day"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.contrarywind.view.WheelView
+                android:id="@+id/hour"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.contrarywind.view.WheelView
+                android:id="@+id/min"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.contrarywind.view.WheelView
+                android:id="@+id/second"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

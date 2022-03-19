@@ -50,7 +50,7 @@ class ScrollFrameLayout @JvmOverloads constructor(
 
     // 长按抖动的动画效果
     private val animator: ObjectAnimator =
-        ObjectAnimator.ofFloat(this, "rotation", 3.5f, 0f, -3.5f, 0f).setDuration(250L)
+        ObjectAnimator.ofFloat(this, "rotation", 0f, 3.5f, 0f, -3.5f, 0f).setDuration(250L)
 
     // 用于拖动时计算delta距离
     private var originLeft = 0

@@ -10,3 +10,4 @@ const val CALENDAR_ENTRY = "/calendar/entry"
 const val MINE_ENTRY = "/mine/entry"
 
 const val SHOP_RECHARGE = "/shop/recharge"
+const val SCHEDULE_EDIT = "/schedule/edit"

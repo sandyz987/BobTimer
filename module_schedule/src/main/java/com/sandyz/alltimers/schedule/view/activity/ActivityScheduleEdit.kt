@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.sandyz.alltimers.common.base.BaseActivity
+import com.sandyz.alltimers.common.config.SCHEDULE_EDIT
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.schedule.R
@@ -14,6 +16,7 @@ import com.sandyz.alltimers.schedule.view.adapter.ScheduleSortAdapter
 import kotlinx.android.synthetic.main.schedule_activity_schedule_edit.*
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 
+@Route(path = SCHEDULE_EDIT)
 class ActivityScheduleEdit : BaseActivity() {
 
     private lateinit var adapter: ScheduleSortAdapter

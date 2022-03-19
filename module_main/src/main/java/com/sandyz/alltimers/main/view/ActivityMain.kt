@@ -6,8 +6,11 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sandyz.alltimers.common.base.BaseActivity
 import com.sandyz.alltimers.common.config.MAIN_MAIN
-import com.sandyz.alltimers.common.config.SHOP_RECHARGE
+import com.sandyz.alltimers.common.config.SCHEDULE_EDIT
 import com.sandyz.alltimers.common.extensions.setOnClickAction
+import com.sandyz.alltimers.common.view.dialog.BottomInputDialog
+import com.sandyz.alltimers.common.view.dialog.SelectDateDialog
+import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.main.R
 import com.sandyz.alltimers.main.view.adapter.MainAdapter
 import kotlinx.android.synthetic.main.main_activity_main.*
@@ -54,8 +57,11 @@ class ActivityMain : BaseActivity() {
         }
 
         main_bottom_navi_add.setOnClickAction {
-            ARouter.getInstance().build(SHOP_RECHARGE).navigation()
+            ARouter.getInstance().build(SCHEDULE_EDIT).navigation()
+//            BottomInputDialog(this, "hh", "", "asdf", {}).show()
+//            SelectDateDialog(this, "day") { a, b, c -> }.show()
         }
+
 
 
     }
