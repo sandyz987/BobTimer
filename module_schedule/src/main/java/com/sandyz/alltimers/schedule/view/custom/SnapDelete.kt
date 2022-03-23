@@ -1,4 +1,4 @@
-package com.sandyz.alltimers.schedule.view.castom
+package com.sandyz.alltimers.schedule.view.custom
 
 import android.animation.Animator
 import android.animation.ValueAnimator
@@ -71,6 +71,14 @@ class SnapDelete @JvmOverloads constructor(
     private var mWidthSize = 0
     private var mMaxTranslationX = 0
     private var mAnimator: Animator? = null
+
+    var action0: (() -> Unit)? = null
+        set(value) {
+            field = value
+            content.setOnClickListener {
+                field?.invoke()
+            }
+        }
 
     var action1: (() -> Unit)? = null
         set(value) {

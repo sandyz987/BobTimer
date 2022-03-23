@@ -7,7 +7,7 @@
     android:background="@drawable/schedule_shape_top">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/schedule_item_tv_topping"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"

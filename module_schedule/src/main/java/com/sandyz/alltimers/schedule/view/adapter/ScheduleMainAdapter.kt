@@ -1,20 +1,23 @@
 package com.sandyz.alltimers.schedule.view.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.sandyz.alltimers.common.BaseApp
 import com.sandyz.alltimers.common.utils.TimeUtil
+import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.schedule.R
 import com.sandyz.alltimers.schedule.bean.ScheduleData
-import com.sandyz.alltimers.schedule.view.castom.CarrotProgressBar
-import com.sandyz.alltimers.schedule.view.castom.SnapDelete
+import com.sandyz.alltimers.schedule.model.ScheduleSortData
+import com.sandyz.alltimers.schedule.view.custom.CarrotProgressBar
+import com.sandyz.alltimers.schedule.view.custom.SnapDelete
 import kotlinx.android.synthetic.main.schedule_item_main.view.*
 import kotlinx.android.synthetic.main.schedule_layout_content.view.*
+import kotlinx.android.synthetic.main.schedule_layout_top.view.*
+import kotlin.random.Random
 
 /**
  *@author zhangzhe
@@ -22,7 +25,13 @@ import kotlinx.android.synthetic.main.schedule_layout_content.view.*
  *@description
  */
 
-class ScheduleMainAdapter(private val list: MutableList<ScheduleData>) :
+class ScheduleMainAdapter(
+    private val list: MutableList<ScheduleData>,
+    private val onOpen: ((ScheduleData) -> Unit)? = null,
+    private val onTopping: ((ScheduleData) -> Unit)? = null,
+    private val onEdit: ((ScheduleData) -> Unit)? = null,
+    private val onDelete: ((ScheduleData) -> Unit)? = null
+) :
     RecyclerView.Adapter<ScheduleMainAdapter.ViewHolder>() {
 
 
@@ -33,6 +42,7 @@ class ScheduleMainAdapter(private val list: MutableList<ScheduleData>) :
         val tvScheduleTarget: TextView = v.schedule_item_tv_target
         val progress: CarrotProgressBar = v.schedule_carrot_progress_bar
         val tvLastTime: TextView = v.schedule_item_tv_last_time
+        val tvLastTimeText: TextView = v.schedule_item_tv_last_time_text
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,22 +52,41 @@ class ScheduleMainAdapter(private val list: MutableList<ScheduleData>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.snapDelete.resumeAnim(0L)
+        holder.snapDelete.action0 = {
+            onOpen?.invoke(list[position])
+        }
         holder.snapDelete.action1 = {
-            Toast.makeText(BaseApp.context, "置顶", Toast.LENGTH_SHORT).show()
+            onTopping?.invoke(list[position])
         }
         holder.snapDelete.action2 = {
-            Toast.makeText(BaseApp.context, "编辑", Toast.LENGTH_SHORT).show()
+            onEdit?.invoke(list[position])
         }
         holder.snapDelete.action3 = {
-            Toast.makeText(BaseApp.context, "删除", Toast.LENGTH_SHORT).show()
-            list.removeAt(position)
-            notifyItemRemoved(position)
-            notifyItemRangeChanged(position, list.size - position)
+            OptionalDialog.show(holder.itemView.context, "真的要删除此日程吗？", {}) {
+                onDelete?.invoke(list[position])
+                list.removeAt(position)
+                notifyItemRemoved(position)
+                notifyItemRangeChanged(position, list.size - position)
+            }
         }
         holder.tvScheduleTitle.text = list[position].name
-        holder.tvScheduleTarget.text = TimeUtil.monthStrWithWeek(list[position].targetDate)
-        holder.progress.progress = 0.7f
+        holder.tvScheduleTarget.text = TimeUtil.monthStrWithWeek(list[position].targetStartDate)
+        holder.progress.visibility = if (list[position].showProgress) View.VISIBLE else View.GONE
+        holder.progress.progress = Random.nextFloat()
         holder.tvLastTime.text = "8"
+
+        if (list[position].topping) {
+            holder.tvLastTime.setTextColor(Color.parseColor("#FF8854"))
+            holder.tvLastTimeText.setTextColor(Color.parseColor("#FF8854"))
+            holder.itemView.schedule_item_tv_topping.text = "取\n消\n置\n顶"
+        } else {
+            holder.tvLastTime.setTextColor(Color.parseColor("#995B3A"))
+            holder.tvLastTimeText.setTextColor(Color.parseColor("#995B3A"))
+            holder.itemView.schedule_item_tv_topping.text = "置\n顶"
+        }
+
+        holder.ivScheduleSort.setImageResource(ScheduleSortData.list.find { it.name == list[position].sort }?.iconItemId ?: 0)
+
 
     }
 

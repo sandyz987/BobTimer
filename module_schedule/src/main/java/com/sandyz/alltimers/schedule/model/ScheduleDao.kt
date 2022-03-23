@@ -19,6 +19,9 @@ interface ScheduleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(c: List<ScheduleData?>?)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(c: ScheduleData?)
+
     @Delete
     fun delete(vararg c: ScheduleData?)
 

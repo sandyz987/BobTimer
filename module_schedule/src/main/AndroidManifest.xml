@@ -3,10 +3,11 @@
     package="com.sandyz.alltimers.schedule">
 
     <application>
+        <activity android:name=".view.activity.ActivitySchedulePeriod"></activity>
         <activity
             android:name=".view.activity.ActivityScheduleEdit"
-            android:launchMode="singleTop"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTop" />
     </application>
 
 </manifest>

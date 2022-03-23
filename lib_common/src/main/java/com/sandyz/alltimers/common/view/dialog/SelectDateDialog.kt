@@ -6,6 +6,7 @@ import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.view.TimePickerView
 import com.google.android.material.tabs.TabLayout
 import com.sandyz.alltimers.common.R
+import com.sandyz.alltimers.common.extensions.setOnClickAction
 import kotlinx.android.synthetic.main.common_dialog_bottom_sheet_time.view.*
 
 /**
@@ -40,6 +41,13 @@ class SelectDateDialog(
                         override fun onTabUnselected(tab: TabLayout.Tab?) {}
                         override fun onTabReselected(tab: TabLayout.Tab?) {}
                     })
+                    it.common_tv_cancel.setOnClickAction {
+                        pvTime?.dismiss()
+                    }
+                    it.common_iv_done.setOnClickAction {
+                        pvTime?.returnData()
+                        pvTime?.dismiss()
+                    }
                 }
                 setBgColor(Color.TRANSPARENT)
                 setLunarCalendar(false)

@@ -1,4 +1,4 @@
-package com.sandyz.alltimers.schedule.view.castom
+package com.sandyz.alltimers.schedule.view.custom
 
 import android.content.Context
 import android.graphics.Canvas

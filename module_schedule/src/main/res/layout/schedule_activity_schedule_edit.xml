@@ -25,7 +25,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/schedule_constraintlayout8">
+                app:layout_constraintTop_toBottomOf="@+id/schedule_cl_bg">
 
                 <ImageView
                     android:id="@+id/schedule_iv_icon_show_progress"
@@ -58,6 +58,7 @@
                 </View>
 
                 <Switch
+                    android:id="@+id/schedule_sw_show_progress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleX="0.3"
@@ -72,7 +73,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/schedule_constraintlayout8"
+                android:id="@+id/schedule_cl_bg"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:paddingStart="16dp"
@@ -80,7 +81,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/schedule_constraintlayout7">
+                app:layout_constraintTop_toBottomOf="@+id/schedule_cl_remarks">
+
+                <TextView
+                    android:id="@+id/schedule_tv_pic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="无背景图片"
+                    app:layout_constraintBottom_toBottomOf="@+id/schedule_iv_icon_bg"
+                    app:layout_constraintEnd_toStartOf="@+id/schedule_imageview2"
+                    app:layout_constraintTop_toTopOf="@+id/schedule_iv_icon_bg" />
 
                 <ImageView
                     android:id="@+id/schedule_iv_icon_bg"
@@ -92,6 +103,7 @@
                     app:srcCompat="@drawable/schedule_ic_bg" />
 
                 <TextView
+                    android:id="@+id/schedule_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -103,6 +115,7 @@
                     app:layout_constraintTop_toTopOf="@+id/schedule_iv_icon_bg" />
 
                 <View
+                    android:id="@+id/schedule_view2"
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:background="#33999999"
@@ -113,6 +126,7 @@
                 </View>
 
                 <ImageView
+                    android:id="@+id/schedule_imageview2"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     app:layout_constraintBottom_toBottomOf="@+id/schedule_iv_icon_bg"
@@ -122,7 +136,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/schedule_constraintlayout7"
+                android:id="@+id/schedule_cl_remarks"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:paddingStart="16dp"
@@ -130,7 +144,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/schedule_constraintlayout6">
+                app:layout_constraintTop_toBottomOf="@+id/schedule_cl_topping">
 
                 <TextView
                     android:id="@+id/schedule_tv_remarks"
@@ -184,7 +198,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/schedule_constraintlayout6"
+                android:id="@+id/schedule_cl_topping"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:paddingStart="16dp"
@@ -192,7 +206,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/schedule_constraintlayout5">
+                app:layout_constraintTop_toBottomOf="@+id/schedule_cl_remind">
 
                 <ImageView
                     android:id="@+id/schedule_iv_icon_topping"
@@ -227,7 +241,7 @@
                 </View>
 
                 <Switch
-                    android:id="@+id/schedule_switch"
+                    android:id="@+id/schedule_sw_topping"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:scaleX="0.3"
@@ -242,21 +256,81 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/schedule_constraintlayout5"
+                android:id="@+id/schedule_cl_period"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/schedule_constraintlayout4">
+                app:layout_constraintTop_toBottomOf="@+id/schedule_cl_target_date">
+
+                <TextView
+                    android:id="@+id/schedule_tv_period"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:text="不循环"
+                    app:layout_constraintBottom_toBottomOf="@+id/schedule_iv_icon_period"
+                    app:layout_constraintEnd_toStartOf="@+id/schedule_imageview9"
+                    app:layout_constraintTop_toTopOf="@+id/schedule_iv_icon_period" />
+
+                <ImageView
+                    android:id="@+id/schedule_iv_icon_period"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/schedule_ic_period" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="事件周期"
+                    android:textColor="#8A4F30"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/schedule_iv_icon_period"
+                    app:layout_constraintStart_toEndOf="@+id/schedule_iv_icon_period"
+                    app:layout_constraintTop_toTopOf="@+id/schedule_iv_icon_period" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="#33999999"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                </View>
+
+                <ImageView
+                    android:id="@+id/schedule_imageview9"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/schedule_iv_icon_period"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/schedule_iv_icon_period"
+                    app:srcCompat="@drawable/schedule_ic_more_arrow" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/schedule_cl_remind"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/schedule_cl_period">
 
                 <TextView
                     android:id="@+id/schedule_tv_remind"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="每月"
+                    android:text="提前一天"
                     app:layout_constraintBottom_toBottomOf="@+id/schedule_iv_icon_remind"
                     app:layout_constraintEnd_toStartOf="@+id/schedule_imageview3"
                     app:layout_constraintTop_toTopOf="@+id/schedule_iv_icon_remind" />
@@ -274,7 +348,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    android:text="定期提醒"
+                    android:text="提醒"
                     android:textColor="#8A4F30"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/schedule_iv_icon_remind"
@@ -420,7 +494,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/schedule_constraintlayout4"
+                android:id="@+id/schedule_cl_target_date"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_marginTop="16dp"
@@ -435,7 +509,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="16dp"
-                    android:text="2019 - 6 - 9  星期五"
+                    android:text="2019.6 .9  星期五"
                     app:layout_constraintBottom_toBottomOf="@+id/schedule_iv_icon_target"
                     app:layout_constraintEnd_toStartOf="@+id/schedule_imageview4"
                     app:layout_constraintTop_toTopOf="@+id/schedule_iv_icon_target" />

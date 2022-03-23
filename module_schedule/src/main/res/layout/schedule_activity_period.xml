@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.sandyz.alltimers.common.view.costom.DynamicBackgroundFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:background_src="@drawable/common_ic_bg_rabbit"
+    android:background="#FFF3F0">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.activity.ActivitySchedulePeriod">
+
+    <ImageView
+        android:id="@+id/schedule_period_iv_back"
+        android:layout_width="50dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/common_btn_back_arrow" />
+
+    <TextView
+        android:id="@+id/schedule_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="38dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="事件周期设置"
+        android:textColor="#AD7557"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
+        android:padding="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schedule_tv_title">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/schedule_shape_period_item"
+            android:orientation="horizontal">
+
+            <com.sandyz.alltimers.common.view.costom.Selector
+                android:id="@+id/shop_selector_zfb"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                app:hint="支付宝支付"
+                app:hintColor="#8A4F30"
+                app:hintSize="16"
+                app:icSize="24"
+                app:iconDrawable="@null"
+                app:isSelect="false"
+                app:isSingleSelect="true"
+                app:selectDrawable="@drawable/common_selector_clicked"
+                app:unselectDrawable="@drawable/common_selector_no_clicked" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</com.sandyz.alltimers.common.view.costom.DynamicBackgroundFrameLayout>

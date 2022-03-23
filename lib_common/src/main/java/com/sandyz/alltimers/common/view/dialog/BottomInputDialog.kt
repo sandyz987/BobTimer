@@ -1,10 +1,12 @@
 package com.sandyz.alltimers.common.view.dialog
 
 import android.content.Context
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.sandyz.alltimers.common.R
 import com.sandyz.alltimers.common.extensions.setOnClickAction
+import com.sandyz.alltimers.common.widgets.KeyboardController
 import kotlinx.android.synthetic.main.common_dialog_bottom_sheet_text.view.*
 
 /**
@@ -26,17 +28,30 @@ class BottomInputDialog(
         dialog.setContentView(view)
         dialog.show()
 
-        view.common_tv_title.text = tip
-        view.common_et_text.hint = hint
-        view.common_et_text.setText(defaultText)
-
-        view.common_tv_cancel.setOnClickAction {
-            dialog.dismiss()
-        }
-        view.common_iv_done.setOnClickAction {
+        val onDone = {
+            KeyboardController.hideInputKeyboard(context, view.common_et_text)
             val inputText = view.common_et_text?.text?.toString() ?: ""
             onPositive.invoke(inputText)
             dialog.dismiss()
+        }
+
+        view.common_tv_title.text = tip
+        view.common_et_text.hint = hint
+        view.common_et_text.setText(defaultText)
+        view.common_et_text.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == KeyEvent.KEYCODE_ENTER) {
+                onDone.invoke()
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
+
+        view.common_tv_cancel.setOnClickAction {
+            KeyboardController.hideInputKeyboard(context, view.common_et_text)
+            dialog.dismiss()
+        }
+        view.common_iv_done.setOnClickAction {
+            onDone.invoke()
         }
     }
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.schedule.R
 import kotlinx.android.synthetic.main.schedule_item_sort.view.*
+import kotlin.math.max
 
 /**
  *@author zhangzhe
@@ -22,10 +23,17 @@ import kotlinx.android.synthetic.main.schedule_item_sort.view.*
 class ScheduleSortAdapter(private val rv: RecyclerView, private val list: MutableList<SortData>, private var selectedPos: Int) :
     RecyclerView.Adapter<ScheduleSortAdapter.ViewHolder>() {
 
+    init {
+        selectedPos = max(0, selectedPos)
+    }
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         val tvBgName: TextView = v.schedule_tv_sort
         val ivBgIcon: ImageView = v.schedule_iv_sort
+    }
+
+    fun getSelected(): String {
+        return list[selectedPos].name
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -90,7 +98,8 @@ class ScheduleSortAdapter(private val rv: RecyclerView, private val list: Mutabl
 
     data class SortData(
         val name: String,
-        val iconId: Int
+        val iconId: Int,
+        val iconItemId: Int
     )
 
     override fun getItemCount() = list.size + 1

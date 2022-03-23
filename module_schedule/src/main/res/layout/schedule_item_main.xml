@@ -28,7 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/schedule_ic_item_cover" />
 
-    <com.sandyz.alltimers.schedule.view.castom.SnapDelete
+    <com.sandyz.alltimers.schedule.view.custom.SnapDelete
         android:id="@+id/schedule_snap_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
