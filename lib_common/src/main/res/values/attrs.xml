@@ -17,9 +17,16 @@
         <attr name="icSize" format="integer" />
         <attr name="iconDrawable" format="reference" />
         <attr name="selectDrawable" format="reference" />
+        <attr name="content_padding" format="integer" />
         <attr name="unselectDrawable" format="reference" />
         <attr name="isSingleSelect" format="boolean" />
         <attr name="isSelect" format="boolean" />
         <attr name="hintColor" format="color" />
+        <attr name="check_icon_position" format="integer">
+<!--            <enum name="center_right" value="center_right" />-->
+<!--            <enum name="center_left" value="1" />-->
+<!--            <enum name="right" value="2" />-->
+<!--            <enum name="left" value="left" />-->
+        </attr>
     </declare-styleable>
 </resources>

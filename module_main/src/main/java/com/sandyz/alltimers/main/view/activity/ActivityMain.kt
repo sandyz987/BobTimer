@@ -1,4 +1,4 @@
-package com.sandyz.alltimers.main.view
+package com.sandyz.alltimers.main.view.activity
 
 import android.os.Bundle
 import android.view.View

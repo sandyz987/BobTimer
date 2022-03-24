@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
@@ -31,8 +32,12 @@ class Selector @JvmOverloads constructor(
     private var selectDrawableId = 0
     private var unselectDrawableId = 0
     private var iconDrawableId = 0
+    private var gravity = 1 // 1: center_left  2: right
+    private var padding: Float = 0f
+    private var margin = context.dp2px(8).toFloat()
 
-    private var text: String? = ""
+
+    private var text: String = ""
 
     private var iconSize: Int = context.dp2px(24)
 
@@ -56,14 +61,16 @@ class Selector @JvmOverloads constructor(
         val typedArray = context.obtainStyledAttributes(attrs, R.styleable.Selector)
 
         textSizeSp = context.sp(typedArray.getInt(R.styleable.Selector_hintSize, 16)).toFloat()
-        text = typedArray.getString(R.styleable.Selector_hint)
+        text = typedArray.getString(R.styleable.Selector_hint) ?: "none"
         selectDrawableId = typedArray.getResourceId(R.styleable.Selector_selectDrawable, 0)
         unselectDrawableId = typedArray.getResourceId(R.styleable.Selector_unselectDrawable, 0)
         iconDrawableId = typedArray.getResourceId(R.styleable.Selector_iconDrawable, 0)
+        padding = context.dp2px(typedArray.getInt(R.styleable.Selector_hintSize, 16)).toFloat()
         iconSize = context.dp2px(typedArray.getInt(R.styleable.Selector_icSize, 16))
         isSingleSelect = typedArray.getBoolean(R.styleable.Selector_isSingleSelect, false)
         isSelect = typedArray.getBoolean(R.styleable.Selector_isSelect, false)
         colorId = typedArray.getColor(R.styleable.Selector_hintColor, Color.BLACK)
+        gravity = typedArray.getInt(R.styleable.Selector_check_icon_position, 1)
 
 
         typedArray.recycle()
@@ -124,35 +131,49 @@ class Selector @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        val padding = context.dp2px(PADDING_DP).toFloat()
+        canvas?.save()
 
-        if (iconDrawable != null) {
+        if (gravity == 1) {
             canvas?.save()
             canvas?.translate(padding, (mHeight - iconSize) / 2f)
             canvas?.let { iconDrawable?.draw(it) }
             canvas?.restore()
+
+            canvas?.save()
+            canvas?.drawTextCenter(text, padding + if (iconDrawable != null) iconSize + margin else 0f, mHeight / 2f, paint, Paint.Align.LEFT)
+            canvas?.translate(mWidth - padding - iconSize, (mHeight - iconSize) / 2f)
+            if (isSelect) {
+                canvas?.let { selectDrawable?.draw(it) }
+            } else {
+                canvas?.let { unselectDrawable?.draw(it) }
+            }
+            canvas?.restore()
+        } else if (gravity == 2) {
+            val textWidth = paint.measureText(text)
+            if (iconDrawable != null) {
+                canvas?.translate((mWidth - textWidth - iconSize * 2 - margin * 2) / 2f, (mHeight - iconSize) / 2f)
+                if (isSelect) {
+                    canvas?.let { selectDrawable?.draw(it) }
+                } else {
+                    canvas?.let { unselectDrawable?.draw(it) }
+                }
+                canvas?.translate(margin + iconSize, 0f)
+                canvas?.let { iconDrawable?.draw(it) }
+                canvas?.translate(margin + iconSize, -(mHeight - iconSize) / 2f)
+                canvas?.drawTextCenter(text, 0f, mHeight / 2f, paint, Paint.Align.LEFT)
+            } else {
+                canvas?.translate((mWidth - textWidth - iconSize - margin) / 2f, (mHeight - iconSize) / 2f)
+                if (isSelect) {
+                    canvas?.let { selectDrawable?.draw(it) }
+                } else {
+                    canvas?.let { unselectDrawable?.draw(it) }
+                }
+                canvas?.translate(margin + iconSize, -(mHeight - iconSize) / 2f)
+                canvas?.drawTextCenter(text, 0f, mHeight / 2f, paint, Paint.Align.LEFT)
+            }
         }
 
-        canvas?.save()
-        text?.let {
-            canvas?.drawTextCenter(
-                it,
-                padding + if (iconDrawable != null) iconSize + context.dp2px(8) else 0,
-                mHeight / 2f,
-                paint,
-                Paint.Align.LEFT
-            )
-        }
-        canvas?.translate(mWidth - padding - iconSize, (mHeight - iconSize) / 2f)
-        if (isSelect) {
-            canvas?.let { selectDrawable?.draw(it) }
-        } else {
-            canvas?.let { unselectDrawable?.draw(it) }
-        }
         canvas?.restore()
     }
 
-    companion object {
-        const val PADDING_DP = 16
-    }
 }

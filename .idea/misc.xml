@@ -7,12 +7,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AAprog/Android/AllTimers/lib_common/src/main/res/drawable/common_btn_bg_1.xml" value="0.202" />
+        <entry key="..\:/AAprog/Android/AllTimers/lib_common/src/main/res/drawable/common_btn_bg_2.xml" value="0.202" />
         <entry key="..\:/AAprog/Android/AllTimers/lib_common/src/main/res/drawable/common_btn_negative_corner_bg.xml" value="0.116" />
+        <entry key="..\:/AAprog/Android/AllTimers/lib_common/src/main/res/drawable/common_dialog_bg_1.xml" value="0.202" />
+        <entry key="..\:/AAprog/Android/AllTimers/lib_common/src/main/res/drawable/common_dialog_bg_2.xml" value="0.202" />
+        <entry key="..\:/AAprog/Android/AllTimers/lib_common/src/main/res/drawable/common_dialog_bg_3.xml" value="0.202" />
+        <entry key="..\:/AAprog/Android/AllTimers/lib_common/src/main/res/drawable/common_shape_cursor.xml" value="0.262" />
         <entry key="..\:/AAprog/Android/AllTimers/module_concentrate/src/main/res/drawable/concentrate_.xml" value="0.124" />
         <entry key="..\:/AAprog/Android/AllTimers/module_concentrate/src/main/res/layout/concentrate_fragment_concentrate.xml" value="0.15172101449275363" />
         <entry key="..\:/AAprog/Android/AllTimers/module_concentrate/src/main/res/layout/fragment_concentrate.xml" value="0.15172101449275363" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_main/src/main/res/drawable/main_login_bg_1.xml" value="0.202" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_main/src/main/res/drawable/main_shape_btn_bg_1.xml" value="0.202" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_main/src/main/res/drawable/main_shape_et_bg.xml" value="0.202" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_main/src/main/res/layout/main_activity_login.xml" value="0.25" />
         <entry key="..\:/AAprog/Android/AllTimers/module_main/src/main/res/layout/main_activity_main.xml" value="0.25" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_ic_item_cover.xml" value="0.116" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_shape_et_background.xml" value="0.202" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_shape_list_shadow.xml" value="0.116" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_shape_shadow.xml" value="0.1165" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_shape_top.xml" value="0.1165" />
@@ -30,7 +41,7 @@
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/layout_edit.xml" value="0.12487335359675786" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/layout_shadow.xml" value="0.12487335359675786" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/layout_top.xml" value="0.12487335359675786" />
-        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_activity_schedule_edit.xml" value="0.375" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_activity_schedule_edit.xml" value="0.11" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_fragment_schedule.xml" value="0.25" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_item_main.xml" value="0.38603425559947296" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/layout/schedule_layout_content.xml" value="0.25" />
@@ -53,12 +64,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
-  </component>
-  <component name="VisualizationToolProject">
-    <option name="state">
-      <ProjectState>
-        <option name="scale" value="0.3490740740740741" />
-      </ProjectState>
-    </option>
   </component>
 </project>

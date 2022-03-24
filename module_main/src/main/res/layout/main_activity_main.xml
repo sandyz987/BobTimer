@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ActivityMain">
+        tools:context=".view.activity.ActivityMain">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_main"
