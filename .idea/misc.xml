@@ -22,6 +22,13 @@
         <entry key="..\:/AAprog/Android/AllTimers/module_main/src/main/res/drawable/main_shape_et_bg.xml" value="0.202" />
         <entry key="..\:/AAprog/Android/AllTimers/module_main/src/main/res/layout/main_activity_login.xml" value="0.25" />
         <entry key="..\:/AAprog/Android/AllTimers/module_main/src/main/res/layout/main_activity_main.xml" value="0.25" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_mine/src/main/res/drawable/mine_sdaf.xml" value="0.203" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_mine/src/main/res/drawable/mine_shape_avater_bg.xml" value="0.203" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_mine/src/main/res/drawable/mine_shape_bg_1.xml" value="0.203" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_mine/src/main/res/drawable/mine_shape_bg_2.xml" value="0.203" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_mine/src/main/res/drawable/mine_shape_bg_3.xml" value="0.203" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_mine/src/main/res/drawable/mine_shape_shadow.xml" value="0.203" />
+        <entry key="..\:/AAprog/Android/AllTimers/module_mine/src/main/res/layout/mine_fragment_mine.xml" value="0.25" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_ic_item_cover.xml" value="0.116" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_shape_et_background.xml" value="0.202" />
         <entry key="..\:/AAprog/Android/AllTimers/module_schedule/src/main/res/drawable/schedule_shape_list_shadow.xml" value="0.116" />
