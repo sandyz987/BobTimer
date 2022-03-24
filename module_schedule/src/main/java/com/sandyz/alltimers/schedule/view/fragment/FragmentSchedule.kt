@@ -24,20 +24,7 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 @Route(path = SCHEDULE_ENTRY)
 class FragmentSchedule : BaseFragment() {
 
-    private var list = mutableListOf<ScheduleData>(
-//        ScheduleData("妈妈生日", "hhh", 129494L, false, "无", "", "", true),
-//        ScheduleData("妈妈生日", "hhh", 129494L, false, "无", "", "", true),
-//        ScheduleData("妈妈生日", "hhh", 129494L, false, "无", "", "", true),
-//        ScheduleData("妈妈生日", "hhh", 129494L, false, "无", "", "", true),
-//        ScheduleData("妈妈生日", "hhh", 129494L, false, "无", "", "", true),
-//        ScheduleData("妈妈生日", "hhh", 129494L, false, "无", "", "", true),
-//        ScheduleData("妈妈生日", "hhh", 129494L, false, "无", "", "", true),
-//        ScheduleData("妈妈生日", "hhh", 129494L, false, "无", "", "", true),
-//        ScheduleData("妈妈生日", "hhh", 129494L, false, "无", "", "", true),
-//        ScheduleData("妈妈生日", "hhh", 129494L, false, "无", "", "", true),
-//        ScheduleData("妈妈生日", "hhh", 129494L, false, "无", "", "", true),
-//        ScheduleData("妈妈生日", "hhh", 129494L, false, "无", "", "", true)
-    )
+    private var list = mutableListOf<ScheduleData>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.schedule_fragment_schedule, container, false)

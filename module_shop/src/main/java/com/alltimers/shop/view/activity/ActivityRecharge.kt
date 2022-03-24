@@ -22,9 +22,9 @@ class ActivityRecharge : BaseActivity() {
             mutableListOf(
                 RechargeValue(100, 1f, false),
                 RechargeValue(500, 5f, false),
-                RechargeValue(1000, 9f, false),
-                RechargeValue(2000, 17f, false),
-                RechargeValue(3000, 24f, false)
+                RechargeValue(1000, 9f, true),
+                RechargeValue(2000, 17f, true),
+                RechargeValue(3000, 24f, true)
             )
         )
         shop_vp.setPageTransformer(false, HorizontalStackTransformerWithRotation())
@@ -33,7 +33,7 @@ class ActivityRecharge : BaseActivity() {
             toast("感谢支持，敬请期待~")
         }
         shop_iv_back.setOnClickAction {
-            OptionalDialog.show(this, "确定要返回吗？", {}) {
+            OptionalDialog.show(this, "确定要返回吗？", onDeny = {}) {
                 finish()
             }
         }

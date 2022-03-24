@@ -37,13 +37,38 @@ class Selector @JvmOverloads constructor(
     private var margin = context.dp2px(8).toFloat()
 
 
-    private var text: String = ""
+    var text: String = ""
+        set(value) {
+            field = value
+            invalidate()
+        }
 
     private var iconSize: Int = context.dp2px(24)
 
     var isSelect = false
         set(value) {
             field = value
+            if (isSingleSelect) {
+                if (isSelect) {
+                    (parent as? LinearLayout?)?.children?.forEach {
+                        if (it is Selector && it != this && it.isSingleSelect) {
+                            it.isSelect = false
+                        }
+                    }
+                } else {
+                    var hasOtherSelected = false
+                    (parent as? LinearLayout?)?.children?.forEach {
+                        if (it is Selector && it != this && it.isSingleSelect) {
+                            if (it.isSelect) {
+                                hasOtherSelected = true
+                            }
+                        }
+                    }
+                    if (!hasOtherSelected) {
+                        field = true
+                    }
+                }
+            }
             invalidate()
         }
 
@@ -77,27 +102,6 @@ class Selector @JvmOverloads constructor(
 
         setOnClickAction {
             isSelect = !isSelect
-            if (isSingleSelect) {
-                if (isSelect) {
-                    (parent as? LinearLayout?)?.children?.forEach {
-                        if (it is Selector && it != this && it.isSingleSelect) {
-                            it.isSelect = false
-                        }
-                    }
-                } else {
-                    var hasOtherSelected = false
-                    (parent as? LinearLayout?)?.children?.forEach {
-                        if (it is Selector && it != this && it.isSingleSelect) {
-                            if (it.isSelect) {
-                                hasOtherSelected = true
-                            }
-                        }
-                    }
-                    if (!hasOtherSelected) {
-                        isSelect = true
-                    }
-                }
-            }
         }
     }
 

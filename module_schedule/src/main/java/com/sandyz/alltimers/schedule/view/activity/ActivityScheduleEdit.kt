@@ -2,6 +2,7 @@ package com.sandyz.alltimers.schedule.view.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.doOnTextChanged
@@ -30,13 +31,15 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 @Route(path = SCHEDULE_EDIT)
 class ActivityScheduleEdit : BaseActivity() {
 
-    private lateinit var adapter: ScheduleSortAdapter
+    private var adapter: ScheduleSortAdapter? = null
     private var scheduleData: ScheduleData? = null
 
     private val sortList = ScheduleSortData.list
     private val schedulePeriodLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        Log.e("sandyzhang", "launch: ${it.resultCode}, ${it.data?.getStringExtra("period_str") ?: "无"}")
         if (it.resultCode == RESULT_OK) {
             scheduleData?.period = it.data?.getStringExtra("period_str") ?: "无"
+            refresh()
         }
     }
 
@@ -97,12 +100,16 @@ class ActivityScheduleEdit : BaseActivity() {
 
 
         schedule_iv_back.setOnClickAction {
-            OptionalDialog.show(this, "确定要返回吗？编辑将不会保存~", {}) {
+            OptionalDialog.show(this, "确定要返回吗？编辑将不会保存~", onDeny = {}) {
                 finish()
             }
         }
         schedule_tv_done.setOnClickAction {
-            scheduleData?.sort = adapter.getSelected()
+            if (scheduleData?.name?.isNotBlank() != true) {
+                OptionalDialog.show(this, "事件名称不能为空哦~", hideCancel = true, {}) {}
+                return@setOnClickAction
+            }
+            scheduleData?.sort = adapter?.getSelected() ?: ""
             ScheduleReader.db?.scheduleDao()?.insert(scheduleData)
             Toast.makeText(BaseApp.context, "已保存~", Toast.LENGTH_SHORT).show()
             finish()
@@ -112,7 +119,10 @@ class ActivityScheduleEdit : BaseActivity() {
 
     private fun refresh() {
         scheduleData?.let { scheduleData ->
-            adapter = ScheduleSortAdapter(schedule_rv_sort, sortList, sortList.indexOfFirst { scheduleData.sort == it.name })
+            if (adapter == null) {
+                adapter = ScheduleSortAdapter(schedule_rv_sort, sortList, sortList.indexOfFirst { scheduleData.sort == it.name })
+            }
+
             schedule_et_name.setText(scheduleData.name)
             schedule_tv_target_date.text = TimeUtil.monthStrWithWeek(scheduleData.targetStartDate)
 

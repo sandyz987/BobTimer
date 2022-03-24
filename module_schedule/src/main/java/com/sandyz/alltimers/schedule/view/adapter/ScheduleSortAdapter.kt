@@ -20,7 +20,11 @@ import kotlin.math.max
  *@description
  */
 
-class ScheduleSortAdapter(private val rv: RecyclerView, private val list: MutableList<SortData>, private var selectedPos: Int) :
+class ScheduleSortAdapter(
+    private val rv: RecyclerView,
+    private val list: MutableList<SortData>,
+    private var selectedPos: Int
+) :
     RecyclerView.Adapter<ScheduleSortAdapter.ViewHolder>() {
 
     init {

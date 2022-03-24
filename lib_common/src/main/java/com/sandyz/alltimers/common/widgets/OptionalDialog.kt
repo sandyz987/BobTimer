@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.sandyz.alltimers.common.R
-import com.sandyz.alltimers.common.extensions.dp2px
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import kotlinx.android.synthetic.main.common_dialog_choose.view.*
 
@@ -17,13 +16,13 @@ import kotlinx.android.synthetic.main.common_dialog_choose.view.*
 
 
 object OptionalDialog {
-    fun show(context: Context, title: String, onDeny: () -> Unit, onPositive: () -> Unit) {
+    fun show(context: Context, title: String, hideCancel: Boolean = false, onDeny: () -> Unit, onPositive: () -> Unit) {
         val builder: AlertDialog.Builder = AlertDialog.Builder(context, R.style.common_transparent_dialog_dark)
         val view = LayoutInflater.from(context).inflate(R.layout.common_dialog_choose, null, false)
         builder.setView(view)
         builder.setCancelable(true)
         view.tv_tip_text.text = title
-
+        view.tv_tip_deny.visibility = if (hideCancel) View.GONE else View.VISIBLE
         val dialog = builder.create()
         dialog.show()
 

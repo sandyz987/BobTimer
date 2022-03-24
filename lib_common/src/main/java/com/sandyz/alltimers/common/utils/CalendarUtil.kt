@@ -26,6 +26,13 @@ object CalendarUtil {
         return DateItem(cal.getYear(), cal.getMonth(), cal.getDay())
     }
 
+    fun getDateItem(time: Long): DateItem {
+        val cal = getCalendar().apply {
+            timeInMillis = time
+        }
+        return DateItem(cal.getYear(), cal.getMonth(), cal.getDay())
+    }
+
     fun getCalendar(time: Long): Calendar =
         getCalendar().apply { timeInMillis = time }
 
@@ -107,6 +114,12 @@ fun main() {
     CalendarUtil.getEveryFirstDayOfWeekByMonth(2021, 1).forEach {
         println(it)
     }
+}
+
+fun DateItem.time(): Long {
+    val cal = CalendarUtil.getCalendar(this)
+
+    return cal.timeInMillis
 }
 
 /**

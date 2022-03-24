@@ -43,37 +43,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="确定吗？" />
 
-            <TextView
-                android:id="@+id/tv_tip_deny"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/common_btn_negative_corner_bg"
-                android:text="取消"
-                android:textColor="#AD7557"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/tv_tip_positive"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view" />
-
-            <TextView
-                android:id="@+id/tv_tip_positive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="28dp"
-                android:background="@drawable/common_btn_positive_corner_bg"
-                android:text="确定"
-                android:textColor="#AD7557"
-                android:textSize="15sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_tip_deny"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tv_tip_deny"
-                app:layout_constraintTop_toTopOf="@+id/tv_tip_deny" />
-
             <View
                 android:id="@+id/view"
                 android:layout_width="match_parent"
@@ -86,6 +55,47 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_tip_text" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view">
+
+                <TextView
+                    android:id="@+id/tv_tip_deny"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/common_btn_negative_corner_bg"
+                    android:text="取消"
+                    android:textColor="#AD7557"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_tip_positive"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view" />
+
+                <TextView
+                    android:id="@+id/tv_tip_positive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/common_btn_positive_corner_bg"
+                    android:text="确定"
+                    android:textColor="#AD7557"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_tip_deny"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tv_tip_deny"
+                    app:layout_constraintTop_toTopOf="@+id/tv_tip_deny" />
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>

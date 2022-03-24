@@ -11,6 +11,7 @@ import com.sandyz.alltimers.common.utils.TimeUtil
 import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.schedule.R
 import com.sandyz.alltimers.schedule.bean.ScheduleData
+import com.sandyz.alltimers.schedule.extensions.ScheduleTimeHelper
 import com.sandyz.alltimers.schedule.model.ScheduleSortData
 import com.sandyz.alltimers.schedule.view.custom.CarrotProgressBar
 import com.sandyz.alltimers.schedule.view.custom.SnapDelete
@@ -62,7 +63,7 @@ class ScheduleMainAdapter(
             onEdit?.invoke(list[position])
         }
         holder.snapDelete.action3 = {
-            OptionalDialog.show(holder.itemView.context, "真的要删除此日程吗？", {}) {
+            OptionalDialog.show(holder.itemView.context, "真的要删除此日程吗？", onDeny = {}) {
                 onDelete?.invoke(list[position])
                 list.removeAt(position)
                 notifyItemRemoved(position)
@@ -73,7 +74,12 @@ class ScheduleMainAdapter(
         holder.tvScheduleTarget.text = TimeUtil.monthStrWithWeek(list[position].targetStartDate)
         holder.progress.visibility = if (list[position].showProgress) View.VISIBLE else View.GONE
         holder.progress.progress = Random.nextFloat()
-        holder.tvLastTime.text = "8"
+        val nextTarget =ScheduleTimeHelper.getNextTarget(list[position])
+        if (nextTarget != -1L) {
+            holder.tvLastTime.text = "${ScheduleTimeHelper.getDiffDays(nextTarget)}"
+        } else {
+            holder.tvLastTime.text = "-"
+        }
 
         if (list[position].topping) {
             holder.tvLastTime.setTextColor(Color.parseColor("#FF8854"))

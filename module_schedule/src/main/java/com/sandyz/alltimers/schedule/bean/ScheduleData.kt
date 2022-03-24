@@ -15,7 +15,7 @@ data class ScheduleData(
     @ColumnInfo(name = "target_start_date")
     var targetStartDate: Long = Calendar.getInstance().timeInMillis,
     @ColumnInfo(name = "period")
-    var period: String = "无", // [无/年/月/周/间][多个数字用/分割]
+    var period: String = "无", // [无/年/月/周/间【数字】]
     @ColumnInfo(name = "remind")
     var remind: String = "0", // 提前n天
     @ColumnInfo(name = "topping")
