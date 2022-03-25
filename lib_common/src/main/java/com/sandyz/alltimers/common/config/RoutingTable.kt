@@ -11,3 +11,4 @@ const val MINE_ENTRY = "/mine/entry"
 
 const val SHOP_RECHARGE = "/shop/recharge"
 const val SCHEDULE_EDIT = "/schedule/edit"
+const val SCHEDULE_DETAILS = "/schedule/details"

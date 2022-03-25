@@ -208,7 +208,7 @@ fun Calendar.getDay(): Int {
 }
 
 fun Calendar.getHour(): Int {
-    return get(Calendar.HOUR_OF_DAY) + 1
+    return get(Calendar.HOUR_OF_DAY)
 }
 
 fun Calendar.getMinute(): Int {
@@ -226,5 +226,10 @@ fun Calendar.setDefaultTime() {
 }
 
 fun Calendar.toTimeString(): String {
-    return "${getYear()}年${getMonth()}月${getDay()}日${getHour()}:${getMinute()}:${getSecond()}"
+    return "${getYear()}年${getMonth()}月${getDay()}日 ${getHour()}:${getMinute()}:${getSecond()}"
 }
+
+fun Calendar.toDateString(): String {
+    return "${getYear()}年${getMonth()}月${getDay()}日"
+}
+

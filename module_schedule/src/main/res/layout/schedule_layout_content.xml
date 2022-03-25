@@ -9,17 +9,23 @@
     android:clipChildren="false"
     android:focusable="true">
 
-    <TextView
+    <com.sandyz.alltimers.common.view.costom.MarqueeTextView
         android:id="@+id/schedule_item_tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="12dp"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:marqueeRepeatLimit="-1"
+        android:singleLine="true"
         android:text="结婚纪念日"
         android:textColor="#3E291B"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/schedule_item_tv_target"
+        app:layout_constraintEnd_toStartOf="@+id/schedule_guideline3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

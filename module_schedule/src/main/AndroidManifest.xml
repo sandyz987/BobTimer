@@ -3,7 +3,8 @@
     package="com.sandyz.alltimers.schedule">
 
     <application>
-        <activity android:name=".view.activity.ActivitySchedulePeriod"></activity>
+        <activity android:name=".view.activity.ActivityScheduleDetails"></activity>
+        <activity android:name=".view.activity.ActivitySchedulePeriod" />
         <activity
             android:name=".view.activity.ActivityScheduleEdit"
             android:exported="false"

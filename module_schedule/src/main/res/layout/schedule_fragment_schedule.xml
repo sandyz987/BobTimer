@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF3F0"
-    android:clipChildren="false"
     tools:context=".view.fragment.FragmentSchedule">
 
 
@@ -13,23 +12,13 @@
         android:id="@+id/schedule_rv_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintBottom_toBottomOf="@+id/schedule_view_bottom_shadow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/schedule_iv_top">
+        app:layout_constraintTop_toTopOf="parent">
 
     </androidx.recyclerview.widget.RecyclerView>
-
-    <ImageView
-        android:id="@+id/schedule_iv_top"
-        android:layout_width="0dp"
-        android:layout_height="110dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/schedule_ic_top"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/schedule_view_bottom_shadow"
@@ -39,4 +28,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/schedule_textview2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="日程 · 全部"
+        android:textColor="#8A4F30"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/schedule_imageview7"
+        android:layout_width="12dp"
+        android:layout_height="8dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/schedule_ic_filter_arrow"
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_textview2"
+        app:layout_constraintStart_toEndOf="@+id/schedule_textview2"
+        app:layout_constraintTop_toTopOf="@+id/schedule_textview2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

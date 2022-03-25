@@ -2,7 +2,6 @@ package com.sandyz.alltimers.schedule.view.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.widget.doOnTextChanged
@@ -20,6 +19,7 @@ import com.sandyz.alltimers.common.view.dialog.SelectDateDialog
 import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.schedule.R
 import com.sandyz.alltimers.schedule.bean.ScheduleData
+import com.sandyz.alltimers.schedule.extensions.fixToMidNight
 import com.sandyz.alltimers.schedule.model.ScheduleReader
 import com.sandyz.alltimers.schedule.model.ScheduleSortData
 import com.sandyz.alltimers.schedule.view.adapter.ScheduleSortAdapter
@@ -36,7 +36,6 @@ class ActivityScheduleEdit : BaseActivity() {
 
     private val sortList = ScheduleSortData.list
     private val schedulePeriodLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        Log.e("sandyzhang", "launch: ${it.resultCode}, ${it.data?.getStringExtra("period_str") ?: "无"}")
         if (it.resultCode == RESULT_OK) {
             scheduleData?.period = it.data?.getStringExtra("period_str") ?: "无"
             refresh()
@@ -65,7 +64,8 @@ class ActivityScheduleEdit : BaseActivity() {
 
         schedule_cl_target_date.setOnClickAction {
             SelectDateDialog(this, "day") { y, m, d ->
-                scheduleData?.targetStartDate = CalendarUtil.getCalendar(y, m, d).timeInMillis
+                scheduleData?.targetStartDate = CalendarUtil.getCalendar(y, m, d).timeInMillis.fixToMidNight()
+                scheduleData?.modifyDate = CalendarUtil.getCalendar().timeInMillis.fixToMidNight()
                 refresh()
             }.show()
         }
@@ -126,7 +126,7 @@ class ActivityScheduleEdit : BaseActivity() {
             schedule_et_name.setText(scheduleData.name)
             schedule_tv_target_date.text = TimeUtil.monthStrWithWeek(scheduleData.targetStartDate)
 
-            schedule_tv_period.text = PeriodHelper.getDescription(scheduleData.targetStartDate, scheduleData.period)
+            schedule_tv_period.text = PeriodHelper.getDescription(scheduleData.period)
             schedule_tv_remind.text = RemindHelper.getDescription(scheduleData.remind)
 
             schedule_tv_remarks.text = scheduleData.remarks

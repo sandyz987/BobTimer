@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/schedule_ic_details_style_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/schedule_iv_details_remind"
+            android:layout_width="24dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/schedule_tv_details_target_day"
+            app:layout_constraintEnd_toStartOf="@+id/schedule_guideline9"
+            app:layout_constraintTop_toTopOf="@+id/schedule_tv_details_target_day"
+            app:srcCompat="@drawable/schedule_ic_remind" />
+
+        <com.sandyz.alltimers.common.view.costom.MarqueeTextView
+            android:id="@+id/schedule_tv_details_ramarks"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:marqueeRepeatLimit="-1"
+            android:singleLine="true"
+            android:text="距离生日还有34天哦"
+            android:textColor="#995B3A"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/schedule_guideline10"
+            app:layout_constraintEnd_toStartOf="@+id/schedule_guideline9"
+            app:layout_constraintStart_toStartOf="@+id/schedule_guideline8"
+            app:layout_constraintTop_toTopOf="@+id/schedule_guideline11"
+            app:layout_constraintVertical_bias="0.44" />
+
+        <com.sandyz.alltimers.common.view.costom.MarqueeTextView
+            android:id="@+id/schedule_tv_details_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="4dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:marqueeRepeatLimit="-1"
+            android:singleLine="true"
+            android:text="距离生日还有："
+            android:textColor="#995B3A"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/schedule_tv_details_last_days"
+            app:layout_constraintEnd_toStartOf="@+id/schedule_iv_details_period_icon"
+            app:layout_constraintStart_toStartOf="@+id/schedule_guideline8"
+            app:layout_constraintTop_toTopOf="@+id/schedule_guideline6"
+            app:layout_constraintVertical_bias="0.65999997" />
+
+        <TextView
+            android:id="@+id/schedule_tv_details_last_days"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="66天"
+            android:textColor="#995B3A"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@+id/schedule_guideline7"
+            app:layout_constraintEnd_toStartOf="@+id/schedule_guideline9"
+            app:layout_constraintStart_toStartOf="@+id/schedule_guideline8"
+            app:layout_constraintTop_toTopOf="@+id/schedule_guideline6" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/schedule_guideline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.24" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/schedule_guideline7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.72" />
+
+        <com.sandyz.alltimers.common.view.costom.MarqueeTextView
+            android:id="@+id/schedule_tv_details_target_day"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:marqueeRepeatLimit="-1"
+            android:singleLine="true"
+            android:text="2020年2月6日"
+            android:textColor="#995B3A"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/schedule_guideline7"
+            app:layout_constraintStart_toStartOf="@+id/schedule_guideline8"
+            app:layout_constraintTop_toBottomOf="@+id/schedule_tv_details_last_days"
+            app:layout_constraintVertical_bias="0.65999997" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/schedule_guideline8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.07333333" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/schedule_guideline9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/schedule_guideline11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.875" />
+
+        <ImageView
+            android:id="@+id/schedule_iv_details_period_icon"
+            android:layout_width="24dp"
+            android:layout_height="26dp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/schedule_tv_details_title"
+            app:layout_constraintEnd_toStartOf="@+id/schedule_guideline9"
+            app:layout_constraintTop_toTopOf="@+id/schedule_tv_details_title"
+            app:srcCompat="@drawable/schedule_ic_period" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/schedule_guideline10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.98" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

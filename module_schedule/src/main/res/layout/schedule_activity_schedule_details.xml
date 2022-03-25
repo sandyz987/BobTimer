@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/schedule_ic_schedule_details_bg"
+    tools:context=".view.activity.ActivityScheduleDetails">
+
+    <ImageView
+        android:id="@+id/schedule_iv_top"
+        android:layout_width="0dp"
+        android:layout_height="110dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/schedule_ic_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/schedule_detail_iv_edit"
+        android:layout_width="23dp"
+        android:layout_height="23dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_detail_iv_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/schedule_detail_iv_back"
+        app:srcCompat="@drawable/schedule_ic_edit" />
+
+    <ImageView
+        android:id="@+id/schedule_detail_iv_back"
+        android:layout_width="50dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/common_btn_back_arrow" />
+
+    <TextView
+        android:id="@+id/schedule_tv_page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1/1"
+        android:textColor="#995B3A"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/schedule_detail_iv_back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/schedule_detail_iv_back" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/schedule_vp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/schedule_guideline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/schedule_guideline4" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/schedule_guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.19745223" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/schedule_guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.77" />
+</androidx.constraintlayout.widget.ConstraintLayout>

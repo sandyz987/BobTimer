@@ -1,5 +1,10 @@
 package com.sandyz.alltimers.schedule.widget
 
+import com.sandyz.alltimers.schedule.bean.ScheduleData
+import com.sandyz.alltimers.schedule.extensions.ScheduleTimeHelper
+import com.sandyz.alltimers.schedule.extensions.asDateStr
+import com.sandyz.alltimers.schedule.extensions.asTimeStr
+
 /**
  *@author zhangzhe
  *@date 2022/3/20
@@ -7,7 +12,7 @@ package com.sandyz.alltimers.schedule.widget
  */
 
 object PeriodHelper {
-    fun getDescription(targetStartDate: Long, periodStr: String): String {
+    fun getDescription(periodStr: String): String {
         return when (periodStr[0]) {
             '无' -> "不重复"
             '年' -> "每年的当日"
@@ -20,5 +25,10 @@ object PeriodHelper {
             '周' -> "每周重复" // TimeUtil.monthStrWithWeek(targetStartDate) + "后的每周星期" + periodStr.substring(1, periodStr.length)
             else -> "不可用"
         }
+    }
+
+
+    fun getDescription(scheduleData: ScheduleData): String {
+        return  ScheduleTimeHelper.getNextTarget(scheduleData).asDateStr()
     }
 }

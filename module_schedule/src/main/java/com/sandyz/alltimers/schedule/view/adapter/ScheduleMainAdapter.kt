@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.sandyz.alltimers.common.utils.CalendarUtil
 import com.sandyz.alltimers.common.utils.TimeUtil
+import com.sandyz.alltimers.common.utils.toTimeString
+import com.sandyz.alltimers.common.widgets.LogUtils
 import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.schedule.R
 import com.sandyz.alltimers.schedule.bean.ScheduleData
@@ -18,7 +21,6 @@ import com.sandyz.alltimers.schedule.view.custom.SnapDelete
 import kotlinx.android.synthetic.main.schedule_item_main.view.*
 import kotlinx.android.synthetic.main.schedule_layout_content.view.*
 import kotlinx.android.synthetic.main.schedule_layout_top.view.*
-import kotlin.random.Random
 
 /**
  *@author zhangzhe
@@ -73,8 +75,20 @@ class ScheduleMainAdapter(
         holder.tvScheduleTitle.text = list[position].name
         holder.tvScheduleTarget.text = TimeUtil.monthStrWithWeek(list[position].targetStartDate)
         holder.progress.visibility = if (list[position].showProgress) View.VISIBLE else View.GONE
-        holder.progress.progress = Random.nextFloat()
-        val nextTarget =ScheduleTimeHelper.getNextTarget(list[position])
+
+        val progress = ScheduleTimeHelper.getProgress(list[position])
+        if (progress < 0) {
+            holder.progress.progress =
+                ScheduleTimeHelper.getProgress(list[position].modifyDate, list[position].targetStartDate, CalendarUtil.getCalendar().timeInMillis)
+        } else {
+            holder.progress.progress = progress
+        }
+        LogUtils.e("progress:::::::${holder.progress.progress}, pos:${position}, data:${list[position]}")
+
+        LogUtils.e("origin${CalendarUtil.getCalendar(list[position].targetStartDate).toTimeString()}")
+        val nextTarget = ScheduleTimeHelper.getNextTarget(list[position])
+        LogUtils.e("next${CalendarUtil.getCalendar(nextTarget).toTimeString()}")
+
         if (nextTarget != -1L) {
             holder.tvLastTime.text = "${ScheduleTimeHelper.getDiffDays(nextTarget)}"
         } else {
