@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
 import androidx.core.content.res.ResourcesCompat
@@ -35,6 +34,7 @@ class Selector @JvmOverloads constructor(
     private var gravity = 1 // 1: center_left  2: right
     private var padding: Float = 0f
     private var margin = context.dp2px(8).toFloat()
+    private var init = true
 
 
     var text: String = ""
@@ -48,28 +48,30 @@ class Selector @JvmOverloads constructor(
     var isSelect = false
         set(value) {
             field = value
-            if (isSingleSelect) {
-                if (isSelect) {
-                    (parent as? LinearLayout?)?.children?.forEach {
-                        if (it is Selector && it != this && it.isSingleSelect) {
-                            it.isSelect = false
-                        }
-                    }
-                } else {
-                    var hasOtherSelected = false
-                    (parent as? LinearLayout?)?.children?.forEach {
-                        if (it is Selector && it != this && it.isSingleSelect) {
-                            if (it.isSelect) {
-                                hasOtherSelected = true
+            if (!init) {
+                if (isSingleSelect) {
+                    if (isSelect) {
+                        (parent as? LinearLayout?)?.children?.forEach {
+                            if (it is Selector && it != this && it.isSingleSelect) {
+                                it.isSelect = false
                             }
                         }
-                    }
-                    if (!hasOtherSelected) {
-                        field = true
+                    } else {
+                        var hasOtherSelected = false
+                        (parent as? LinearLayout?)?.children?.forEach {
+                            if (it is Selector && it != this && it.isSingleSelect) {
+                                if (it.isSelect) {
+                                    hasOtherSelected = true
+                                }
+                            }
+                        }
+                        if (!hasOtherSelected) {
+                            field = true
+                        }
                     }
                 }
+                invalidate()
             }
-            invalidate()
         }
 
 
@@ -97,11 +99,13 @@ class Selector @JvmOverloads constructor(
         colorId = typedArray.getColor(R.styleable.Selector_hintColor, Color.BLACK)
         gravity = typedArray.getInt(R.styleable.Selector_check_icon_position, 1)
 
-
         typedArray.recycle()
 
         setOnClickAction {
             isSelect = !isSelect
+        }
+        if (init) {
+            init = false
         }
     }
 
