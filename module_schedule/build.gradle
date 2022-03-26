@@ -1,2 +1,6 @@
 
 apply from: config
+
+dependencies {
+    implementation project(':module_schedule:api_schedule')
+}

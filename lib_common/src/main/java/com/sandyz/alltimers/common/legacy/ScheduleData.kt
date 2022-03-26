@@ -1,9 +1,8 @@
-package com.sandyz.alltimers.schedule.bean
+package com.sandyz.alltimers.common.legacy
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.sandyz.alltimers.schedule.extensions.fixToMidNight
 import java.io.Serializable
 import java.util.*
 
@@ -14,9 +13,9 @@ data class ScheduleData(
     @ColumnInfo(name = "sort")
     var sort: String = "生活",
     @ColumnInfo(name = "modify_date")
-    var modifyDate: Long = Calendar.getInstance().timeInMillis.fixToMidNight(),
+    var modifyDate: Long = Calendar.getInstance().timeInMillis,
     @ColumnInfo(name = "target_start_date")
-    var targetStartDate: Long = Calendar.getInstance().timeInMillis.fixToMidNight(),
+    var targetStartDate: Long = Calendar.getInstance().timeInMillis,
     @ColumnInfo(name = "period")
     var period: String = "无", // [无/年/月/周/间【数字】]
     @ColumnInfo(name = "remind")

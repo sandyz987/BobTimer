@@ -1,9 +1,8 @@
-package com.sandyz.alltimers.schedule.extensions
+package com.sandyz.alltimers.api_schedule
 
-import android.util.Log
+import com.sandyz.alltimers.common.legacy.ScheduleData
 import com.sandyz.alltimers.common.utils.*
 import com.sandyz.alltimers.common.widgets.LogUtils
-import com.sandyz.alltimers.schedule.bean.ScheduleData
 import java.util.*
 import kotlin.math.ceil
 
@@ -17,7 +16,11 @@ object ScheduleTimeHelper {
     fun getProgress(start: Long, end: Long, now: Long): Float {
         val dayTotal = getDiffDays(start.fixToMidNight(), end)
         val lastDays = getDiffDays(now.fixToMidNight(), end)
-        LogUtils.e("progress{{${start.fixToMidNight().asTimeStr()} ${end.asTimeStr()} ${now.fixToMidNight().asTimeStr()}}} : total:$dayTotal last:$lastDays")
+        LogUtils.e(
+            "progress{{${start.fixToMidNight().asTimeStr()} ${end.asTimeStr()} ${
+                now.fixToMidNight().asTimeStr()
+            }}} : total:$dayTotal last:$lastDays"
+        )
         return (dayTotal - lastDays) / dayTotal.toFloat()
     }
 
@@ -72,6 +75,42 @@ object ScheduleTimeHelper {
         return ceil((targetTime - now) / (1000 * 3600 * 24f)).toInt()
     }
 
+    fun addPeriod(time: Long, scheduleData: ScheduleData): Long {
+        var nextTarget = time
+        when {
+            scheduleData.period == "周" -> {
+                nextTarget += (1000 * 3600 * 24) * 7
+            }
+            scheduleData.period.startsWith("间") -> {
+                val daysStr = scheduleData.period.substring(1, scheduleData.period.length)
+                val days = try {
+                    daysStr.toInt()
+                } catch (e: Exception) {
+                    0
+                } + 1
+                nextTarget += (1000 * 3600 * 24) * days
+            }
+            else -> {
+                when (scheduleData.period) {
+                    "年" -> {
+                        nextTarget = CalendarUtil.getDateItem(nextTarget).apply {
+                            year += 1
+                        }.time()
+                    }
+                    "月" -> {
+                        nextTarget = CalendarUtil.getDateItem(nextTarget).apply {
+                            month += 1
+                        }.time()
+                    }
+                    else -> {
+                        nextTarget += (1000 * 3600 * 24)
+                    }
+                }
+            }
+        }
+        return nextTarget
+    }
+
     // 如果返回-1说明日程过期
     fun getNextTarget(scheduleData: ScheduleData): Long {
         if (scheduleData.period == "无" || scheduleData.period.isBlank()) {
@@ -86,37 +125,7 @@ object ScheduleTimeHelper {
             if (nextDay >= 0) {
                 return nextTarget
             }
-            when {
-                scheduleData.period == "周" -> {
-                    nextTarget += (1000 * 3600 * 24) * 7
-                }
-                scheduleData.period.startsWith("间") -> {
-                    val daysStr = scheduleData.period.substring(1, scheduleData.period.length)
-                    val days = try {
-                        daysStr.toInt()
-                    } catch (e: Exception) {
-                        0
-                    } + 1
-                    nextTarget += (1000 * 3600 * 24) * days
-                }
-                else -> {
-                    when (scheduleData.period) {
-                        "年" -> {
-                            nextTarget = CalendarUtil.getDateItem(nextTarget).apply {
-                                year += 1
-                            }.time()
-                        }
-                        "月" -> {
-                            nextTarget = CalendarUtil.getDateItem(nextTarget).apply {
-                                month += 1
-                            }.time()
-                        }
-                        else -> {
-                            nextTarget += (1000 * 3600 * 24)
-                        }
-                    }
-                }
-            }
+            nextTarget = addPeriod(nextTarget, scheduleData)
 
         } while (nextDay < 0)
         return nextTarget

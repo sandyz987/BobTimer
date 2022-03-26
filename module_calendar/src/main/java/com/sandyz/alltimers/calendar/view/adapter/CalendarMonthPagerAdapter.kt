@@ -27,7 +27,7 @@ class CalendarMonthPagerAdapter(private val monthList: MutableList<DateItem>, pr
         // bind
 
         view.calendar_rv_month.layoutManager = GridLayoutManager(view.context, 7, RecyclerView.VERTICAL, false)
-        view.calendar_rv_month.adapter = MonthAdapter(monthList[position], selectedDate, lifecycleOwner)
+        view.calendar_rv_month.adapter = MonthAdapter(view.context, monthList[position], selectedDate, lifecycleOwner)
         return view
     }
 

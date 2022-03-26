@@ -1,9 +1,8 @@
 package com.sandyz.alltimers.schedule.widget
 
-import com.sandyz.alltimers.schedule.bean.ScheduleData
-import com.sandyz.alltimers.schedule.extensions.ScheduleTimeHelper
-import com.sandyz.alltimers.schedule.extensions.asDateStr
-import com.sandyz.alltimers.schedule.extensions.asTimeStr
+import com.sandyz.alltimers.api_schedule.ScheduleTimeHelper
+import com.sandyz.alltimers.api_schedule.asDateStr
+import com.sandyz.alltimers.common.legacy.ScheduleData
 
 /**
  *@author zhangzhe
@@ -29,6 +28,6 @@ object PeriodHelper {
 
 
     fun getDescription(scheduleData: ScheduleData): String {
-        return  ScheduleTimeHelper.getNextTarget(scheduleData).asDateStr()
+        return ScheduleTimeHelper.getNextTarget(scheduleData).asDateStr()
     }
 }

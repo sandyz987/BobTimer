@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/module_mine" />
             <option value="$PROJECT_DIR$/module_myhome" />
             <option value="$PROJECT_DIR$/module_schedule" />
+            <option value="$PROJECT_DIR$/module_schedule/api_schedule" />
             <option value="$PROJECT_DIR$/module_shop" />
           </set>
         </option>

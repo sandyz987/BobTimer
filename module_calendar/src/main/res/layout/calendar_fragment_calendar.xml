@@ -34,6 +34,43 @@
         app:layout_constraintTop_toBottomOf="@+id/calendar_tv_title">
 
         <TextView
+            android:id="@+id/calendar_tv_time_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="4dp"
+            android:text="April"
+            android:textColor="#57250B"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/calendar_tv_time_week_day"
+            app:layout_constraintStart_toEndOf="@+id/calendar_tv_time_day" />
+
+        <TextView
+            android:id="@+id/calendar_tv_time_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="20"
+            android:textColor="#57250B"
+            android:textSize="48sp"
+            app:layout_constraintBottom_toTopOf="@+id/calendar_guideline2"
+            app:layout_constraintStart_toEndOf="@+id/calendar_tv_time_week_day"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/calendar_tv_time_week_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="星期三"
+            android:textColor="#57250B"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/calendar_guideline2"
+            app:layout_constraintStart_toEndOf="@+id/calendar_tv_time_day" />
+
+        <TextView
             android:id="@+id/calendar_tv_month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

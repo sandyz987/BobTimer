@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sandyz.alltimers.common.extensions.setOnClickAction
+import com.sandyz.alltimers.common.legacy.SortData
 import com.sandyz.alltimers.schedule.R
 import kotlinx.android.synthetic.main.schedule_item_sort.view.*
 import kotlin.math.max
@@ -100,11 +101,7 @@ class ScheduleSortAdapter(
         }
     }
 
-    data class SortData(
-        val name: String,
-        val iconId: Int,
-        val iconItemId: Int
-    )
+
 
     override fun getItemCount() = list.size + 1
 }

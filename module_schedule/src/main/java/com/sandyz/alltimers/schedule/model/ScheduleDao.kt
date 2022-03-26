@@ -1,8 +1,7 @@
 package com.sandyz.alltimers.schedule.model
 
 import androidx.room.*
-import com.sandyz.alltimers.schedule.bean.ScheduleData
-import java.util.*
+import com.sandyz.alltimers.common.legacy.ScheduleData
 
 @Dao
 interface ScheduleDao {

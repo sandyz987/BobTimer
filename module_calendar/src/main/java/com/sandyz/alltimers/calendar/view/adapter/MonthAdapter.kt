@@ -1,16 +1,23 @@
 package com.sandyz.alltimers.calendar.view.adapter
 
+import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bigkoo.pickerview.utils.ChinaDate
 import com.bigkoo.pickerview.utils.LunarCalendar
+import com.sandyz.alltimers.api_schedule.IScheduleService
+import com.sandyz.alltimers.api_schedule.ScheduleTimeHelper
 import com.sandyz.alltimers.calendar.R
 import com.sandyz.alltimers.common.extensions.setOnClickAction
+import com.sandyz.alltimers.common.legacy.ScheduleSortData
 import com.sandyz.alltimers.common.utils.*
 import kotlinx.android.synthetic.main.calendar_item_day.view.*
 import java.util.*
@@ -21,7 +28,12 @@ import java.util.*
  *@description
  */
 
-class MonthAdapter(private val month: DateItem, private val selectedDate: MutableLiveData<DateItem>, lifeCycleOwner: LifecycleOwner) :
+class MonthAdapter(
+    context: Context,
+    private val month: DateItem,
+    private val selectedDate: MutableLiveData<DateItem>,
+    lifeCycleOwner: LifecycleOwner
+) :
     RecyclerView.Adapter<MonthAdapter.VH>() {
 
     private val monthDaysLeap = listOf(31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
@@ -32,7 +44,7 @@ class MonthAdapter(private val month: DateItem, private val selectedDate: Mutabl
         val lunar: String,
         var selected: Boolean = false,
         var isToday: Boolean = false,
-        var colorList: List<Int> = listOf()
+        var colorList: MutableList<Int> = mutableListOf()
     )
 
     private val list = mutableListOf<DayBean>()
@@ -71,6 +83,27 @@ class MonthAdapter(private val month: DateItem, private val selectedDate: Mutabl
             list[list.indexOfFirst { it.day == today.day }].selected = true
         }
 
+        // 将日程标记到每日上
+        val scheduleList = ARouter.getInstance().navigation(IScheduleService::class.java).obtainScheduleDataAll()
+        scheduleList?.forEach { scheduleData ->
+            if (scheduleData.period == "无") {
+                val date = CalendarUtil.getDateItem(ScheduleTimeHelper.getNextTarget(scheduleData))
+                val color =
+                    ResourcesCompat.getDrawable(context.resources, ScheduleSortData.list.find { it.name == scheduleData.sort }?.iconId ?: 0, null)
+                        ?.toBitmap(50, 50)?.getPixel(1, 25) ?: Color.parseColor("#FFFFFFFF")
+                list.find { it.day == date.day && month.month == date.month && month.year == date.year }?.colorList?.add(color)
+            } else {
+                var nextDate = ScheduleTimeHelper.getNextTarget(scheduleData)
+                while (CalendarUtil.getDateItem(nextDate).year <= month.year && CalendarUtil.getDateItem(nextDate).month <= month.month && nextDate != -1L) {
+                    val date = CalendarUtil.getDateItem(nextDate)
+                    val color =
+                        ResourcesCompat.getDrawable(context.resources, ScheduleSortData.list.find { it.name == scheduleData.sort }?.iconId ?: 0, null)
+                            ?.toBitmap(50, 50)?.getPixel(1, 25) ?: Color.parseColor("#FFFFFFFF")
+                    list.find { it.day == date.day && month.month == date.month && month.year == date.year }?.colorList?.add(color)
+                    nextDate = ScheduleTimeHelper.addPeriod(nextDate, scheduleData)
+                }
+            }
+        }
     }
 
     inner class VH(v: View) : RecyclerView.ViewHolder(v) {

@@ -25,8 +25,35 @@ class FragmentCalendar : BaseFragment() {
         return inflater.inflate(R.layout.calendar_fragment_calendar, container, false)
     }
 
+    private val dayOfWeek = listOf("星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六")
+    private val monthName = listOf(
+        "Jan.",
+        "Feb.",
+        "Mar.",
+        "Apr.",
+        "May.",
+        "Jun.",
+        "Jul.",
+        "Aug.",
+        "Sept.",
+        "Oct.",
+        "Nov.",
+        "Dec."
+    )
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        refresh()
+    }
+
+    fun refresh() {
         val monthList = mutableListOf<DateItem>()
         val cal = CalendarUtil.getCalendar()
         cal.set(Calendar.MONTH, 0)
@@ -34,7 +61,14 @@ class FragmentCalendar : BaseFragment() {
         for (i in 0 until 23) {
             monthList.add(cal.nextMonth(1).toDateItem())
         }
-        calendar_vp.adapter = CalendarMonthPagerAdapter(monthList, this)
+        calendar_vp.adapter = CalendarMonthPagerAdapter(monthList, this).apply {
+            selectedDate.observe {
+                calendar_tv_time_day.text = "${it.day}"
+                val weekday = dayOfWeek[CalendarUtil.getCalendar(it).get(Calendar.DAY_OF_WEEK) - 1]
+                calendar_tv_time_week_day.text = weekday
+                calendar_tv_time_month.text = "${monthName[it.month - 1]}"
+            }
+        }
         calendar_vp.setCurrentItem(CalendarUtil.getCalendar().toDateItem().month - 1, false)
         calendar_tv_month.text = "${CalendarUtil.getCalendar().toDateItem().month}"
         calendar_vp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -53,7 +87,6 @@ class FragmentCalendar : BaseFragment() {
         calendar_tv_back_to_current_month.setOnClickAction {
             calendar_vp.setCurrentItem(CalendarUtil.getCalendar().toDateItem().month - 1, true)
         }
-
     }
 
 }

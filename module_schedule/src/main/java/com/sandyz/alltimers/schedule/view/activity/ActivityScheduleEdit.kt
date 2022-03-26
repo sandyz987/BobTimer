@@ -8,6 +8,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.sandyz.alltimers.api_schedule.fixToMidNight
 import com.sandyz.alltimers.common.BaseApp
 import com.sandyz.alltimers.common.base.BaseActivity
 import com.sandyz.alltimers.common.config.SCHEDULE_EDIT
@@ -18,10 +19,9 @@ import com.sandyz.alltimers.common.view.dialog.BottomInputDialog
 import com.sandyz.alltimers.common.view.dialog.SelectDateDialog
 import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.schedule.R
-import com.sandyz.alltimers.schedule.bean.ScheduleData
-import com.sandyz.alltimers.schedule.extensions.fixToMidNight
+import com.sandyz.alltimers.common.legacy.ScheduleData
 import com.sandyz.alltimers.schedule.model.ScheduleReader
-import com.sandyz.alltimers.schedule.model.ScheduleSortData
+import com.sandyz.alltimers.common.legacy.ScheduleSortData
 import com.sandyz.alltimers.schedule.view.adapter.ScheduleSortAdapter
 import com.sandyz.alltimers.schedule.widget.PeriodHelper
 import com.sandyz.alltimers.schedule.widget.RemindHelper

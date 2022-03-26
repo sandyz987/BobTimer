@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
+import com.sandyz.alltimers.api_schedule.ScheduleTimeHelper
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.common.utils.TimeUtil
 import com.sandyz.alltimers.common.widgets.OptionalDialog
-import com.sandyz.alltimers.schedule.bean.ScheduleData
-import com.sandyz.alltimers.schedule.extensions.ScheduleTimeHelper
+import com.sandyz.alltimers.common.legacy.ScheduleData
 import com.sandyz.alltimers.schedule.widget.PeriodHelper
 import kotlinx.android.synthetic.main.schedule_layout_details_style_1.view.*
 
