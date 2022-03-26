@@ -191,6 +191,10 @@ fun Calendar.nextDay(day: Int): Calendar {
     return this.apply { add(Calendar.DAY_OF_MONTH, day) }
 }
 
+fun Calendar.nextMonth(month: Int): Calendar {
+    return this.apply { add(Calendar.MONTH, month) }
+}
+
 fun Calendar.previousDay(day: Int): Calendar {
     return this.apply { add(Calendar.DAY_OF_MONTH, - day) }
 }
