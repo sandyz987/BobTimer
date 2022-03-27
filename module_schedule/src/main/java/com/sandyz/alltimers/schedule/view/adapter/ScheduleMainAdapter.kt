@@ -14,8 +14,8 @@ import com.sandyz.alltimers.common.utils.toTimeString
 import com.sandyz.alltimers.common.widgets.LogUtils
 import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.schedule.R
-import com.sandyz.alltimers.common.legacy.ScheduleData
-import com.sandyz.alltimers.common.legacy.ScheduleSortData
+import com.sandyz.alltimers.api_schedule.ScheduleData
+import com.sandyz.alltimers.api_schedule.ScheduleSortData
 import com.sandyz.alltimers.schedule.view.custom.CarrotProgressBar
 import com.sandyz.alltimers.schedule.view.custom.SnapDelete
 import kotlinx.android.synthetic.main.schedule_item_main.view.*

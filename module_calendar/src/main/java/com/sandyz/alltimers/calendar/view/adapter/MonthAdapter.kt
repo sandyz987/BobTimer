@@ -17,7 +17,7 @@ import com.sandyz.alltimers.api_schedule.IScheduleService
 import com.sandyz.alltimers.api_schedule.ScheduleTimeHelper
 import com.sandyz.alltimers.calendar.R
 import com.sandyz.alltimers.common.extensions.setOnClickAction
-import com.sandyz.alltimers.common.legacy.ScheduleSortData
+import com.sandyz.alltimers.api_schedule.ScheduleSortData
 import com.sandyz.alltimers.common.utils.*
 import kotlinx.android.synthetic.main.calendar_item_day.view.*
 import java.util.*

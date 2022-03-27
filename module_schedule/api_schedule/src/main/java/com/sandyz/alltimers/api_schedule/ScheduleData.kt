@@ -1,4 +1,4 @@
-package com.sandyz.alltimers.common.legacy
+package com.sandyz.alltimers.api_schedule
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

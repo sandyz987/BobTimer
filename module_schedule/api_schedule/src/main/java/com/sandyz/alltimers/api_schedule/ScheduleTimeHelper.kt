@@ -1,6 +1,5 @@
 package com.sandyz.alltimers.api_schedule
 
-import com.sandyz.alltimers.common.legacy.ScheduleData
 import com.sandyz.alltimers.common.utils.*
 import com.sandyz.alltimers.common.widgets.LogUtils
 import java.util.*

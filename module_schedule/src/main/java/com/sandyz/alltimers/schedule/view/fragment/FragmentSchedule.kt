@@ -15,7 +15,7 @@ import com.sandyz.alltimers.common.config.SCHEDULE_EDIT
 import com.sandyz.alltimers.common.config.SCHEDULE_ENTRY
 import com.sandyz.alltimers.common.extensions.dp2px
 import com.sandyz.alltimers.schedule.R
-import com.sandyz.alltimers.common.legacy.ScheduleData
+import com.sandyz.alltimers.api_schedule.ScheduleData
 import com.sandyz.alltimers.schedule.model.ScheduleReader
 import com.sandyz.alltimers.schedule.view.adapter.ScheduleMainAdapter
 import kotlinx.android.synthetic.main.schedule_fragment_schedule.*

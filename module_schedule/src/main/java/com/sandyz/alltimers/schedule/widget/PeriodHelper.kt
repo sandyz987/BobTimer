@@ -2,7 +2,7 @@ package com.sandyz.alltimers.schedule.widget
 
 import com.sandyz.alltimers.api_schedule.ScheduleTimeHelper
 import com.sandyz.alltimers.api_schedule.asDateStr
-import com.sandyz.alltimers.common.legacy.ScheduleData
+import com.sandyz.alltimers.api_schedule.ScheduleData
 
 /**
  *@author zhangzhe

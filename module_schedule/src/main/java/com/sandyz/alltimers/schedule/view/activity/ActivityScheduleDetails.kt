@@ -9,7 +9,7 @@ import com.sandyz.alltimers.common.config.SCHEDULE_DETAILS
 import com.sandyz.alltimers.common.config.SCHEDULE_EDIT
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.schedule.R
-import com.sandyz.alltimers.common.legacy.ScheduleData
+import com.sandyz.alltimers.api_schedule.ScheduleData
 import com.sandyz.alltimers.schedule.model.ScheduleReader
 import com.sandyz.alltimers.schedule.view.adapter.ScheduleDetailsPagerAdapter
 import kotlinx.android.synthetic.main.schedule_activity_schedule_details.*

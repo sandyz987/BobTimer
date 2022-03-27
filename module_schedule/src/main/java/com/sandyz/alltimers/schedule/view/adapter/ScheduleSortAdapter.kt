@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sandyz.alltimers.common.extensions.setOnClickAction
-import com.sandyz.alltimers.common.legacy.SortData
+import com.sandyz.alltimers.api_schedule.SortData
 import com.sandyz.alltimers.schedule.R
 import kotlinx.android.synthetic.main.schedule_item_sort.view.*
 import kotlin.math.max

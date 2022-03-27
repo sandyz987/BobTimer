@@ -19,9 +19,9 @@ import com.sandyz.alltimers.common.view.dialog.BottomInputDialog
 import com.sandyz.alltimers.common.view.dialog.SelectDateDialog
 import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.schedule.R
-import com.sandyz.alltimers.common.legacy.ScheduleData
+import com.sandyz.alltimers.api_schedule.ScheduleData
 import com.sandyz.alltimers.schedule.model.ScheduleReader
-import com.sandyz.alltimers.common.legacy.ScheduleSortData
+import com.sandyz.alltimers.api_schedule.ScheduleSortData
 import com.sandyz.alltimers.schedule.view.adapter.ScheduleSortAdapter
 import com.sandyz.alltimers.schedule.widget.PeriodHelper
 import com.sandyz.alltimers.schedule.widget.RemindHelper

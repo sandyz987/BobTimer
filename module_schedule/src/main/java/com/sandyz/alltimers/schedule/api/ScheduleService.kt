@@ -4,7 +4,7 @@ import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.sandyz.alltimers.api_schedule.IScheduleService
 import com.sandyz.alltimers.api_schedule.SCHEDULE_DATA
-import com.sandyz.alltimers.common.legacy.ScheduleData
+import com.sandyz.alltimers.api_schedule.ScheduleData
 import com.sandyz.alltimers.schedule.model.ScheduleReader
 
 /**

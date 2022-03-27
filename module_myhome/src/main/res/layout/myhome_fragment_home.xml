@@ -27,6 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/myhome_imageview5"
         android:layout_width="37dp"
         android:layout_height="32dp"
         android:layout_marginEnd="45dp"
@@ -59,11 +60,10 @@
         android:id="@+id/myhome_tv_mission"
         android:layout_width="45dp"
         android:layout_height="49dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/myhome_ic_mission"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myhome_tv_carrot_count" />
+        app:layout_constraintTop_toTopOf="@+id/myhome_textview" />
 
     <TextView
         android:id="@+id/myhome_tv_edit"
@@ -73,6 +73,38 @@
         android:background="@drawable/myhome_ic_edit"
         app:layout_constraintEnd_toEndOf="@+id/myhome_tv_mission"
         app:layout_constraintTop_toBottomOf="@+id/myhome_tv_shop" />
+
+    <ImageView
+        android:id="@+id/myhome_imageview4"
+        android:layout_width="6dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/myhome_ic_arrow_left"
+        app:layout_constraintBottom_toBottomOf="@+id/myhome_textview"
+        app:layout_constraintEnd_toStartOf="@+id/myhome_textview"
+        app:layout_constraintTop_toTopOf="@+id/myhome_textview" />
+
+    <ImageView
+        android:id="@+id/myhome_imageview6"
+        android:layout_width="6dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/myhome_ic_arrow_right"
+        app:layout_constraintBottom_toBottomOf="@+id/myhome_textview"
+        app:layout_constraintStart_toEndOf="@+id/myhome_textview"
+        app:layout_constraintTop_toTopOf="@+id/myhome_textview" />
+
+    <TextView
+        android:id="@+id/myhome_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的客厅"
+        android:textColor="#8A4F30"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
