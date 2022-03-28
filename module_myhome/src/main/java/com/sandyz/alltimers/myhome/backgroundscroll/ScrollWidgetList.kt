@@ -39,10 +39,10 @@ fun getWidgetClass(widgetType: String): ScrollChild? {
 data class WidgetInf(
     val name: String = "",
     val type: String = "",
-    val posX: Int = 0,
-    val posY: Int = 0,
-    val width: Int = 0,
-    val height: Int = 0
+    val posX: Float = 0f,
+    val posY: Float = 0f,
+    val width: Float = 0f,
+    val height: Float = 0f
 )
 
 /**

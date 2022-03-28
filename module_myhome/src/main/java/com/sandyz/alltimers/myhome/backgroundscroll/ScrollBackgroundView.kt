@@ -24,6 +24,11 @@ class ScrollBackgroundView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
+    // 长按多久可以拖动控件
+    var longDragTime = 800L
+
+    // 松开手指后是否立即结束拖动控件
+    var endDrayImmediately = false
 
     // 要显示的图片宽高比
     private var mSizeFix = 1f
@@ -251,9 +256,20 @@ class ScrollBackgroundView @JvmOverloads constructor(
     /**
      * 设置子view的位置
      */
-    fun setChildPosition(scrollFrameLayout: ScrollFrameLayout, posX: Int, posY: Int, shouldScrollWithBackground: Boolean = true) {
+    fun setChildPosition(
+        scrollFrameLayout: ScrollFrameLayout,
+        posX: Int,
+        posY: Int,
+        width: Int,
+        height: Int,
+        shouldScrollWithBackground: Boolean = true
+    ) {
         scrollFrameLayout.post {
             val childLayoutParams = scrollFrameLayout.layoutParams as? LayoutParams ?: return@post
+            if (!(width == 0 || height == 0)) {
+                childLayoutParams.width = width
+                childLayoutParams.height = height
+            }
             val ivLayoutParams = mBackgroundImage.layoutParams as LayoutParams
             if (shouldScrollWithBackground) {
                 childLayoutParams.leftMargin = posX + ivLayoutParams.leftMargin
@@ -264,6 +280,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
             }
             scrollFrameLayout.layoutParams = childLayoutParams
             requestLayout()
+            onBind()
         }
     }
 
@@ -273,7 +290,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
     fun setChildPosition(widgetName: String, posX: Int, posY: Int, shouldScrollWithBackground: Boolean = true) {
         children.forEach {
             if (it is ScrollFrameLayout && it.getWidgetType() == widgetName) {
-                setChildPosition(it, posX, posY, shouldScrollWithBackground)
+                setChildPosition(it, posX, posY, 0, 0, shouldScrollWithBackground)
             }
         }
     }
@@ -380,8 +397,10 @@ class ScrollBackgroundView @JvmOverloads constructor(
 
         }
         if (list.isEmpty()) return true
-        list.forEach {
-            addWidget(it.name, it.type, it.posX, it.posY)
+        post {
+            list.forEach {
+                addWidget(it.name, it.type, it.posX, it.posY, it.width, it.height)
+            }
         }
         return false
     }
@@ -394,15 +413,15 @@ class ScrollBackgroundView @JvmOverloads constructor(
                 val positionPair = getChildPosition(it.scrollChild!!.getWidgetType()) ?: return@forEach
                 val posX = positionPair.first
                 val posY = positionPair.second
-                if (!it.getWidgetType().isNullOrEmpty() || it.getWidgetType() == "fixed")
+                if (!(it.getWidgetType().isNullOrEmpty() || it.getWidgetType() == "fixed"))
                     list.add(
                         WidgetInf(
                             it.getWidgetName(),
                             it.getWidgetType()!!,
-                            posX,
-                            posY,
-                            it.scrollChild!!.getWidth(context),
-                            it.scrollChild!!.getHeight(context)
+                            posX / (mHeight * mSizeFix),
+                            posY / mHeight.toFloat(),
+                            it.width / (mHeight * mSizeFix),
+                            it.height / (mHeight).toFloat()
                         )
                     )
             }
@@ -423,7 +442,32 @@ class ScrollBackgroundView @JvmOverloads constructor(
                 childView.canMove = it.canMove()
                 childView.layoutParams = LayoutParams(it.getWidth(context), it.getHeight(context))
                 childView.shouldScrollWithBackground = it.shouldScrollWithBackground()
-                setChildPosition(childView, posX, posY, it.shouldScrollWithBackground())
+                setChildPosition(childView, posX, posY, it.getWidth(context), it.getHeight(context), it.shouldScrollWithBackground())
+            })
+        }
+    }
+
+    fun addWidget(widgetName: String, widgetType: String, posXF: Float = 0f, posYF: Float = 0f, widthF: Float, heightF: Float) {
+        removeWidgetByName(widgetName)
+        getWidgetClass(widgetType)?.let {
+            addView(it.getChildView(this).also { childView ->
+                childView.mName = widgetName
+                childView.scrollChild = it
+                childView.canMove = it.canMove()
+                childView.layoutParams = LayoutParams((widthF * mHeight * mSizeFix).toInt(), (heightF * mHeight).toInt())
+                childView.shouldScrollWithBackground = it.shouldScrollWithBackground()
+                val posX = posXF * mHeight * mSizeFix
+                val posY = posYF * mHeight
+
+                Log.e("sandyzhang-===", "${posX}, ${posY}, ${(widthF * mHeight * mSizeFix).toInt()}, ${(heightF * mHeight).toInt()}")
+                setChildPosition(
+                    childView,
+                    posX.toInt(),
+                    posY.toInt(),
+                    (widthF * mHeight * mSizeFix).toInt(),
+                    (heightF * mHeight).toInt(),
+                    it.shouldScrollWithBackground()
+                )
             })
         }
     }
@@ -462,11 +506,11 @@ class ScrollBackgroundView @JvmOverloads constructor(
     fun getVisibleLeft() = ((mBackgroundImage.layoutParams as? LayoutParams?)?.leftMargin ?: 0)
 
     fun setWallPaper(@DrawableRes id: Int) {
-        pasteWidget("wallpaper", 0, 0, MAX_WIDTH, HORIZON + 20, id, null)
+        pasteWidget("wallpaper", 0, 0, MAX_WIDTH, HORIZON + 20, id, 1f, null)
     }
 
     fun setFloor(@DrawableRes id: Int) {
-        pasteWidget("floor", 0, HORIZON, MAX_WIDTH, MAX_HEIGHT, id, null)
+        pasteWidget("floor", 0, HORIZON, MAX_WIDTH, MAX_HEIGHT, id, 1f, null)
     }
 
     fun getRealHorizon() = (HORIZON / MAX_HEIGHT.toFloat()) * mBackgroundImage.height

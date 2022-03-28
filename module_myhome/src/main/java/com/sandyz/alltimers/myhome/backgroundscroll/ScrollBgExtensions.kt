@@ -2,7 +2,6 @@ package com.sandyz.alltimers.myhome.backgroundscroll
 
 import android.util.Log
 import android.widget.FrameLayout
-import com.sandyz.alltimers.common.extensions.setOnClickAction
 
 fun ScrollBackgroundView.pasteWidget(
     widgetName: String,
@@ -11,6 +10,7 @@ fun ScrollBackgroundView.pasteWidget(
     rightPx: Int,
     bottomPx: Int,
     drawableId: Int,
+    alpha: Float,
     onClickAction: (() -> Unit)?
 ) {
     post {
@@ -26,12 +26,13 @@ fun ScrollBackgroundView.pasteWidget(
         removeWidgetByName(widgetName)
         (getWidgetClass("fixed") as? FixedWidget)?.let {
             addView(it.getChildView(this).also { childView ->
+                childView.alpha = alpha
                 childView.mName = widgetName
                 childView.scrollChild = it
                 childView.canMove = it.canMove()
                 childView.layoutParams = FrameLayout.LayoutParams(width.toInt(), height.toInt())
                 childView.shouldScrollWithBackground = it.shouldScrollWithBackground()
-                setChildPosition(childView, left.toInt(), top.toInt(), it.shouldScrollWithBackground())
+                setChildPosition(childView, left.toInt(), top.toInt(), width.toInt(), height.toInt(), it.shouldScrollWithBackground())
                 childView.setOnClickListener {
                     onClickAction?.invoke()
                 }

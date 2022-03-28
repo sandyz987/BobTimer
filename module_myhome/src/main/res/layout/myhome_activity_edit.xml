@@ -5,16 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF3F0"
-    tools:context=".ActivityEdit">
+    tools:context=".view.activity.ActivityEdit">
 
     <com.sandyz.alltimers.myhome.backgroundscroll.ScrollBackgroundView
         android:id="@+id/myhome_dynamic_bg_edit"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:nestedScrollingEnabled="true"
-        android:scaleX="1.0"
-        android:scaleY="0.5"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -49,4 +47,38 @@
         android:text="保存"
         app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/myhome_tv_carrot_count2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/myhome_shape_carrot_count_bg"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="#8A4F30"
+        app:layout_constraintBottom_toBottomOf="@+id/myhome_iv_back"
+        app:layout_constraintEnd_toStartOf="@+id/myhome_iv_carrot_add2"
+        app:layout_constraintTop_toTopOf="@+id/myhome_iv_back" />
+
+    <ImageView
+        android:id="@+id/myhome_imageview"
+        android:layout_width="37dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="5dp"
+        android:src="@drawable/myhome_ic_carrot"
+        app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count2"
+        app:layout_constraintEnd_toEndOf="@+id/myhome_tv_carrot_count2"
+        app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count2" />
+
+    <ImageView
+        android:id="@+id/myhome_iv_carrot_add2"
+        android:layout_width="24dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/myhome_ic_carrot_add"
+        app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

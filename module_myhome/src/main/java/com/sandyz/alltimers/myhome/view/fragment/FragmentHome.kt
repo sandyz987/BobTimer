@@ -1,4 +1,4 @@
-package com.sandyz.alltimers.myhome
+package com.sandyz.alltimers.myhome.view.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,6 +11,9 @@ import com.sandyz.alltimers.common.base.BaseFragment
 import com.sandyz.alltimers.common.config.HOME_ENTRY
 import com.sandyz.alltimers.common.config.SHOP_RECHARGE
 import com.sandyz.alltimers.common.extensions.setOnClickAction
+import com.sandyz.alltimers.myhome.view.dialog.MissionDialog
+import com.sandyz.alltimers.myhome.R
+import com.sandyz.alltimers.myhome.view.activity.ActivityEdit
 import kotlinx.android.synthetic.main.myhome_fragment_home.*
 
 @Route(path = HOME_ENTRY)
@@ -46,6 +49,10 @@ class FragmentHome : BaseFragment() {
 
         myhome_iv_carrot_add.setOnClickAction {
             ARouter.getInstance().build(SHOP_RECHARGE).navigation()
+        }
+
+        myhome_tv_mission.setOnClickAction {
+            context?.let { MissionDialog.show(it) }
         }
     }
 

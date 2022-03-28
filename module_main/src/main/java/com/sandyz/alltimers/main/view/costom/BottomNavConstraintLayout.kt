@@ -34,7 +34,7 @@ class BottomNavConstraintLayout @JvmOverloads constructor(
 
     private var paint = Paint().apply {
         isAntiAlias = true
-        strokeWidth = context.dp2px(2).toFloat()
+        strokeWidth = context.dp2px(3).toFloat()
         strokeCap = Paint.Cap.ROUND
         strokeJoin = Paint.Join.ROUND
     }
@@ -126,7 +126,7 @@ class BottomNavConstraintLayout @JvmOverloads constructor(
         paint.style = Paint.Style.FILL
         fillPath?.let { canvas?.drawPath(it, paint) }
 
-        paint.color = Color.parseColor("#B58165")
+        paint.color = Color.parseColor("#FFFFFF")
         paint.style = Paint.Style.STROKE
         strokePath?.let { canvas?.drawPath(it, paint) }
 

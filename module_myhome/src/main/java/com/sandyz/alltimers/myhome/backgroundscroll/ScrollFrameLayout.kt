@@ -83,7 +83,7 @@ class ScrollFrameLayout @JvmOverloads constructor(
                 val layoutParams = layoutParams as LayoutParams
                 originLeft = layoutParams.leftMargin
                 originTop = layoutParams.topMargin
-                postDelayed(scrollCallback, 800L)
+                postDelayed(scrollCallback, ((parent as? ScrollBackgroundView?)?.longDragTime) ?: 800L)
                 parent.requestDisallowInterceptTouchEvent(true)
 
                 return true
@@ -106,6 +106,10 @@ class ScrollFrameLayout @JvmOverloads constructor(
                 if (!isScrolling) {
                     removeCallbacks(scrollCallback)
                     performClick()
+                } else {
+                    if ((parent as? ScrollBackgroundView?)?.endDrayImmediately == true) {
+                        isScrolling = false
+                    }
                 }
             }
         }
