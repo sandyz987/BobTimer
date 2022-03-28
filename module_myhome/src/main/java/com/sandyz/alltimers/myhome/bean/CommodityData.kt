@@ -11,5 +11,5 @@ open class CommodityData(
     val resName: String,
     val icon: Int,
     val price: Int,
-    val sort: String
+    val sort: String // 格式“种类数字/特别数字”     特别数字为1表示墙纸，2表示地板
 )

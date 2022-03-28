@@ -18,6 +18,11 @@ class EditPagerAdapter(private val scrollBackgroundView: ScrollBackgroundView) :
         val rvShop = v.myhome_rv_shop
     }
 
+
+    var widgetContentAdapter1: WidgetContentAdapter? = null
+    var widgetContentAdapter2: WidgetContentAdapter? = null
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.myhome_layout_edit, parent, false))
     }
@@ -35,6 +40,7 @@ class EditPagerAdapter(private val scrollBackgroundView: ScrollBackgroundView) :
                 adapter.onSelected = {
                     this.refresh(it)
                 }
+                widgetContentAdapter2 = this
             }
         }
     }

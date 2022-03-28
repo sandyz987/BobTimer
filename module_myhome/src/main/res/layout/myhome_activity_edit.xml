@@ -131,4 +131,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myhome_dynamic_bg_edit" />
+
+    <ImageView
+        android:id="@+id/myhome_iv_remove_all"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/myhome_ic_remove_all" />
 </androidx.constraintlayout.widget.ConstraintLayout>

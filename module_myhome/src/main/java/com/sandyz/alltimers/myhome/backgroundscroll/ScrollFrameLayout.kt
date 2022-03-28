@@ -173,7 +173,11 @@ class ScrollFrameLayout @JvmOverloads constructor(
                 ((focus - parentScrollBgView.getRealHorizon()) / (parentScrollBgView.getRealHeight() - parentScrollBgView.getRealHorizon()))
                     .fixToRange(0f, 1f)
             // 改变层次
-            elevation = 1f + 20f * percent
+            elevation = when (scrollChild?.viewElevation()) {
+                1 -> 22f
+                -1 -> 0.5f
+                else -> 1f + 20f * percent
+            }
             // 修改透视大小
             scaleX = 1f + percent * 0.4f
             scaleY = 1f + percent * 0.4f

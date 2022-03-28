@@ -9,10 +9,14 @@ import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.common.extensions.toast
 import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.myhome.R
+import com.sandyz.alltimers.myhome.model.WallpaperAndFloorModel
 import com.sandyz.alltimers.myhome.view.adapter.EditPagerAdapter
 import kotlinx.android.synthetic.main.myhome_activity_edit.*
 
 class ActivityEdit : BaseActivity() {
+
+    private lateinit var adapter: EditPagerAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.myhome_activity_edit)
@@ -22,8 +26,8 @@ class ActivityEdit : BaseActivity() {
 
         myhome_dynamic_bg_edit.setSize(3000, 1600)
         myhome_dynamic_bg_edit.scrollToPercent(0.3f, false)
-        myhome_dynamic_bg_edit.setWallPaper(R.drawable.myhome_ic_wallpaper1)
-        myhome_dynamic_bg_edit.setFloor(R.drawable.myhome_ic_floor1)
+        myhome_dynamic_bg_edit.setWallPaper(WallpaperAndFloorModel.getWallpaper(this))
+        myhome_dynamic_bg_edit.setFloor(WallpaperAndFloorModel.getFloor(this))
         myhome_dynamic_bg_edit.fromSerializationData()
         myhome_dynamic_bg_edit.onBind()
 
@@ -48,13 +52,38 @@ class ActivityEdit : BaseActivity() {
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                myhome_vp_edit.currentItem = if (myhome_tl_sort.getTabAt(0) == tab) 0 else 1
+                myhome_vp_edit.currentItem = myhome_tl_sort.selectedTabPosition
             }
         })
 
+        myhome_iv_remove_all.setOnClickAction {
 
-        myhome_vp_edit.adapter = EditPagerAdapter(myhome_dynamic_bg_edit)
+            if (myhome_tl_sort.selectedTabPosition == 1) {
+                myhome_dynamic_bg_edit.removeAllTypeWidget("")
+            } else {
+
+            }
+            adapter.widgetContentAdapter1?.refresh()
+            adapter.widgetContentAdapter2?.refresh()
+        }
+
+
+        adapter = EditPagerAdapter(myhome_dynamic_bg_edit)
+        myhome_vp_edit.adapter = adapter
         myhome_vp_edit.isUserInputEnabled = false
+
+        val intent = intent
+        if (intent != null) {
+            val s = intent.getIntExtra("type", -1)
+            if (s != -1) {
+                myhome_tl_sort.selectTab(myhome_tl_sort.getTabAt(s))
+            }
+
+        }
+        myhome_dynamic_bg_edit.post {
+            adapter.widgetContentAdapter1?.refresh()
+            adapter.widgetContentAdapter2?.refresh()
+        }
 
     }
 

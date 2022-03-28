@@ -387,16 +387,15 @@ class ScrollBackgroundView @JvmOverloads constructor(
      * 返回值为true说明无缓存，使用默认配置
      */
     fun fromSerializationData(): Boolean {
+        removeAllTypeWidget("")
         val sp = context.getSharedPreferences("widget", Context.MODE_PRIVATE)
-        val widgetListString = sp.getString("widget", "[]")
+        val widgetListString = sp.getString("widget", "null")
         Log.e("ScrollBackgroundView", "fromWidget: $widgetListString")
         val list = try {
             Gson().fromJson<List<WidgetInf>>(widgetListString, object : TypeToken<List<WidgetInf>>() {}.type)
         } catch (e: Exception) {
-            mutableListOf()
-
-        }
-        if (list.isEmpty()) return true
+            null
+        } ?: return true
         post {
             list.forEach {
                 addWidget(it.name, it.type, it.posX, it.posY, it.width, it.height)
@@ -430,20 +429,26 @@ class ScrollBackgroundView @JvmOverloads constructor(
         val widgetListString = Gson().toJson(list)
         editor.putString("widget", widgetListString)
         Log.e("ScrollBackgroundView", "saveWidget: $widgetListString")
-        editor.apply()
+        editor.commit()
     }
 
     fun addWidget(widgetName: String, widgetType: String, posX: Int = 0, posY: Int = 0) {
-        removeWidgetByName(widgetName)
-        getWidgetClass(widgetType)?.let {
-            addView(it.getChildView(this).also { childView ->
-                childView.mName = widgetName
-                childView.scrollChild = it
-                childView.canMove = it.canMove()
-                childView.layoutParams = LayoutParams(it.getWidth(context), it.getHeight(context))
-                childView.shouldScrollWithBackground = it.shouldScrollWithBackground()
-                setChildPosition(childView, posX, posY, it.getWidth(context), it.getHeight(context), it.shouldScrollWithBackground())
-            })
+        post {
+            removeWidgetByName(widgetName)
+            getWidgetClass(widgetType)?.let {
+                addView(it.getChildView(this).also { childView ->
+                    childView.mName = widgetName
+                    childView.scrollChild = it
+                    childView.canMove = it.canMove()
+                    val x = (posX / (mBgHeight.toFloat()) * mHeight).toInt()
+                    val y = (posY / (mBgHeight.toFloat()) * mHeight).toInt()
+                    val w = (it.getWidth(context) / (mBgHeight.toFloat()) * mHeight).toInt()
+                    val h = (it.getHeight(context) / (mBgHeight.toFloat()) * mHeight).toInt()
+                    childView.layoutParams = LayoutParams(w, h)
+                    childView.shouldScrollWithBackground = it.shouldScrollWithBackground()
+                    setChildPosition(childView, x, y, w, h, it.shouldScrollWithBackground())
+                })
+            }
         }
     }
 
@@ -484,12 +489,18 @@ class ScrollBackgroundView @JvmOverloads constructor(
     }
 
     fun removeAllTypeWidget(widgetType: String) {
-        children.forEachIndexed { index, view ->
+        var i = 0
+        while (i < childCount) {
+            val view = getChildAt(i)
             if (view is ScrollFrameLayout) {
-                if (view.getWidgetType() == widgetType) {
-                    removeViewAt(index)
+                if (view.getWidgetType() == widgetType || widgetType == "") {
+                    if (view.getWidgetType() != "fixed") {
+                        removeViewAt(i)
+                        i--
+                    }
                 }
             }
+            i++
         }
     }
 
@@ -503,7 +514,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
         }
     }
 
-    fun getVisibleLeft() = ((mBackgroundImage.layoutParams as? LayoutParams?)?.leftMargin ?: 0)
+    fun getVisibleLeft() = -((mBackgroundImage.layoutParams as? LayoutParams?)?.leftMargin ?: 0)
 
     fun setWallPaper(@DrawableRes id: Int) {
         pasteWidget("wallpaper", 0, 0, MAX_WIDTH, HORIZON + 20, id, 1f, null)

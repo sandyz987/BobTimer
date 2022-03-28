@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sandyz.alltimers.common.extensions.setOnClickAction
+import com.sandyz.alltimers.common.utils.ResourceGetter
 import com.sandyz.alltimers.myhome.R
 import com.sandyz.alltimers.myhome.backgroundscroll.ScrollBackgroundView
 import com.sandyz.alltimers.myhome.bean.CommodityData
+import com.sandyz.alltimers.myhome.model.WallpaperAndFloorModel
 import kotlinx.android.synthetic.main.myhome_item_widget.view.*
 
 class WidgetContentAdapter(private val scrollBackgroundView: ScrollBackgroundView, filter: String, private val commodityList: List<CommodityData>) :
@@ -21,14 +23,21 @@ class WidgetContentAdapter(private val scrollBackgroundView: ScrollBackgroundVie
 
     private val list = mutableListOf<Goods>()
 
+    private var filter: String = ""
+
     init {
         refresh(filter)
     }
 
+    fun refresh() {
+        refresh(filter)
+    }
+
     fun refresh(filter: String) {
+        this.filter = filter
         list.clear()
         commodityList.forEach {
-            if (it.sort == filter || filter == "") {
+            if ((it.sort.split("/")[0]) == filter || filter == "") {
                 list.add(Goods(it, scrollBackgroundView.findWidget(it.resName) != null))
             }
         }
@@ -59,13 +68,33 @@ class WidgetContentAdapter(private val scrollBackgroundView: ScrollBackgroundVie
             }
             pic.setImageResource(data.commodityData.icon)
             itemView.setOnClickAction {
-                if (data.isSelected) {
-                    scrollBackgroundView.removeWidgetByName(data.commodityData.resName)
+                val sort = data.commodityData.sort.split("/")
+                if (sort.size <= 1) {
+                    if (data.isSelected) {
+                        scrollBackgroundView.removeWidgetByName(data.commodityData.resName)
+                    } else {
+                        scrollBackgroundView.addWidget(
+                            data.commodityData.resName,
+                            data.commodityData.resName,
+                            scrollBackgroundView.getVisibleLeft() + scrollBackgroundView.width / 2,
+                            650
+                        )
+                    }
+                    data.isSelected = !data.isSelected
+                    notifyItemChanged(position)
                 } else {
-                    scrollBackgroundView.addWidget(data.commodityData.resName, data.commodityData.resName, scrollBackgroundView.getVisibleLeft(), 900)
+                    if (sort[1] == "1") {
+                        // 墙纸
+                        val pic = ResourceGetter.getDrawableId(R.drawable::class.java, data.commodityData.resName)
+                        WallpaperAndFloorModel.setWallpaper(itemView.context, pic)
+                        scrollBackgroundView.setWallPaper(pic)
+                    } else {
+                        // 地板
+                        val pic = ResourceGetter.getDrawableId(R.drawable::class.java, data.commodityData.resName)
+                        WallpaperAndFloorModel.setFloor(itemView.context, pic)
+                        scrollBackgroundView.setFloor(pic)
+                    }
                 }
-                data.isSelected = !data.isSelected
-                notifyItemChanged(position)
             }
         }
     }
