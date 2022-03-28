@@ -1,6 +1,7 @@
 package com.sandyz.alltimers.myhome.model
 
 import com.sandyz.alltimers.common.utils.ResourceGetter
+import com.sandyz.alltimers.myhome.R
 import com.sandyz.alltimers.myhome.bean.CommodityData
 import kotlin.random.Random
 
@@ -19,8 +20,8 @@ object FurnitureModel {
             list.add(
                 CommodityData(
                     getFurnitureName(it).first,
-                    "widget${it}",
-                    ResourceGetter.getDrawableId("myhome_widget_${it}"),
+                    "Widget${it}",
+                    ResourceGetter.getDrawableId(R.drawable::class.java,"myhome_widget_${it}"),
                     Random(2).nextInt(200, 400),
                     getFurnitureName(it).second
                 )

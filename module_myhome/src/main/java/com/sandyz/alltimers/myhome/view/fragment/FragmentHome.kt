@@ -11,9 +11,9 @@ import com.sandyz.alltimers.common.base.BaseFragment
 import com.sandyz.alltimers.common.config.HOME_ENTRY
 import com.sandyz.alltimers.common.config.SHOP_RECHARGE
 import com.sandyz.alltimers.common.extensions.setOnClickAction
-import com.sandyz.alltimers.myhome.view.dialog.MissionDialog
 import com.sandyz.alltimers.myhome.R
 import com.sandyz.alltimers.myhome.view.activity.ActivityEdit
+import com.sandyz.alltimers.myhome.view.dialog.MissionDialog
 import kotlinx.android.synthetic.main.myhome_fragment_home.*
 
 @Route(path = HOME_ENTRY)
@@ -34,10 +34,10 @@ class FragmentHome : BaseFragment() {
         myhome_dynamic_bg.setFloor(R.drawable.myhome_ic_floor1)
 
         if (myhome_dynamic_bg.fromSerializationData()) {
-            myhome_dynamic_bg.addWidget("widget1", "widget1", myhome_dynamic_bg.getVisibleLeft(), 700)
-            myhome_dynamic_bg.addWidget("widget2", "widget2", myhome_dynamic_bg.getVisibleLeft(), 700)
-            myhome_dynamic_bg.addWidget("widget3", "widget3", myhome_dynamic_bg.getVisibleLeft(), 700)
-            myhome_dynamic_bg.addWidget("widget4", "widget4", myhome_dynamic_bg.getVisibleLeft(), 700)
+            myhome_dynamic_bg.addWidget("Widget1", "Widget1", myhome_dynamic_bg.getVisibleLeft() - 300, 700)
+            myhome_dynamic_bg.addWidget("Widget2", "Widget2", myhome_dynamic_bg.getVisibleLeft() - 600, 700)
+            myhome_dynamic_bg.addWidget("Widget3", "Widget3", myhome_dynamic_bg.getVisibleLeft() + 400, 300)
+            myhome_dynamic_bg.addWidget("Widget4", "Widget4", myhome_dynamic_bg.getVisibleLeft() + 700, 800)
         }
         myhome_dynamic_bg.onBind()
 

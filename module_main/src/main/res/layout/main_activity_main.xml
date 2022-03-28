@@ -35,7 +35,7 @@
 
             <com.sandyz.alltimers.main.view.costom.BottomNavButton
                 android:id="@+id/main_bottom_navi_schedule"
-                android:layout_width="38dp"
+                android:layout_width="35dp"
                 android:layout_height="52dp"
                 android:layout_marginBottom="8dp"
                 app:checked_src="@drawable/main_ic_mine"
@@ -48,7 +48,7 @@
 
             <com.sandyz.alltimers.main.view.costom.BottomNavButton
                 android:id="@+id/main_bottom_navi_concentrate"
-                android:layout_width="38dp"
+                android:layout_width="35dp"
                 android:layout_height="0dp"
                 app:checked_src="@drawable/main_ic_mine"
                 app:label="专注"
@@ -61,7 +61,7 @@
 
             <com.sandyz.alltimers.main.view.costom.BottomNavButton
                 android:id="@+id/main_bottom_navi_mine"
-                android:layout_width="38dp"
+                android:layout_width="33dp"
                 android:layout_height="0dp"
                 app:checked_src="@drawable/main_ic_mine"
                 app:label="我的"
@@ -74,7 +74,7 @@
 
             <com.sandyz.alltimers.main.view.costom.BottomNavButton
                 android:id="@+id/main_bottom_navi_calendar"
-                android:layout_width="38dp"
+                android:layout_width="33dp"
                 android:layout_height="0dp"
                 app:checked_src="@drawable/main_ic_mine"
                 app:label="日历"

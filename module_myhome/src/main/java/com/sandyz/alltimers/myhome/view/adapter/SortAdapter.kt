@@ -37,7 +37,7 @@ class SortAdapter(private val list: List<SortData>, private val rv: RecyclerView
         }
         holder.itemView.setOnClickAction {
             if (selectedPos != position) {
-                rv.findViewHolderForAdapterPosition(selectedPos)?.itemView?.myhome_iv_sort?.setImageResource(list[position].noSelectedIcon)
+                rv.findViewHolderForAdapterPosition(selectedPos)?.itemView?.myhome_iv_sort?.setImageResource(list[selectedPos].noSelectedIcon)
                 holder.tvSort.setImageResource(list[position].selectedIcon)
                 selectedPos = position
             }

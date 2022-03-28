@@ -6,6 +6,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.sandyz.alltimers.common.extensions.dp2px
+import com.sandyz.alltimers.common.utils.ResourceGetter
 import com.sandyz.alltimers.myhome.R
 
 
@@ -17,19 +18,12 @@ fun getWidgetClass(widgetType: String): ScrollChild? {
         "fixed" -> {
             FixedWidget()
         }
-        "widget1" -> {
-            Widget1()
+        else -> try {
+            Class.forName("com.sandyz.alltimers.myhome.backgroundscroll.$widgetType").newInstance() as ScrollChild
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
-        "widget2" -> {
-            Widget2()
-        }
-        "widget3" -> {
-            Widget3()
-        }
-        "widget4" -> {
-            Widget4()
-        }
-        else -> null
     }
 }
 
@@ -141,9 +135,7 @@ class FixedWidget : ScrollChild() {
 
 
 class Widget1 : ScrollChild() {
-    companion object{
-        const val WIDGET_NAME = "widget1"
-    }
+    private val WIDGET_NAME = this.javaClass.simpleName
     override fun getWidgetType() = WIDGET_NAME
     override fun shouldScrollWithBackground() = true
     override fun canMove() = true
@@ -181,9 +173,7 @@ class Widget1 : ScrollChild() {
 }
 
 class Widget2 : ScrollChild() {
-    companion object{
-        const val WIDGET_NAME = "widget2"
-    }
+    private val WIDGET_NAME = this.javaClass.simpleName
     override fun getWidgetType() = WIDGET_NAME
     override fun shouldScrollWithBackground() = true
     override fun canMove() = true
@@ -222,9 +212,7 @@ class Widget2 : ScrollChild() {
 
 
 class Widget3 : ScrollChild() {
-    companion object{
-        const val WIDGET_NAME = "widget3"
-    }
+    private val WIDGET_NAME = this.javaClass.simpleName
     override fun getWidgetType() = WIDGET_NAME
     override fun shouldScrollWithBackground() = true
     override fun canMove() = true
@@ -262,9 +250,7 @@ class Widget3 : ScrollChild() {
 }
 
 class Widget4 : ScrollChild() {
-    companion object{
-        const val WIDGET_NAME = "widget4"
-    }
+    private val WIDGET_NAME = this.javaClass.simpleName
     override fun getWidgetType() = WIDGET_NAME
     override fun shouldScrollWithBackground() = true
     override fun canMove() = true

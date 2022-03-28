@@ -1,6 +1,7 @@
 package com.sandyz.alltimers.myhome.model
 
 import com.sandyz.alltimers.common.utils.ResourceGetter
+import com.sandyz.alltimers.myhome.R
 import com.sandyz.alltimers.myhome.bean.SortData
 
 /**
@@ -18,8 +19,8 @@ object SortModel {
             list.add(
                 SortData(
                     "$it",
-                    ResourceGetter.getDrawableId("myhome_ic_furniture_sort_${it}"),
-                    ResourceGetter.getDrawableId("myhome_ic_furniture_sort_${it}_s")
+                    ResourceGetter.getDrawableId(R.drawable::class.java,"myhome_ic_furniture_sort_${it}"),
+                    ResourceGetter.getDrawableId(R.drawable::class.java,"myhome_ic_furniture_sort_${it}_s")
                 )
             )
         }
@@ -33,8 +34,8 @@ object SortModel {
             list.add(
                 SortData(
                     "$it",
-                    ResourceGetter.getDrawableId("myhome_wear_ic_sort_${it}"),
-                    ResourceGetter.getDrawableId("myhome_wear_ic_sort_${it}_s")
+                    ResourceGetter.getDrawableId(R.drawable::class.java,"myhome_wear_ic_sort_${it}"),
+                    ResourceGetter.getDrawableId(R.drawable::class.java,"myhome_wear_ic_sort_${it}_s")
                 )
             )
         }

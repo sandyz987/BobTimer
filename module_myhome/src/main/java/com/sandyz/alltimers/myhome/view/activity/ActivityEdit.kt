@@ -2,13 +2,14 @@ package com.sandyz.alltimers.myhome.view.activity
 
 import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
+import com.google.android.material.tabs.TabLayout
 import com.sandyz.alltimers.common.base.BaseActivity
 import com.sandyz.alltimers.common.config.SHOP_RECHARGE
-import com.sandyz.alltimers.common.extensions.getScreenHeight
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.common.extensions.toast
 import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.myhome.R
+import com.sandyz.alltimers.myhome.view.adapter.EditPagerAdapter
 import kotlinx.android.synthetic.main.myhome_activity_edit.*
 
 class ActivityEdit : BaseActivity() {
@@ -42,6 +43,18 @@ class ActivityEdit : BaseActivity() {
         myhome_iv_carrot_add2.setOnClickAction {
             ARouter.getInstance().build(SHOP_RECHARGE).navigation()
         }
+
+        myhome_tl_sort.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                myhome_vp_edit.currentItem = if (myhome_tl_sort.getTabAt(0) == tab) 0 else 1
+            }
+        })
+
+
+        myhome_vp_edit.adapter = EditPagerAdapter()
+        myhome_vp_edit.isUserInputEnabled = false
 
     }
 

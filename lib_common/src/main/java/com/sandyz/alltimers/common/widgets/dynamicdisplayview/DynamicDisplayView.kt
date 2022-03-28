@@ -91,7 +91,7 @@ class DynamicDisplayView @JvmOverloads constructor(
      * 要显示的各个字符的图片的id
      */
     private fun getDrawableId(c: Char): Int = if (c in '0'..'9') {
-        ResourceGetter.getDrawableId("common_ic_background_test")
+        ResourceGetter.getDrawableId(R.drawable::class.java,"common_ic_background_test")
     } else {
         0
     }

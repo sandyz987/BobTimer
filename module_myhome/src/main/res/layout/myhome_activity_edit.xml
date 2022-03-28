@@ -30,21 +30,21 @@
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/myhome_guideline"
-        app:layout_constraintGuide_percent="0.5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
 
     <TextView
         android:id="@+id/myhome_tv_save"
         android:layout_width="wrap_content"
-        android:background="@drawable/common_btn_bg_3"
-        android:textSize="16sp"
-        android:textColor="#AD7557"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:background="@drawable/common_btn_bg_3"
         android:text="保存"
+        android:textColor="#AD7557"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -81,4 +81,54 @@
         app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count2" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="38dp"
+        android:background="#AD7557"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/myhome_tl_sort" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/myhome_tl_sort"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/myhome_shape_sort"
+        app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:tabIndicatorColor="#FCC5BE"
+        app:tabTextColor="#995B3A">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/common_tabitem"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:icon="@drawable/myhome_sort_clothes_type"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/common_tabitem2"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp"
+            android:icon="@drawable/myhome_sort_home_type"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp" />
+    </com.google.android.material.tabs.TabLayout>
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/myhome_vp_edit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myhome_dynamic_bg_edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>
