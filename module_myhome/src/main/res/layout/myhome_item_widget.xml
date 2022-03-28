@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="130dp"
+    android:layout_height="130dp">
+
+    <ImageView
+        android:id="@+id/myhome_iv_widget_select"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/myhome_ic_widget_bg_s" />
+
+    <ImageView
+        android:id="@+id/myhome_iv_widget_pic"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/myhome_iv_widget_select"
+        app:layout_constraintEnd_toEndOf="@+id/myhome_iv_widget_select"
+        app:layout_constraintStart_toStartOf="@+id/myhome_iv_widget_select"
+        app:layout_constraintTop_toTopOf="@+id/myhome_iv_widget_select"
+        app:srcCompat="@drawable/myhome_widget_ic_23" />
+
+    <TextView
+        android:id="@+id/myhome_tv_widget_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="阳光沙发"
+        android:textColor="#995B3A"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@+id/myhome_iv_widget_select"
+        app:layout_constraintStart_toStartOf="@+id/myhome_iv_widget_select"
+        app:layout_constraintTop_toTopOf="@+id/myhome_iv_widget_select" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/myhome_iv_widget_select"
+        app:layout_constraintEnd_toEndOf="@+id/myhome_iv_widget_select"
+        app:layout_constraintStart_toStartOf="@+id/myhome_iv_widget_select">
+
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/myhome_ic_carrot" />
+
+        <TextView
+            android:id="@+id/myhome_tv_widget__price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="60"
+            android:textColor="#995B3A"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/myhome_iv_widget_select"
+            app:layout_constraintStart_toStartOf="@+id/myhome_iv_widget_select"
+            app:layout_constraintTop_toTopOf="@+id/myhome_iv_widget_select" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

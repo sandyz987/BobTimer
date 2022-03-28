@@ -24,6 +24,8 @@ class SortAdapter(private val list: List<SortData>, private val rv: RecyclerView
         val tvSort: ImageView = v.myhome_iv_sort
     }
 
+    var onSelected: ((String) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.myhome_item_sort, parent, false)
         return ViewHolder(v)
@@ -41,6 +43,7 @@ class SortAdapter(private val list: List<SortData>, private val rv: RecyclerView
                 holder.tvSort.setImageResource(list[position].selectedIcon)
                 selectedPos = position
             }
+            onSelected?.invoke((position + 1).toString())
         }
     }
 

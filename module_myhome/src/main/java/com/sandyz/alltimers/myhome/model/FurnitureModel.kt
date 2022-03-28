@@ -16,12 +16,12 @@ object FurnitureModel {
 
     fun getFurniture(): List<CommodityData> {
         val list = mutableListOf<CommodityData>()
-        (1..4).forEach {
+        (1..27).forEach {
             list.add(
                 CommodityData(
                     getFurnitureName(it).first,
                     "Widget${it}",
-                    ResourceGetter.getDrawableId(R.drawable::class.java,"myhome_widget_${it}"),
+                    ResourceGetter.getDrawableId(R.drawable::class.java,"myhome_widget_ic_${it}"),
                     Random(2).nextInt(200, 400),
                     getFurnitureName(it).second
                 )

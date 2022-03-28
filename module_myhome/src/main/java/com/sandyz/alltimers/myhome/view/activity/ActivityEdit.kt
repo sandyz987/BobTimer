@@ -53,7 +53,7 @@ class ActivityEdit : BaseActivity() {
         })
 
 
-        myhome_vp_edit.adapter = EditPagerAdapter()
+        myhome_vp_edit.adapter = EditPagerAdapter(myhome_dynamic_bg_edit)
         myhome_vp_edit.isUserInputEnabled = false
 
     }
