@@ -33,11 +33,18 @@
         app:layout_constraintTop_toTopOf="@+id/myhome_iv_widget_select"
         app:srcCompat="@drawable/myhome_widget_ic_23" />
 
-    <TextView
+    <com.sandyz.alltimers.common.view.costom.MarqueeTextView
         android:id="@+id/myhome_tv_widget_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="12dp"
+        android:gravity="center"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:marqueeRepeatLimit="-1"
+        android:singleLine="true"
         android:text="阳光沙发"
         android:textColor="#995B3A"
         android:textSize="14sp"

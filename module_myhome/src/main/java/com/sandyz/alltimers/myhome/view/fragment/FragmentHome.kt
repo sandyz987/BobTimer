@@ -40,6 +40,7 @@ class FragmentHome : BaseFragment() {
                 myhome_dynamic_bg.addWidget("Widget2", "Widget2", myhome_dynamic_bg.getVisibleLeft() - 600, 450)
                 myhome_dynamic_bg.addWidget("Widget3", "Widget3", myhome_dynamic_bg.getVisibleLeft() + 300, 200)
                 myhome_dynamic_bg.addWidget("Widget4", "Widget4", myhome_dynamic_bg.getVisibleLeft() + 700, 550)
+                myhome_dynamic_bg.addWidget("Rabbit", "Rabbit", myhome_dynamic_bg.getVisibleLeft() + 100, 550)
             }
         }
         myhome_dynamic_bg.onBind()

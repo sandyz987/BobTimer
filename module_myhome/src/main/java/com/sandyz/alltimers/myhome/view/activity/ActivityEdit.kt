@@ -9,6 +9,7 @@ import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.common.extensions.toast
 import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.myhome.R
+import com.sandyz.alltimers.myhome.backgroundscroll.Rabbit
 import com.sandyz.alltimers.myhome.model.WallpaperAndFloorModel
 import com.sandyz.alltimers.myhome.view.adapter.EditPagerAdapter
 import kotlinx.android.synthetic.main.myhome_activity_edit.*
@@ -40,7 +41,9 @@ class ActivityEdit : BaseActivity() {
 
         myhome_tv_save.setOnClickAction {
             myhome_dynamic_bg_edit.saveSerializationData()
-            toast("已保存布局")
+            (myhome_dynamic_bg_edit.findWidget("Rabbit")?.scrollChild as? Rabbit?)?.clothes?.saveSerializationData()
+            (myhome_dynamic_bg_edit.findWidget("Rabbit")?.scrollChild as? Rabbit?)?.headdress?.saveSerializationData()
+            toast("已保存布局及装扮")
             finish()
         }
 
@@ -57,11 +60,15 @@ class ActivityEdit : BaseActivity() {
         })
 
         myhome_iv_remove_all.setOnClickAction {
-
             if (myhome_tl_sort.selectedTabPosition == 1) {
-                myhome_dynamic_bg_edit.removeAllTypeWidget("")
+                OptionalDialog.show(this, "要删除所有家具吗？", onDeny = {}) {
+                    myhome_dynamic_bg_edit.removeAllTypeWidget("")
+                }
             } else {
-
+                OptionalDialog.show(this, "要清除Bob兔身上的所有服饰吗？", onDeny = {}) {
+                    (myhome_dynamic_bg_edit.findWidget("Rabbit")?.scrollChild as? Rabbit?)?.clothes?.removeAllViews()
+                    (myhome_dynamic_bg_edit.findWidget("Rabbit")?.scrollChild as? Rabbit?)?.headdress?.removeAllViews()
+                }
             }
             adapter.widgetContentAdapter1?.refresh()
             adapter.widgetContentAdapter2?.refresh()

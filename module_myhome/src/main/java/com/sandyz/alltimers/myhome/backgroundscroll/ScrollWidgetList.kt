@@ -1,12 +1,14 @@
 package com.sandyz.alltimers.myhome.backgroundscroll
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.sandyz.alltimers.common.extensions.dp2px
 import com.sandyz.alltimers.myhome.R
+import com.sandyz.alltimers.myhome.rabbit.RabbitSurfaceView
 
 
 /**
@@ -16,6 +18,9 @@ fun getWidgetClass(widgetType: String): ScrollChild? {
     return when (widgetType) {
         "fixed" -> {
             FixedWidget()
+        }
+        "Rabbit" -> {
+            Rabbit()
         }
         else -> try {
             Class.forName("com.sandyz.alltimers.myhome.backgroundscroll.$widgetType").newInstance() as ScrollChild
@@ -146,6 +151,9 @@ class Rabbit : ScrollChild() {
     override fun canMove() = true
     override fun withGravity() = true
 
+    lateinit var headdress: RabbitSurfaceView
+    lateinit var clothes: RabbitSurfaceView
+
     override fun startMove(v: View) {
         (v.findViewWithTag<ImageView>(WIDGET_NAME)?.drawable as? GifDrawable?)?.stop()
     }
@@ -154,28 +162,24 @@ class Rabbit : ScrollChild() {
         (v.findViewWithTag<ImageView>(WIDGET_NAME)?.drawable as? GifDrawable?)?.start()
     }
 
-    var drawableId: Int = R.drawable.myhome_widget_1
-
     override fun getChildView(parent: View): ScrollFrameLayout {
         val scrollFrameLayout = ScrollFrameLayout(parent.context)
-        val iv = ImageView(parent.context)
-        iv.tag = WIDGET_NAME
-        iv.scaleType = ImageView.ScaleType.FIT_XY
-        scrollFrameLayout.addView(iv)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.myhome_layou_rabbit, scrollFrameLayout, false).apply {
+            headdress = findViewById(R.id.myhome_surface_headdress)
+            clothes = findViewById(R.id.myhome_surface_clothes)
+        }
+        scrollFrameLayout.addView(view)
         return scrollFrameLayout
     }
 
     override fun onBind(v: View) {
-        v.findViewWithTag<ImageView>(WIDGET_NAME)?.let {
-            if (drawableId != 0) {
-                Glide.with(v.context).load(drawableId).into(it)
-            }
-        }
+        headdress.fromSerializationData()
+        clothes.fromSerializationData()
     }
 
-    override fun getWidth(context: Context) = 900
+    override fun getWidth(context: Context) = 400
     override fun getHeight(context: Context) = 500
-    override fun viewElevation() = 0
+    override fun viewElevation() = 1
 }
 
 
@@ -448,8 +452,8 @@ class Widget7 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 150
-    override fun getHeight(context: Context) = 270
+    override fun getWidth(context: Context) = 100
+    override fun getHeight(context: Context) = 180
     override fun viewElevation() = 0
 }
 
@@ -487,8 +491,8 @@ class Widget8 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 150
-    override fun getHeight(context: Context) = 290
+    override fun getWidth(context: Context) = 225
+    override fun getHeight(context: Context) = 450
     override fun viewElevation() = 0
 }
 

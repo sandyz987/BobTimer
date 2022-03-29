@@ -22,7 +22,7 @@ object FurnitureModel {
                     getFurnitureName(it).first,
                     "Widget${it}",
                     ResourceGetter.getDrawableId(R.drawable::class.java, "myhome_widget_ic_${it}"),
-                    Random(2).nextInt(200, 400),
+                    200,
                     getFurnitureName(it).second
                 )
             )

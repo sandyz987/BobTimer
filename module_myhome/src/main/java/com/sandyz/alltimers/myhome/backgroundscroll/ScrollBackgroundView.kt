@@ -494,7 +494,7 @@ class ScrollBackgroundView @JvmOverloads constructor(
             val view = getChildAt(i)
             if (view is ScrollFrameLayout) {
                 if (view.getWidgetType() == widgetType || widgetType == "") {
-                    if (view.getWidgetType() != "fixed") {
+                    if (!(view.getWidgetType() == "fixed" || view.getWidgetType() == "Rabbit")) {
                         removeViewAt(i)
                         i--
                     }
