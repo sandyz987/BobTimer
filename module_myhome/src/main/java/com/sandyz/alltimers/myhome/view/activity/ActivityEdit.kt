@@ -63,15 +63,17 @@ class ActivityEdit : BaseActivity() {
             if (myhome_tl_sort.selectedTabPosition == 1) {
                 OptionalDialog.show(this, "要删除所有家具吗？", onDeny = {}) {
                     myhome_dynamic_bg_edit.removeAllTypeWidget("")
+                    adapter.widgetContentAdapter1?.refresh()
+                    adapter.widgetContentAdapter2?.refresh()
                 }
             } else {
-                OptionalDialog.show(this, "要清除Bob兔身上的所有服饰吗？", onDeny = {}) {
+                OptionalDialog.show(this, "要清除BOB兔身上的所有服饰吗？", onDeny = {}) {
                     (myhome_dynamic_bg_edit.findWidget("Rabbit")?.scrollChild as? Rabbit?)?.clothes?.removeAllViews()
                     (myhome_dynamic_bg_edit.findWidget("Rabbit")?.scrollChild as? Rabbit?)?.headdress?.removeAllViews()
+                    adapter.widgetContentAdapter1?.refresh()
+                    adapter.widgetContentAdapter2?.refresh()
                 }
             }
-            adapter.widgetContentAdapter1?.refresh()
-            adapter.widgetContentAdapter2?.refresh()
         }
 
 
