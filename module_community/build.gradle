@@ -1,0 +1,4 @@
+apply from: config
+dependencies {
+    implementation project(path: ':module_community:api_community')
+}

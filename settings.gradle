@@ -1,12 +1,13 @@
+rootProject.name = "AllTimers"
 include ':module_myhome'
 include ':module_mine'
 include ':module_calendar'
 include ':module_concentrate'
 include ':module_schedule'
-rootProject.name = "AllTimers"
-
 include ':lib_common'
 include ':module_app'
 include ':module_main'
 include ':module_shop'
 include ':module_schedule:api_schedule'
+include ':module_community'
+include ':module_community:api_community'

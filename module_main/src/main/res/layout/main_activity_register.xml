@@ -57,25 +57,25 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/main_tv_guide_mode"
+                android:id="@+id/main_tv_return_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:padding="10dp"
-                android:text="还没有账号？立即注册"
+                android:text="返回登录"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/main_tv_login" />
+                app:layout_constraintTop_toBottomOf="@+id/main_tv_register" />
 
             <TextView
-                android:id="@+id/main_tv_login"
+                android:id="@+id/main_tv_register"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/common_btn_bg_1"
                 android:gravity="center"
-                android:text="登录"
+                android:text="注册"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -131,7 +131,7 @@
                 android:id="@+id/main_textview3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="登录"
+                android:text="注册"
                 android:textColor="#AD7557"
                 android:textSize="26sp"
                 app:layout_constraintStart_toStartOf="parent"

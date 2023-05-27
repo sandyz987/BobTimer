@@ -58,6 +58,7 @@ dependencies {
     implementation project(':module_calendar')
     implementation project(':module_mine')
     implementation project(':module_shop')
+    implementation project(':module_community')
 
     implementation deps.support.fragment
 }

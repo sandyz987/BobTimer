@@ -17,6 +17,8 @@ open class BaseApp : Application() {
         @SuppressLint("StaticFieldLeak", "CI_StaticFieldLeak")
         lateinit var context: Context
             private set
+        lateinit var app: Application
+            private set
 
         const val foregroundService = "foreground"
         var time = 0L
@@ -26,6 +28,7 @@ open class BaseApp : Application() {
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
         context = base
+        app = this
         time = System.currentTimeMillis()
         typeface = ResourcesCompat.getFont(context, R.font.summer_typeface)
     }

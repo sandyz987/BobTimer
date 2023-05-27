@@ -85,7 +85,7 @@
         app:layout_constraintTop_toTopOf="@+id/mine_imageview3">
 
         <TextView
-            android:id="@+id/mine_textview5"
+            android:id="@+id/mine_tv_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="BOB家的游客"
@@ -93,7 +93,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/mine_textview6"
+            android:id="@+id/mine_tv_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -357,6 +357,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/mine_ll_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"

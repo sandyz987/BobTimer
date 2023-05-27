@@ -1,12 +1,16 @@
 package com.sandyz.alltimers.myhome.backgroundscroll
 
 import android.content.Context
+import android.graphics.Color
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.sandyz.alltimers.common.extensions.dp2px
+import com.sandyz.alltimers.common.extensions.sp
 import com.sandyz.alltimers.myhome.R
 import com.sandyz.alltimers.myhome.rabbit.RabbitSurfaceView
 
@@ -1221,6 +1225,12 @@ class Widget27 : ScrollChild() {
         iv.tag = WIDGET_NAME
         iv.scaleType = ImageView.ScaleType.FIT_XY
         scrollFrameLayout.addView(iv)
+        val tv = TextView(parent.context)
+        tv.gravity = Gravity.CENTER
+        tv.text = "窗边"
+        tv.textSize = parent.context.sp(20).toFloat()
+        tv.setTextColor(Color.WHITE)
+        scrollFrameLayout.addView(tv)
         return scrollFrameLayout
     }
 
