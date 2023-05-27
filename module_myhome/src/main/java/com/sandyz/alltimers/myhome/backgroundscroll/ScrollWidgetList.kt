@@ -177,8 +177,8 @@ class Rabbit : ScrollChild() {
         clothes.fromSerializationData()
     }
 
-    override fun getWidth(context: Context) = 400
-    override fun getHeight(context: Context) = 500
+    override fun getWidth(context: Context) = 320
+    override fun getHeight(context: Context) = 400
     override fun viewElevation() = 1
 }
 
@@ -217,8 +217,8 @@ class Widget1 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 900
-    override fun getHeight(context: Context) = 500
+    override fun getWidth(context: Context) = 720
+    override fun getHeight(context: Context) = 400
     override fun viewElevation() = 0
 }
 
@@ -256,8 +256,8 @@ class Widget2 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 200
-    override fun getHeight(context: Context) = 500
+    override fun getWidth(context: Context) = 160
+    override fun getHeight(context: Context) = 400
     override fun viewElevation() = 0
 }
 
@@ -296,8 +296,8 @@ class Widget3 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 550
-    override fun getHeight(context: Context) = 100
+    override fun getWidth(context: Context) = 440
+    override fun getHeight(context: Context) = 80
     override fun viewElevation() = 0
 }
 
@@ -335,8 +335,8 @@ class Widget4 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 350
-    override fun getHeight(context: Context) = 400
+    override fun getWidth(context: Context) = 280
+    override fun getHeight(context: Context) = 320
     override fun viewElevation() = 0
 }
 
@@ -374,8 +374,8 @@ class Widget5 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 560
-    override fun getHeight(context: Context) = 480
+    override fun getWidth(context: Context) = 448
+    override fun getHeight(context: Context) = 384
     override fun viewElevation() = 0
 }
 
@@ -413,8 +413,8 @@ class Widget6 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 350
-    override fun getHeight(context: Context) = 170
+    override fun getWidth(context: Context) = 280
+    override fun getHeight(context: Context) = 136
     override fun viewElevation() = 0
 }
 
@@ -452,8 +452,8 @@ class Widget7 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 100
-    override fun getHeight(context: Context) = 180
+    override fun getWidth(context: Context) = 80
+    override fun getHeight(context: Context) = 144
     override fun viewElevation() = 0
 }
 
@@ -491,8 +491,8 @@ class Widget8 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 225
-    override fun getHeight(context: Context) = 450
+    override fun getWidth(context: Context) = 180
+    override fun getHeight(context: Context) = 360
     override fun viewElevation() = 0
 }
 
@@ -530,8 +530,8 @@ class Widget9 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 150
-    override fun getHeight(context: Context) = 190
+    override fun getWidth(context: Context) = 120
+    override fun getHeight(context: Context) = 152
     override fun viewElevation() = 0
 }
 
@@ -569,8 +569,8 @@ class Widget10 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 260
-    override fun getHeight(context: Context) = 220
+    override fun getWidth(context: Context) = 208
+    override fun getHeight(context: Context) = 176
     override fun viewElevation() = 0
 }
 
@@ -608,8 +608,8 @@ class Widget11 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 195
-    override fun getHeight(context: Context) = 125
+    override fun getWidth(context: Context) = 156
+    override fun getHeight(context: Context) = 100
     override fun viewElevation() = 0
 }
 
@@ -647,8 +647,8 @@ class Widget12 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 600
-    override fun getHeight(context: Context) = 350
+    override fun getWidth(context: Context) = 480
+    override fun getHeight(context: Context) = 280
     override fun viewElevation() = -1
 }
 
@@ -686,8 +686,8 @@ class Widget13 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 550
-    override fun getHeight(context: Context) = 180
+    override fun getWidth(context: Context) = 440
+    override fun getHeight(context: Context) = 144
     override fun viewElevation() = 0
 }
 
@@ -725,8 +725,8 @@ class Widget14 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 400
-    override fun getHeight(context: Context) = 330
+    override fun getWidth(context: Context) = 320
+    override fun getHeight(context: Context) = 264
     override fun viewElevation() = 0
 }
 
@@ -764,8 +764,8 @@ class Widget15 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 600
-    override fun getHeight(context: Context) = 350
+    override fun getWidth(context: Context) = 480
+    override fun getHeight(context: Context) = 280
     override fun viewElevation() = -1
 }
 
@@ -803,8 +803,8 @@ class Widget16 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 200
-    override fun getHeight(context: Context) = 440
+    override fun getWidth(context: Context) = 160
+    override fun getHeight(context: Context) = 352
     override fun viewElevation() = 0
 }
 
@@ -842,8 +842,8 @@ class Widget17 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 450
-    override fun getHeight(context: Context) = 440
+    override fun getWidth(context: Context) = 360
+    override fun getHeight(context: Context) = 352
     override fun viewElevation() = 0
 }
 
@@ -881,8 +881,8 @@ class Widget18 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 300
-    override fun getHeight(context: Context) = 600
+    override fun getWidth(context: Context) = 240
+    override fun getHeight(context: Context) = 480
     override fun viewElevation() = 0
 }
 
@@ -920,8 +920,8 @@ class Widget19 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 210
-    override fun getHeight(context: Context) = 600
+    override fun getWidth(context: Context) = 168
+    override fun getHeight(context: Context) = 480
     override fun viewElevation() = 0
 }
 
@@ -959,8 +959,8 @@ class Widget20 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 200
-    override fun getHeight(context: Context) = 500
+    override fun getWidth(context: Context) = 160
+    override fun getHeight(context: Context) = 400
     override fun viewElevation() = 0
 }
 
@@ -998,8 +998,8 @@ class Widget21 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 600
-    override fun getHeight(context: Context) = 600
+    override fun getWidth(context: Context) = 480
+    override fun getHeight(context: Context) = 480
     override fun viewElevation() = 0
 }
 
@@ -1037,8 +1037,8 @@ class Widget22 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 310
-    override fun getHeight(context: Context) = 600
+    override fun getWidth(context: Context) = 248
+    override fun getHeight(context: Context) = 480
     override fun viewElevation() = 0
 }
 
@@ -1076,8 +1076,8 @@ class Widget23 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 700
-    override fun getHeight(context: Context) = 380
+    override fun getWidth(context: Context) = 560
+    override fun getHeight(context: Context) = 304
     override fun viewElevation() = 0
 }
 
@@ -1115,8 +1115,8 @@ class Widget24 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 620
-    override fun getHeight(context: Context) = 770
+    override fun getWidth(context: Context) = 496
+    override fun getHeight(context: Context) = 616
     override fun viewElevation() = 0
 }
 
@@ -1154,8 +1154,8 @@ class Widget25 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 410
-    override fun getHeight(context: Context) = 320
+    override fun getWidth(context: Context) = 328
+    override fun getHeight(context: Context) = 336
     override fun viewElevation() = 0
 }
 
@@ -1193,8 +1193,8 @@ class Widget26 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 300
-    override fun getHeight(context: Context) = 700
+    override fun getWidth(context: Context) = 240
+    override fun getHeight(context: Context) = 560
     override fun viewElevation() = 0
 }
 
@@ -1232,7 +1232,7 @@ class Widget27 : ScrollChild() {
         }
     }
 
-    override fun getWidth(context: Context) = 630
-    override fun getHeight(context: Context) = 580
+    override fun getWidth(context: Context) = 504
+    override fun getHeight(context: Context) = 464
     override fun viewElevation() = 0
 }

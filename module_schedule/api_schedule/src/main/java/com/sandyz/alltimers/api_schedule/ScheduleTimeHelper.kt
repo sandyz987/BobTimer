@@ -20,7 +20,12 @@ object ScheduleTimeHelper {
                 now.fixToMidNight().asTimeStr()
             }}} : total:$dayTotal last:$lastDays"
         )
-        return (dayTotal - lastDays) / dayTotal.toFloat()
+        val p = (dayTotal - lastDays) / dayTotal.toFloat()
+        return if (dayTotal <= 0 || p > 1f) {
+            1f
+        } else {
+            p
+        }
     }
 
     fun getProgress(scheduleData: ScheduleData): Float {

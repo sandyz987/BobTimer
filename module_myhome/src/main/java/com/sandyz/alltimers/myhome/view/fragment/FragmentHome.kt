@@ -30,9 +30,18 @@ class FragmentHome : BaseFragment() {
     override fun onStart() {
         super.onStart()
         myhome_dynamic_bg.setSize(3000, 1600)
-        myhome_dynamic_bg.scrollToPercent(0.3f, false)
         context?.let { WallpaperAndFloorModel.getWallpaper(it) }?.let { myhome_dynamic_bg.setWallPaper(it) }
         context?.let { WallpaperAndFloorModel.getFloor(it) }?.let { myhome_dynamic_bg.setFloor(it) }
+
+        myhome_dynamic_bg.onBind()
+
+        myhome_dynamic_bg.onLoadedAction = {
+            val left = myhome_dynamic_bg.getChildPosition("Rabbit")?.first
+            if (left != null) {
+                myhome_dynamic_bg.scrollToPosition(left - 250)
+            }
+            myhome_dynamic_bg.gravityAnim()
+        }
 
         if (myhome_dynamic_bg.fromSerializationData()) {
             myhome_dynamic_bg.post {
@@ -41,10 +50,12 @@ class FragmentHome : BaseFragment() {
                 myhome_dynamic_bg.addWidget("Widget3", "Widget3", myhome_dynamic_bg.getVisibleLeft() + 300, 200)
                 myhome_dynamic_bg.addWidget("Widget4", "Widget4", myhome_dynamic_bg.getVisibleLeft() + 700, 550)
                 myhome_dynamic_bg.addWidget("Rabbit", "Rabbit", myhome_dynamic_bg.getVisibleLeft() + 100, 550)
+                myhome_dynamic_bg.onBind()
+                myhome_dynamic_bg.post {
+                    myhome_dynamic_bg.gravityAnim()
+                }
             }
         }
-        myhome_dynamic_bg.onBind()
-
 
         myhome_tv_edit.setOnClickAction {
             startActivity(Intent(context, ActivityEdit::class.java).apply {

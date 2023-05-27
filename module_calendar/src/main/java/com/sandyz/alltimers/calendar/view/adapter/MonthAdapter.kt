@@ -134,7 +134,7 @@ class MonthAdapter(
                 holder.tvDay.setTextColor(Color.parseColor("#FFFFFF"))
                 holder.lunar.setTextColor(Color.parseColor("#FFFFFF"))
             } else {
-                holder.bg.setBackgroundResource(R.drawable.calendar_shape_date_selected_bg)
+                holder.bg.setBackgroundResource(R.drawable.calendar_shape_date_today_unselected_bg)
             }
         } else {
             if (list[position].selected) {

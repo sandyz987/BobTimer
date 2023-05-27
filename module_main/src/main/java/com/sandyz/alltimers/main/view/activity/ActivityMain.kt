@@ -1,6 +1,7 @@
 package com.sandyz.alltimers.main.view.activity
 
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
@@ -8,15 +9,26 @@ import com.sandyz.alltimers.common.base.BaseActivity
 import com.sandyz.alltimers.common.config.MAIN_MAIN
 import com.sandyz.alltimers.common.config.SCHEDULE_EDIT
 import com.sandyz.alltimers.common.extensions.setOnClickAction
-import com.sandyz.alltimers.common.view.dialog.BottomInputDialog
-import com.sandyz.alltimers.common.view.dialog.SelectDateDialog
-import com.sandyz.alltimers.common.widgets.OptionalDialog
+import com.sandyz.alltimers.common.widgets.LogUtils
 import com.sandyz.alltimers.main.R
 import com.sandyz.alltimers.main.view.adapter.MainAdapter
 import kotlinx.android.synthetic.main.main_activity_main.*
 
 @Route(path = MAIN_MAIN)
 class ActivityMain : BaseActivity() {
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        LogUtils.e(
+            "sandyzhang1 activity onTouchEvent!! ${
+                when (event?.action) {
+                    0 -> "Down"
+                    1 -> "UP"
+                    2 -> "Move"
+                    else -> "Unknown"
+                }
+            }"
+        )
+        return super.onTouchEvent(event)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity_main)

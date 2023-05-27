@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.animation.BounceInterpolator
 import android.widget.FrameLayout
 import com.sandyz.alltimers.common.extensions.fixToRange
+import com.sandyz.alltimers.common.widgets.LogUtils
 import kotlin.math.abs
 
 /**
@@ -70,6 +71,16 @@ class ScrollFrameLayout @JvmOverloads constructor(
 
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
+        LogUtils.e(
+            "sandyzhang1 child onTouchEvent!! $isScrolling ${
+                when (event?.action) {
+                    0 -> "Down"
+                    1 -> "UP"
+                    2 -> "Move"
+                    else -> "Unknown"
+                }
+            }"
+        )
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 if (!canMove) return false

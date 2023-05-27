@@ -56,9 +56,9 @@ class FragmentCalendar : BaseFragment() {
     fun refresh() {
         val monthList = mutableListOf<DateItem>()
         val cal = CalendarUtil.getCalendar()
-        cal.set(Calendar.MONTH, 0)
+        cal.add(Calendar.MONTH, -18)
         monthList.add(cal.toDateItem())
-        for (i in 0 until 23) {
+        for (i in 0 until 36) {
             monthList.add(cal.nextMonth(1).toDateItem())
         }
         calendar_vp.adapter = CalendarMonthPagerAdapter(monthList, this).apply {
@@ -69,7 +69,7 @@ class FragmentCalendar : BaseFragment() {
                 calendar_tv_time_month.text = "${monthName[it.month - 1]}"
             }
         }
-        calendar_vp.setCurrentItem(CalendarUtil.getCalendar().toDateItem().month - 1, false)
+        calendar_vp.setCurrentItem(18, false)
         calendar_tv_month.text = "${CalendarUtil.getCalendar().toDateItem().month}"
         calendar_vp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
@@ -77,7 +77,7 @@ class FragmentCalendar : BaseFragment() {
             override fun onPageSelected(position: Int) {
                 calendar_tv_month.text = "${monthList[position].month}"
                 calendar_tv_year.text = "${monthList[position].year}"
-                if (position != CalendarUtil.getCalendar().toDateItem().month - 1) {
+                if (position != 18) {
                     calendar_tv_back_to_current_month.visibility = View.VISIBLE
                 } else {
                     calendar_tv_back_to_current_month.visibility = View.GONE
@@ -85,7 +85,7 @@ class FragmentCalendar : BaseFragment() {
             }
         })
         calendar_tv_back_to_current_month.setOnClickAction {
-            calendar_vp.setCurrentItem(CalendarUtil.getCalendar().toDateItem().month - 1, true)
+            calendar_vp.setCurrentItem(18, true)
         }
     }
 

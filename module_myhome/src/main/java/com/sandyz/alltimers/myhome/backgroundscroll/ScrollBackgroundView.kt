@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sandyz.alltimers.common.extensions.getScreenWidth
+import com.sandyz.alltimers.common.widgets.LogUtils
 import kotlinx.android.synthetic.main.myhome_fragment_home.*
 import kotlin.math.abs
 
@@ -133,6 +134,16 @@ class ScrollBackgroundView @JvmOverloads constructor(
      * 采用内拦截法，将点击事件穿透到子View决定是否处理，不处理再回到本View中
      */
     override fun onInterceptTouchEvent(event: MotionEvent?): Boolean {
+        LogUtils.e(
+            "sandyzhang1 father intercept!! $isScrolling ${
+                when (event?.action) {
+                    0 -> "Down"
+                    1 -> "UP"
+                    2 -> "Move"
+                    else -> "Unknown"
+                }
+            }"
+        )
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 originX = event.rawX
@@ -154,9 +165,23 @@ class ScrollBackgroundView @JvmOverloads constructor(
         return true
     }
 
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        return super.dispatchTouchEvent(ev)
+    }
+
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         velocityTracker.addMovement(event)
         velocityTracker.computeCurrentVelocity(1000)
+        LogUtils.e(
+            "sandyzhang1 father onTouchEvent!! $isScrolling ${
+                when (event?.action) {
+                    0 -> "Down"
+                    1 -> "UP"
+                    2 -> "Move"
+                    else -> "Unknown"
+                }
+            }"
+        )
         when (event?.action) {
             MotionEvent.ACTION_DOWN -> {
                 return true
@@ -373,6 +398,34 @@ class ScrollBackgroundView @JvmOverloads constructor(
     }
 
     /**
+     * 背景滚动到指定位置
+     */
+    private var smoothScrollAnimator2: ValueAnimator? = null
+    fun scrollToPosition(position: Int, smoothly: Boolean = true) {
+        val p = if (position < 0) 0 else if (position > getRealWidth()) getRealWidth() - mWidth else position
+        post {
+            smoothScrollAnimator2?.let {
+                if (it.isStarted) {
+                    it.cancel()
+                }
+            }
+            if (smoothly) {
+                val start = (mBackgroundImage.layoutParams as? LayoutParams?)?.leftMargin ?: return@post
+                val end = -p
+                smoothScrollAnimator2 = ValueAnimator.ofInt(start, end).apply {
+                    duration = 600L
+                    addUpdateListener {
+                        updateBackgroundPosition(it.animatedValue as Int)
+                    }
+                    start()
+                }
+            } else {
+                updateBackgroundPosition(-p)
+            }
+        }
+    }
+
+    /**
      * 刷新子view的显示
      */
     fun onBind() {
@@ -384,8 +437,22 @@ class ScrollBackgroundView @JvmOverloads constructor(
     }
 
     /**
+     * 主动调用子view重力下落
+     */
+    fun gravityAnim() {
+        children.forEach {
+            it.post {
+                if (it is ScrollFrameLayout) {
+                    it.gravityAnim()
+                }
+            }
+        }
+    }
+
+    /**
      * 返回值为true说明无缓存，使用默认配置
      */
+    var onLoadedAction: (() -> Unit)? = null
     fun fromSerializationData(): Boolean {
         removeAllTypeWidget("")
         val sp = context.getSharedPreferences("widget", Context.MODE_PRIVATE)
@@ -399,6 +466,10 @@ class ScrollBackgroundView @JvmOverloads constructor(
         post {
             list.forEach {
                 addWidget(it.name, it.type, it.posX, it.posY, it.width, it.height)
+                requestLayout()
+                post {
+                    onLoadedAction?.invoke()
+                }
             }
         }
         return false
