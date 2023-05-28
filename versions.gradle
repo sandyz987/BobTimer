@@ -117,4 +117,13 @@ def viewpager3d = [:]
 viewpager3d.runtime = "com.bambootang:viewpager3d:1.4"
 deps.viewpager3d = viewpager3d
 
+def navigation = [:]
+navigation.runtime1 = 'androidx.navigation:navigation-fragment-ktx:2.3.0'
+navigation.runtime2 = 'androidx.navigation:navigation-ui-ktx:2.3.0'
+deps.navigation = navigation
+
+def swipeRefreshLayout = [:]
+swipeRefreshLayout.runtime = 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+deps.swipeRefreshLayout = swipeRefreshLayout
+
 ext.deps = deps

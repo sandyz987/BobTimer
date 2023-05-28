@@ -8,8 +8,8 @@ package com.sandyz.alltimers.common.config
 
 class Config {
     companion object {
-        const val MainUrl = "http://49.234.117.142:8080/Counter4/"
-        const val PicUploadUrl = "http://49.234.117.142:8080/PicUpload/"
+        const val MainUrl = "http://sandyz.top:8080/Counter4/"
+        const val PicUploadUrl = "http://sandyz.top:8080/PicUpload/"
         var userId = ""
         var password = ""
         var touristMode = false

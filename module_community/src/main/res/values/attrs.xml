@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="community_CommentCountView">
+        <attr name="community_reply_count_text" format="string"/>
+        <attr name="community_reply_pic_src" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="community_LikeView">
+        <attr name="community_like_count_text" format="string"/>
+        <attr name="community_liked_src" format="reference"/>
+        <attr name="community_no_liked_src" format="reference"/>
+    </declare-styleable>
+    <declare-styleable name="community_DragHeadView">
+        <attr name="community_head_view" format="reference"/>
+        <attr name="community_refreshed_text" format="string"/>
+        <attr name="community_refreshing_text" format="string"/>
+        <attr name="community_before_refresh_text" format="string"/>
+        <attr name="community_can_refresh_text" format="string" />
+        <attr name="community_refreshed_ic" format="reference" />
+        <attr name="community_before_ic" format="reference" />
+    </declare-styleable>
+
+</resources>

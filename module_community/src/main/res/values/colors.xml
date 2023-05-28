@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#270080</color>
+    <color name="colorAccent">#B3EDFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorLightRed">#F59678</color>
+    <color name="colorLightWhiteRed">#F6DFD9</color>
+    <color name="colorLightRedSelect">#F4CDC2</color>
+    <color name="colorLightWhiteWhiteRed">#F6F1EF</color>
+
+    <color name="colorBlack">#000000</color>
+    <color name="colorRed">#E70202</color>
+    <color name="colorGray">#EDEDED</color>
+    <color name="colorBlue">#3245B8</color>
+    <color name="colorLightBlue">#0091EA</color>
+    <color name="prime_background_color">#f7fdcf</color>
+    <color name="bottom_view_color">#a0cbaf</color>
+    <color name="appbar_color">#51B49D</color>
+    <color name="floating_button_color">#f3e5fe</color>
+    <color name="light_button_color">#fbca53</color>
+    <color name="yellow_button_color">#fff98c</color>
+    <color name="edit_text_hint_color">#94969E</color>
+    <color name="color_white">#FFFFFF</color>
+
+    <color name="graph_data_color">#FFC759</color>
+    <color name="graph_background_color">#93B6CF</color>
+
+    <color name="progress_background_color">#B3E7C1</color>
+    <color name="progress_foreground_color">#93C598</color>
+
+</resources>

@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.alibaba.android.arouter.launcher.ARouter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.sandyz.alltimers.common.config.COMMUNITY_ENTRY
 import com.sandyz.alltimers.common.extensions.dp2px
 import com.sandyz.alltimers.common.extensions.sp
 import com.sandyz.alltimers.myhome.R
@@ -1239,6 +1241,9 @@ class Widget27 : ScrollChild() {
             if (drawableId != 0) {
                 Glide.with(v.context).load(drawableId).into(it)
             }
+        }
+        v.setOnClickListener {
+            ARouter.getInstance().build(COMMUNITY_ENTRY).navigation()
         }
     }
 

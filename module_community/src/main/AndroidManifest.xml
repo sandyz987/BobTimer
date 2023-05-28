@@ -2,4 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sandyz.module_community">
 
+    <application>
+        <activity android:name=".view.activity.ActivityCommunityEdit" />
+        <activity android:name=".view.activity.ActivityCommunityDetail" />
+        <activity android:name=".view.activity.ActivityCommunity" />
+    </application>
+
 </manifest>
