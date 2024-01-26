@@ -35,6 +35,8 @@ dependencies {
 //    api deps.navigation.runtime1
 //    api deps.navigation.runtime2
     api deps.swipeRefreshLayout.runtime
+    api deps.kotlinpoet.runtime
+    kapt deps.kotlinpoet.runtime
 
 
 }

@@ -1,14 +1,14 @@
 package com.sandyz.alltimers.mine
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
+import com.sandyz.alltimers.common.BaseApp
 import com.sandyz.alltimers.common.config.Config
 import com.sandyz.alltimers.common.config.MINE_ENTRY
-import com.sandyz.alltimers.common.config.SHOP_RECHARGE
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.mine.vm.IndividualViewModel
@@ -33,7 +33,12 @@ class FragmentMine : BaseViewModelFragment<IndividualViewModel>() {
             context?.let {
                 OptionalDialog.show(it, "确定要退出登录吗？", onDeny = {}) {
                     Config.password = ""
-                    ARouter.getInstance().build(SHOP_RECHARGE).navigation()
+                    val sharedPreferences =
+                        BaseApp.app.getSharedPreferences("usrInfo", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("user_id", Config.userId)
+                    editor.putString("password", "")
+                    editor.commit()
                     requireActivity().finish()
                 }
             }

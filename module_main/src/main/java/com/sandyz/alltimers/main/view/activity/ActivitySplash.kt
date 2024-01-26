@@ -64,4 +64,9 @@ class ActivitySplash : BaseViewModelActivity<LoginViewModel>() {
             finish()
         })
     }
+
+    override fun onStop() {
+        super.onStop()
+        mHandler.removeCallbacks(runnable)
+    }
 }

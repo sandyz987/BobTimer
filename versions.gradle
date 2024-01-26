@@ -126,4 +126,8 @@ def swipeRefreshLayout = [:]
 swipeRefreshLayout.runtime = 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
 deps.swipeRefreshLayout = swipeRefreshLayout
 
+def kotlinpoet = [:]
+kotlinpoet.runtime = 'com.squareup:kotlinpoet:1.7.2'
+deps.kotlinpoet = kotlinpoet
+
 ext.deps = deps
