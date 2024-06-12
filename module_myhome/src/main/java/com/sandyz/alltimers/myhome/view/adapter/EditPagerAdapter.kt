@@ -11,12 +11,11 @@ import com.sandyz.alltimers.myhome.backgroundscroll.ScrollBackgroundView
 import com.sandyz.alltimers.myhome.model.FurnitureModel
 import com.sandyz.alltimers.myhome.model.SortModel
 import com.sandyz.alltimers.myhome.model.WearModel
-import kotlinx.android.synthetic.main.myhome_layout_edit.view.*
 
 class EditPagerAdapter(private val scrollBackgroundView: ScrollBackgroundView) : RecyclerView.Adapter<EditPagerAdapter.ViewHolder>() {
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val rvSort = v.myhome_rv_sort
-        val rvShop = v.myhome_rv_shop
+        val rvSort = v.findViewById<RecyclerView>(R.id.myhome_rv_sort)
+        val rvShop = v.findViewById<RecyclerView>(R.id.myhome_rv_shop)
     }
 
 

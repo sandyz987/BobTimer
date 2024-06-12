@@ -1,110 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.fragment.FragmentHome">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.sandyz.alltimers.myhome.backgroundscroll.ScrollBackgroundView
-        android:id="@+id/myhome_dynamic_bg"
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:nestedScrollingEnabled="true" />
+        tools:context=".view.fragment.FragmentHome">
+
+        <com.sandyz.alltimers.myhome.backgroundscroll.ScrollBackgroundView
+            android:id="@+id/myhome_dynamic_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:nestedScrollingEnabled="true" />
 
 
-    <TextView
-        android:id="@+id/myhome_tv_carrot_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/myhome_shape_carrot_count_bg"
-        android:gravity="center"
-        android:text="0"
-        android:textColor="#8A4F30"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/myhome_tv_carrot_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/myhome_shape_carrot_count_bg"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#8A4F30"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/myhome_imageview5"
-        android:layout_width="37dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/myhome_ic_carrot"
-        app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count"
-        app:layout_constraintEnd_toEndOf="@+id/myhome_tv_carrot_count"
-        app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count" />
+        <ImageView
+            android:id="@+id/myhome_imageview5"
+            android:layout_width="37dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/myhome_ic_carrot"
+            app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count"
+            app:layout_constraintEnd_toEndOf="@+id/myhome_tv_carrot_count"
+            app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count" />
 
-    <ImageView
-        android:id="@+id/myhome_iv_carrot_add"
-        android:layout_width="24dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:src="@drawable/myhome_ic_carrot_add"
-        app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count"
-        app:layout_constraintStart_toEndOf="@+id/myhome_tv_carrot_count"
-        app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count" />
+        <ImageView
+            android:id="@+id/myhome_iv_carrot_add"
+            android:layout_width="24dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/myhome_ic_carrot_add"
+            app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count"
+            app:layout_constraintStart_toEndOf="@+id/myhome_tv_carrot_count"
+            app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count" />
 
-    <TextView
-        android:id="@+id/myhome_tv_shop"
-        android:layout_width="45dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/myhome_ic_shop"
-        app:layout_constraintEnd_toEndOf="@+id/myhome_tv_mission"
-        app:layout_constraintTop_toBottomOf="@+id/myhome_tv_mission" />
+        <TextView
+            android:id="@+id/myhome_tv_shop"
+            android:layout_width="45dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/myhome_ic_shop"
+            app:layout_constraintEnd_toEndOf="@+id/myhome_tv_mission"
+            app:layout_constraintTop_toBottomOf="@+id/myhome_tv_mission" />
 
-    <TextView
-        android:id="@+id/myhome_tv_mission"
-        android:layout_width="45dp"
-        android:layout_height="49dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/myhome_ic_mission"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/myhome_textview" />
+        <TextView
+            android:id="@+id/myhome_tv_mission"
+            android:layout_width="45dp"
+            android:layout_height="49dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/myhome_ic_mission"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/myhome_textview" />
 
-    <TextView
-        android:id="@+id/myhome_tv_edit"
-        android:layout_width="45dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/myhome_ic_edit"
-        app:layout_constraintEnd_toEndOf="@+id/myhome_tv_mission"
-        app:layout_constraintTop_toBottomOf="@+id/myhome_tv_shop" />
+        <TextView
+            android:id="@+id/myhome_tv_edit"
+            android:layout_width="45dp"
+            android:layout_height="49dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/myhome_ic_edit"
+            app:layout_constraintEnd_toEndOf="@+id/myhome_tv_mission"
+            app:layout_constraintTop_toBottomOf="@+id/myhome_tv_shop" />
 
-    <ImageView
-        android:id="@+id/myhome_imageview4"
-        android:layout_width="6dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:src="@drawable/myhome_ic_arrow_left"
-        app:layout_constraintBottom_toBottomOf="@+id/myhome_textview"
-        app:layout_constraintEnd_toStartOf="@+id/myhome_textview"
-        app:layout_constraintTop_toTopOf="@+id/myhome_textview" />
+        <ImageView
+            android:id="@+id/myhome_imageview4"
+            android:layout_width="6dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/myhome_ic_arrow_left"
+            app:layout_constraintBottom_toBottomOf="@+id/myhome_textview"
+            app:layout_constraintEnd_toStartOf="@+id/myhome_textview"
+            app:layout_constraintTop_toTopOf="@+id/myhome_textview" />
 
-    <ImageView
-        android:id="@+id/myhome_imageview6"
-        android:layout_width="6dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:src="@drawable/myhome_ic_arrow_right"
-        app:layout_constraintBottom_toBottomOf="@+id/myhome_textview"
-        app:layout_constraintStart_toEndOf="@+id/myhome_textview"
-        app:layout_constraintTop_toTopOf="@+id/myhome_textview" />
+        <ImageView
+            android:id="@+id/myhome_imageview6"
+            android:layout_width="6dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/myhome_ic_arrow_right"
+            app:layout_constraintBottom_toBottomOf="@+id/myhome_textview"
+            app:layout_constraintStart_toEndOf="@+id/myhome_textview"
+            app:layout_constraintTop_toTopOf="@+id/myhome_textview" />
 
-    <TextView
-        android:id="@+id/myhome_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="我的客厅"
-        android:textColor="#8A4F30"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count" />
+        <TextView
+            android:id="@+id/myhome_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的客厅"
+            android:textColor="#8A4F30"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

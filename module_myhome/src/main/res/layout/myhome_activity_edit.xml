@@ -1,144 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFF3F0"
-    tools:context=".view.activity.ActivityEdit">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.sandyz.alltimers.myhome.backgroundscroll.ScrollBackgroundView
-        android:id="@+id/myhome_dynamic_bg_edit"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:nestedScrollingEnabled="true"
-        app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
-    <ImageView
-        android:id="@+id/myhome_iv_back"
-        android:layout_width="50dp"
-        android:layout_height="38dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/common_btn_back_arrow" />
+    </data>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/myhome_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF3F0"
+        tools:context=".view.activity.ActivityEdit">
 
-    <TextView
-        android:id="@+id/myhome_tv_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/common_btn_bg_3"
-        android:text="保存"
-        android:textColor="#AD7557"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <com.sandyz.alltimers.myhome.backgroundscroll.ScrollBackgroundView
+            android:id="@+id/myhome_dynamic_bg_edit"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:nestedScrollingEnabled="true"
+            app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/myhome_tv_carrot_count2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/myhome_shape_carrot_count_bg"
-        android:gravity="center"
-        android:text="0"
-        android:textColor="#8A4F30"
-        app:layout_constraintBottom_toBottomOf="@+id/myhome_iv_back"
-        app:layout_constraintEnd_toStartOf="@+id/myhome_iv_carrot_add2"
-        app:layout_constraintTop_toTopOf="@+id/myhome_iv_back" />
+        <ImageView
+            android:id="@+id/myhome_iv_back"
+            android:layout_width="50dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/common_btn_back_arrow" />
 
-    <ImageView
-        android:id="@+id/myhome_imageview"
-        android:layout_width="37dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/myhome_ic_carrot"
-        app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count2"
-        app:layout_constraintEnd_toEndOf="@+id/myhome_tv_carrot_count2"
-        app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count2" />
-
-    <ImageView
-        android:id="@+id/myhome_iv_carrot_add2"
-        android:layout_width="24dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/myhome_ic_carrot_add"
-        app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count2" />
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:layout_marginTop="38dp"
-        android:background="#AD7557"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/myhome_tl_sort" />
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/myhome_tl_sort"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:background="@drawable/myhome_shape_sort"
-        app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:tabIndicatorColor="#FCC5BE"
-        app:tabTextColor="#995B3A">
-
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/common_tabitem"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/myhome_guideline"
             android:layout_width="wrap_content"
-            android:layout_height="10dp"
-            android:icon="@drawable/myhome_sort_clothes_type"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
 
-        <com.google.android.material.tabs.TabItem
-            android:id="@+id/common_tabitem2"
+        <TextView
+            android:id="@+id/myhome_tv_save"
             android:layout_width="wrap_content"
-            android:layout_height="10dp"
-            android:icon="@drawable/myhome_sort_home_type"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp" />
-    </com.google.android.material.tabs.TabLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/common_btn_bg_3"
+            android:text="保存"
+            android:textColor="#AD7557"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/myhome_tv_carrot_count2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/myhome_shape_carrot_count_bg"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="#8A4F30"
+            app:layout_constraintBottom_toBottomOf="@+id/myhome_iv_back"
+            app:layout_constraintEnd_toStartOf="@+id/myhome_iv_carrot_add2"
+            app:layout_constraintTop_toTopOf="@+id/myhome_iv_back" />
+
+        <ImageView
+            android:id="@+id/myhome_imageview"
+            android:layout_width="37dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="5dp"
+            android:src="@drawable/myhome_ic_carrot"
+            app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count2"
+            app:layout_constraintEnd_toEndOf="@+id/myhome_tv_carrot_count2"
+            app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count2" />
+
+        <ImageView
+            android:id="@+id/myhome_iv_carrot_add2"
+            android:layout_width="24dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/myhome_ic_carrot_add"
+            app:layout_constraintBottom_toBottomOf="@+id/myhome_tv_carrot_count2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/myhome_tv_carrot_count2" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="38dp"
+            android:background="#AD7557"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/myhome_tl_sort" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/myhome_tl_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/myhome_shape_sort"
+            app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabIndicatorColor="#FCC5BE"
+            app:tabTextColor="#995B3A">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/common_tabitem"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:icon="@drawable/myhome_sort_clothes_type"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/common_tabitem2"
+                android:layout_width="wrap_content"
+                android:layout_height="10dp"
+                android:icon="@drawable/myhome_sort_home_type"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp" />
+        </com.google.android.material.tabs.TabLayout>
 
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/myhome_vp_edit"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myhome_dynamic_bg_edit" />
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/myhome_vp_edit"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/myhome_dynamic_bg_edit" />
 
-    <ImageView
-        android:id="@+id/myhome_iv_remove_all"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="48dp"
-        app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/myhome_ic_remove_all" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/myhome_iv_remove_all"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/myhome_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/myhome_ic_remove_all" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

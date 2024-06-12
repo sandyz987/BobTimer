@@ -2,6 +2,7 @@ package com.sandyz.alltimers.concentrate.view.adapter
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.concentrate.R
 import com.sandyz.alltimers.concentrate.view.fragment.FragmentConcentrate
-import kotlinx.android.synthetic.main.concentrate_item_background_selection.view.*
 
 /**
  *@author zhangzhe
@@ -27,8 +27,8 @@ class ConcentrateBackgroundAdapter(private val concentrateFragment: FragmentConc
     private var selectedPos = 0
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val tvBgName: TextView = v.concentrate_tv_bg_name
-        val ivBgIcon: ImageView = v.concentrate_iv_bg_icon
+        val tvBgName: TextView = v.findViewById(R.id.concentrate_tv_bg_name)
+        val ivBgIcon: ImageView = v.findViewById(R.id.concentrate_iv_bg_icon)
     }
 
     private val list = mutableListOf(
@@ -44,7 +44,7 @@ class ConcentrateBackgroundAdapter(private val concentrateFragment: FragmentConc
         return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         holder.itemView.setOnClickAction(null)
         if (selectedPos == position) {
             selectAnim(holder.itemView, 0)

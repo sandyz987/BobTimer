@@ -12,7 +12,6 @@ import com.sandyz.alltimers.calendar.R
 import com.sandyz.alltimers.common.utils.CalendarUtil
 import com.sandyz.alltimers.common.utils.DateItem
 import com.sandyz.alltimers.common.utils.toDateItem
-import kotlinx.android.synthetic.main.calendar_fragment_month.view.*
 
 class CalendarMonthPagerAdapter(private val monthList: MutableList<DateItem>, private val lifecycleOwner: LifecycleOwner) : PagerAdapter() {
     val selectedDate = MutableLiveData(CalendarUtil.getCalendar().toDateItem())
@@ -25,9 +24,9 @@ class CalendarMonthPagerAdapter(private val monthList: MutableList<DateItem>, pr
         val view = LayoutInflater.from(container.context).inflate(R.layout.calendar_fragment_month, container, false)
         container.addView(view)
         // bind
-
-        view.calendar_rv_month.layoutManager = GridLayoutManager(view.context, 7, RecyclerView.VERTICAL, false)
-        view.calendar_rv_month.adapter = MonthAdapter(view.context, monthList[position], selectedDate, lifecycleOwner)
+        val rv = view.findViewById<RecyclerView>(R.id.calendar_rv_month)
+        rv.layoutManager = GridLayoutManager(view.context, 7, RecyclerView.VERTICAL, false)
+        rv.adapter = MonthAdapter(view.context, monthList[position], selectedDate, lifecycleOwner)
         return view
     }
 

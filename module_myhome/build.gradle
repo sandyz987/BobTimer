@@ -1,1 +1,4 @@
 apply from: config
+android {
+    namespace 'com.sandyz.alltimers.myhome'
+}

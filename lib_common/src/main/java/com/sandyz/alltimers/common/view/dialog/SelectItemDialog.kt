@@ -2,14 +2,12 @@ package com.sandyz.alltimers.common.view.dialog
 
 import android.content.Context
 import android.graphics.Color
+import android.view.View
+import android.widget.TextView
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.sandyz.alltimers.common.R
 import com.sandyz.alltimers.common.extensions.setOnClickAction
-import kotlinx.android.synthetic.main.common_dialog_bottom_sheet_option.view.*
-import kotlinx.android.synthetic.main.common_dialog_bottom_sheet_time.view.*
-import kotlinx.android.synthetic.main.common_dialog_bottom_sheet_time.view.common_iv_done
-import kotlinx.android.synthetic.main.common_dialog_bottom_sheet_time.view.common_tv_cancel
 import kotlin.math.max
 
 /**
@@ -38,14 +36,14 @@ class SelectItemDialog(
                 onOptionSelected.invoke(optionList[opt1].data)
             }.apply {
                 setLayoutRes(R.layout.common_dialog_bottom_sheet_option) {
-                    it.common_tv_cancel.setOnClickAction {
+                    it.findViewById<View>(R.id.common_tv_cancel).setOnClickAction {
                         pvOptions?.dismiss()
                     }
-                    it.common_iv_done.setOnClickAction {
+                    it.findViewById<View>(R.id.common_iv_done).setOnClickAction {
                         pvOptions?.returnData()
                         pvOptions?.dismiss()
                     }
-                    it.common_option_tv_title.text = title
+                    it.findViewById<TextView>(R.id.common_option_tv_title).text = title
                 }
                 setBgColor(Color.TRANSPARENT)
                 setTextColorCenter(Color.parseColor("#995B3A"))

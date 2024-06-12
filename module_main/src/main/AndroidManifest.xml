@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sandyz.alltimers.main">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application>
-        <activity android:name=".view.activity.ActivitySplash">
+        <activity
+            android:name=".view.activity.ActivitySplash"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -18,6 +19,7 @@
 
         <activity
             android:name=".view.activity.ActivityMain"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan|stateHidden">
 
         </activity>

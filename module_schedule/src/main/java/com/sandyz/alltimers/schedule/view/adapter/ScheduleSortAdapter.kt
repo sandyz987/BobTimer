@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.api_schedule.SortData
 import com.sandyz.alltimers.schedule.R
-import kotlinx.android.synthetic.main.schedule_item_sort.view.*
 import kotlin.math.max
 
 /**
@@ -33,8 +32,8 @@ class ScheduleSortAdapter(
     }
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val tvBgName: TextView = v.schedule_tv_sort
-        val ivBgIcon: ImageView = v.schedule_iv_sort
+        val tvBgName: TextView = v.findViewById(R.id.schedule_tv_sort)
+        val ivBgIcon: ImageView = v.findViewById(R.id.schedule_iv_sort)
     }
 
     fun getSelected(): String {

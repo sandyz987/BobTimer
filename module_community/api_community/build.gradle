@@ -2,3 +2,7 @@ apply from: api_config
 dependencies {
     implementation project(':lib_common')
 }
+
+android {
+    namespace 'com.sandyz.api_community'
+}

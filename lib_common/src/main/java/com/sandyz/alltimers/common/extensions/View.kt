@@ -17,6 +17,7 @@ fun View.setOnClickAction(action: (() -> Unit)?) {
     setOnTouchListener(object : View.OnTouchListener {
         private var x: Float = 0f
         private var y: Float = 0f
+        private var lastClickTime = 0L
         override fun onTouch(view: View?, event: MotionEvent?): Boolean {
             val v = view ?: return true
             when (event?.action) {
@@ -37,7 +38,11 @@ fun View.setOnClickAction(action: (() -> Unit)?) {
                 }
                 MotionEvent.ACTION_UP -> {
                     if (event.x >= 0 && event.x <= v.width && event.y >= 0 && event.y <= height) {
-                        action?.invoke()
+                        // 防抖处理
+                        if (System.currentTimeMillis() - lastClickTime > 500L) {
+                            action?.invoke()
+                            lastClickTime = System.currentTimeMillis()
+                        }
                     }
                     v.alpha = 1f
                 }

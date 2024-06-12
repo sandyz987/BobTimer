@@ -1,190 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.sandyz.alltimers.common.view.costom.DynamicBackgroundFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFF3F0"
-    app:background_src="@drawable/common_ic_bg_rabbit">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <data>
+
+    </data>
+
+    <com.sandyz.alltimers.common.view.costom.DynamicBackgroundFrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.activity.ActivitySchedulePeriod">
+        android:background="#FFF3F0"
+        app:background_src="@drawable/common_ic_bg_rabbit">
 
-        <ImageView
-            android:id="@+id/schedule_imageview6"
-            android:layout_width="180dp"
-            android:layout_height="250dp"
-            android:scaleType="fitXY"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/schedule_linearlayout2"
-            app:srcCompat="@drawable/schedule_ic_target_rabbit" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".view.activity.ActivitySchedulePeriod">
 
-        <TextView
-            android:id="@+id/schedule_tv_period_done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/common_btn_bg_1"
-            android:text="确定"
-            android:textColor="#995B3A"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/schedule_linearlayout2" />
+            <ImageView
+                android:id="@+id/schedule_imageview6"
+                android:layout_width="180dp"
+                android:layout_height="250dp"
+                android:scaleType="fitXY"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/schedule_linearlayout2"
+                app:srcCompat="@drawable/schedule_ic_target_rabbit" />
 
-        <ImageView
-            android:id="@+id/schedule_period_iv_back"
-            android:layout_width="50dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/common_btn_back_arrow" />
+            <TextView
+                android:id="@+id/schedule_tv_period_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/common_btn_bg_1"
+                android:text="确定"
+                android:textColor="#995B3A"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/schedule_linearlayout2" />
 
-        <TextView
-            android:id="@+id/schedule_tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="38dp"
-            android:layout_marginTop="24dp"
-            android:gravity="center"
-            android:text="事件周期设置"
-            android:textColor="#AD7557"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/schedule_period_iv_back"
+                android:layout_width="50dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/common_btn_back_arrow" />
 
-        <LinearLayout
-            android:id="@+id/schedule_linearlayout2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="vertical"
-            android:padding="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/schedule_tv_title">
+            <TextView
+                android:id="@+id/schedule_tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:text="事件周期设置"
+                android:textColor="#AD7557"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/schedule_linearlayout2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/schedule_shape_period_item"
-                android:orientation="horizontal">
+                android:layout_marginTop="24dp"
+                android:orientation="vertical"
+                android:padding="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/schedule_tv_title">
 
-                <com.sandyz.alltimers.common.view.costom.Selector
-                    android:id="@+id/schedule_period_selector_none"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    app:hint="不重复"
-                    app:hintColor="#8A4F30"
-                    app:hintSize="16"
-                    app:icSize="24"
-                    app:iconDrawable="@null"
-                    app:isSelect="false"
-                    app:isSingleSelect="false"
-                    app:selectDrawable="@drawable/common_selector_clicked"
-                    app:unselectDrawable="@drawable/common_selector_no_clicked" />
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/schedule_shape_period_item"
+                    android:orientation="horizontal">
 
+                    <com.sandyz.alltimers.common.view.costom.Selector
+                        android:id="@+id/schedule_period_selector_none"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        app:hint="不重复"
+                        app:hintColor="#8A4F30"
+                        app:hintSize="16"
+                        app:icSize="24"
+                        app:iconDrawable="@null"
+                        app:isSelect="false"
+                        app:isSingleSelect="false"
+                        app:selectDrawable="@drawable/common_selector_clicked"
+                        app:unselectDrawable="@drawable/common_selector_no_clicked" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/schedule_shape_period_item"
+                    android:orientation="horizontal">
+
+                    <com.sandyz.alltimers.common.view.costom.Selector
+                        android:id="@+id/schedule_period_selector_year"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        app:hint="每年重复"
+                        app:hintColor="#8A4F30"
+                        app:hintSize="16"
+                        app:icSize="24"
+                        app:iconDrawable="@null"
+                        app:isSelect="false"
+                        app:isSingleSelect="false"
+                        app:selectDrawable="@drawable/common_selector_clicked"
+                        app:unselectDrawable="@drawable/common_selector_no_clicked" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/schedule_shape_period_item"
+                    android:orientation="horizontal">
+
+                    <com.sandyz.alltimers.common.view.costom.Selector
+                        android:id="@+id/schedule_period_selector_month"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        app:hint="每月固定"
+                        app:hintColor="#8A4F30"
+                        app:hintSize="16"
+                        app:icSize="24"
+                        app:iconDrawable="@null"
+                        app:isSelect="false"
+                        app:isSingleSelect="false"
+                        app:selectDrawable="@drawable/common_selector_clicked"
+                        app:unselectDrawable="@drawable/common_selector_no_clicked" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+
+                    android:background="@drawable/schedule_shape_period_item"
+                    android:orientation="horizontal">
+
+                    <com.sandyz.alltimers.common.view.costom.Selector
+                        android:id="@+id/schedule_period_selector_week"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        app:hint="每周固定"
+                        app:hintColor="#8A4F30"
+                        app:hintSize="16"
+                        app:icSize="24"
+                        app:iconDrawable="@null"
+                        app:isSelect="false"
+                        app:isSingleSelect="false"
+                        app:selectDrawable="@drawable/common_selector_clicked"
+                        app:unselectDrawable="@drawable/common_selector_no_clicked" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+
+                    android:background="@drawable/schedule_shape_period_item"
+                    android:orientation="horizontal">
+
+                    <com.sandyz.alltimers.common.view.costom.Selector
+                        android:id="@+id/schedule_period_selector_period"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        app:hint="间隔多少天一次"
+                        app:hintColor="#8A4F30"
+                        app:hintSize="16"
+                        app:icSize="24"
+                        app:iconDrawable="@null"
+                        app:isSelect="false"
+                        app:isSingleSelect="false"
+                        app:selectDrawable="@drawable/common_selector_clicked"
+                        app:unselectDrawable="@drawable/common_selector_no_clicked" />
+
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/schedule_shape_period_item"
-                android:orientation="horizontal">
-
-                <com.sandyz.alltimers.common.view.costom.Selector
-                    android:id="@+id/schedule_period_selector_year"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    app:hint="每年重复"
-                    app:hintColor="#8A4F30"
-                    app:hintSize="16"
-                    app:icSize="24"
-                    app:iconDrawable="@null"
-                    app:isSelect="false"
-                    app:isSingleSelect="false"
-                    app:selectDrawable="@drawable/common_selector_clicked"
-                    app:unselectDrawable="@drawable/common_selector_no_clicked" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/schedule_shape_period_item"
-                android:orientation="horizontal">
-
-                <com.sandyz.alltimers.common.view.costom.Selector
-                    android:id="@+id/schedule_period_selector_month"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    app:hint="每月固定"
-                    app:hintColor="#8A4F30"
-                    app:hintSize="16"
-                    app:icSize="24"
-                    app:iconDrawable="@null"
-                    app:isSelect="false"
-                    app:isSingleSelect="false"
-                    app:selectDrawable="@drawable/common_selector_clicked"
-                    app:unselectDrawable="@drawable/common_selector_no_clicked" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-
-                android:background="@drawable/schedule_shape_period_item"
-                android:orientation="horizontal">
-
-                <com.sandyz.alltimers.common.view.costom.Selector
-                    android:id="@+id/schedule_period_selector_week"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    app:hint="每周固定"
-                    app:hintColor="#8A4F30"
-                    app:hintSize="16"
-                    app:icSize="24"
-                    app:iconDrawable="@null"
-                    app:isSelect="false"
-                    app:isSingleSelect="false"
-                    app:selectDrawable="@drawable/common_selector_clicked"
-                    app:unselectDrawable="@drawable/common_selector_no_clicked" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-
-                android:background="@drawable/schedule_shape_period_item"
-                android:orientation="horizontal">
-
-                <com.sandyz.alltimers.common.view.costom.Selector
-                    android:id="@+id/schedule_period_selector_period"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    app:hint="间隔多少天一次"
-                    app:hintColor="#8A4F30"
-                    app:hintSize="16"
-                    app:icSize="24"
-                    app:iconDrawable="@null"
-                    app:isSelect="false"
-                    app:isSingleSelect="false"
-                    app:selectDrawable="@drawable/common_selector_clicked"
-                    app:unselectDrawable="@drawable/common_selector_no_clicked" />
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</com.sandyz.alltimers.common.view.costom.DynamicBackgroundFrameLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.sandyz.alltimers.common.view.costom.DynamicBackgroundFrameLayout>
+</layout>

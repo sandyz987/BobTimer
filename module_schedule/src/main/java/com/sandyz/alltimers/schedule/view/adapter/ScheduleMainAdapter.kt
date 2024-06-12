@@ -18,9 +18,6 @@ import com.sandyz.alltimers.api_schedule.ScheduleData
 import com.sandyz.alltimers.api_schedule.ScheduleSortData
 import com.sandyz.alltimers.schedule.view.custom.CarrotProgressBar
 import com.sandyz.alltimers.schedule.view.custom.SnapDelete
-import kotlinx.android.synthetic.main.schedule_item_main.view.*
-import kotlinx.android.synthetic.main.schedule_layout_content.view.*
-import kotlinx.android.synthetic.main.schedule_layout_top.view.*
 
 /**
  *@author zhangzhe
@@ -39,13 +36,14 @@ class ScheduleMainAdapter(
 
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val snapDelete: SnapDelete = v.schedule_snap_view
-        val ivScheduleSort: ImageView = v.schedule_iv_item_sort
-        val tvScheduleTitle: TextView = v.schedule_item_tv_title
-        val tvScheduleTarget: TextView = v.schedule_item_tv_target
-        val progress: CarrotProgressBar = v.schedule_carrot_progress_bar
-        val tvLastTime: TextView = v.schedule_item_tv_last_time
-        val tvLastTimeText: TextView = v.schedule_item_tv_last_time_text
+        val snapDelete: SnapDelete = v.findViewById(R.id.schedule_snap_view)
+        val ivScheduleSort: ImageView = v.findViewById(R.id.schedule_iv_item_sort)
+        val tvScheduleTitle: TextView = v.findViewById(R.id.schedule_item_tv_title)
+        val tvScheduleTarget: TextView = v.findViewById(R.id.schedule_item_tv_target)
+        val progress: CarrotProgressBar = v.findViewById(R.id.schedule_carrot_progress_bar)
+        val tvLastTime: TextView = v.findViewById(R.id.schedule_item_tv_last_time)
+        val tvLastTimeText: TextView = v.findViewById(R.id.schedule_item_tv_last_time_text)
+        val tvTopping: TextView = v.findViewById(R.id.schedule_item_tv_topping)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -98,11 +96,11 @@ class ScheduleMainAdapter(
         if (list[position].topping) {
             holder.tvLastTime.setTextColor(Color.parseColor("#FF8854"))
             holder.tvLastTimeText.setTextColor(Color.parseColor("#FF8854"))
-            holder.itemView.schedule_item_tv_topping.text = "取\n消\n置\n顶"
+            holder.tvTopping.text = "取\n消\n置\n顶"
         } else {
             holder.tvLastTime.setTextColor(Color.parseColor("#995B3A"))
             holder.tvLastTimeText.setTextColor(Color.parseColor("#995B3A"))
-            holder.itemView.schedule_item_tv_topping.text = "置\n顶"
+            holder.tvTopping.text = "置\n顶"
         }
 
         holder.ivScheduleSort.setImageResource(ScheduleSortData.list.find { it.name == list[position].sort }?.iconItemId ?: 0)

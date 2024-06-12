@@ -18,7 +18,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sandyz.alltimers.common.extensions.getScreenWidth
 import com.sandyz.alltimers.common.widgets.LogUtils
-import kotlinx.android.synthetic.main.myhome_fragment_home.*
 import kotlin.math.abs
 
 class ScrollBackgroundView @JvmOverloads constructor(

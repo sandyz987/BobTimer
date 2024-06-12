@@ -39,7 +39,7 @@ class ViewCap @JvmOverloads constructor(
             invalidate()
         }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val margin = context.dp2px(2).toFloat()
         val mid = mHeight / 2f

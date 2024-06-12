@@ -46,7 +46,7 @@ class DynamicBackgroundFrameLayout @JvmOverloads constructor(
         mHandler?.post(animationRunnable)
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         for (y in -mWidth..mHeight step mWidth / 2) {

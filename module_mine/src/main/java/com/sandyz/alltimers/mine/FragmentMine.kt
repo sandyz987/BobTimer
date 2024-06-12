@@ -11,25 +11,26 @@ import com.sandyz.alltimers.common.config.Config
 import com.sandyz.alltimers.common.config.MINE_ENTRY
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.common.widgets.OptionalDialog
+import com.sandyz.alltimers.mine.databinding.MineFragmentMineBinding
 import com.sandyz.alltimers.mine.vm.IndividualViewModel
 import com.sandyz.moneycounter4.base.BaseViewModelFragment
-import kotlinx.android.synthetic.main.mine_fragment_mine.*
 
 
 @Route(path = MINE_ENTRY)
 class FragmentMine : BaseViewModelFragment<IndividualViewModel>() {
+    private lateinit var binding: MineFragmentMineBinding
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.mine_fragment_mine, container, false)
+        return MineFragmentMineBinding.inflate(inflater, container, false).also { binding = it }.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel.user.observeNotNull { user ->
-            mine_tv_nickname.text = user.nickname
-            mine_tv_id.text = "ID：${user.userId}"
+            binding.mineTvNickname.text = user.nickname
+            binding.mineTvId.text = "ID：${user.userId}"
         }
         viewModel.getUser(Config.userId)
-        mine_ll_logout.setOnClickAction {
+        binding.mineLlLogout.setOnClickAction {
             context?.let {
                 OptionalDialog.show(it, "确定要退出登录吗？", onDeny = {}) {
                     Config.password = ""

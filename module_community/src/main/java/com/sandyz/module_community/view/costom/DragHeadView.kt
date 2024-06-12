@@ -8,10 +8,11 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.sandyz.module_community.R
-import kotlinx.android.synthetic.main.layout_head_view.view.*
 
 
 class DragHeadView @JvmOverloads constructor(
@@ -30,6 +31,17 @@ class DragHeadView @JvmOverloads constructor(
 
     private var beforeIc: Drawable? = null
     private var refreshedIc: Drawable? = null
+
+    private val headViewProgress: View by lazy {
+        findViewById(R.id.head_view_progress)
+    }
+    private val headViewArrow: ImageView by lazy {
+        findViewById(R.id.head_view_arrow)
+    }
+
+    private val headViewState: TextView by lazy {
+        findViewById(R.id.head_view_state)
+    }
 
 
     init {
@@ -57,7 +69,7 @@ class DragHeadView @JvmOverloads constructor(
             requestLayout()
         }
 
-        head_view_progress.visibility = View.INVISIBLE
+        headViewProgress.visibility = View.INVISIBLE
 
 
     }
@@ -73,7 +85,6 @@ class DragHeadView @JvmOverloads constructor(
             throw IllegalStateException("the first view must be recyclerView!")
         }
     }
-
 
     private fun transformHeadView(yOffset: Int) {
         headView.layoutParams = (headView.layoutParams as LayoutParams).apply {
@@ -102,7 +113,7 @@ class DragHeadView @JvmOverloads constructor(
     private fun doRefreshAnim() {
         if (arrowState != 0) {
 
-            val rotate = ObjectAnimator.ofFloat(head_view_arrow, "rotation", 0f, 180f)
+            val rotate = ObjectAnimator.ofFloat(headViewArrow, "rotation", 0f, 180f)
             rotate.duration = 200
             rotate.repeatCount = 0
             rotate.start()
@@ -113,7 +124,7 @@ class DragHeadView @JvmOverloads constructor(
 
     private fun doCancelRefreshAnim() {
         if (arrowState != 1) {
-            val rotate = ObjectAnimator.ofFloat(head_view_arrow, "rotation", 180f, 360f)
+            val rotate = ObjectAnimator.ofFloat(headViewArrow, "rotation", 180f, 360f)
             rotate.duration = 200
             rotate.repeatCount = 0
             rotate.start()
@@ -133,12 +144,12 @@ class DragHeadView @JvmOverloads constructor(
                     transformHeadView(headViewHeight - yOffset)
                     if (getOffset(event) > headViewHeight) {
                         // 超过headView的高度，则执行刷新
-                        head_view_state.text = canRefreshText
+                        headViewState.text = canRefreshText
                         doRefreshAnim()
 
                     } else {
                         // 直接恢复
-                        head_view_state.text = beforeRefreshText
+                        headViewState.text = beforeRefreshText
                         doCancelRefreshAnim()
                     }
                 }
@@ -147,6 +158,7 @@ class DragHeadView @JvmOverloads constructor(
                 }
 
             }
+
             MotionEvent.ACTION_UP -> {
                 if (getOffset(event) > headViewHeight) {
                     // 超过headView的高度，则执行刷新
@@ -167,11 +179,11 @@ class DragHeadView @JvmOverloads constructor(
     }
 
     fun finishRefresh() {
-        head_view_state.text = refreshedText
-        head_view_arrow.visibility = View.VISIBLE
-        head_view_progress.visibility = View.INVISIBLE
+        headViewState.text = refreshedText
+        headViewArrow.visibility = View.VISIBLE
+        headViewProgress.visibility = View.INVISIBLE
         doCancelRefreshAnim()
-        head_view_arrow.setImageDrawable(refreshedIc)
+        headViewArrow.setImageDrawable(refreshedIc)
         postDelayed({
             recover()
 
@@ -180,10 +192,10 @@ class DragHeadView @JvmOverloads constructor(
     }
 
     fun refresh() {
-        head_view_arrow.visibility = View.INVISIBLE
-        head_view_progress.visibility = View.VISIBLE
+        headViewArrow.visibility = View.INVISIBLE
+        headViewProgress.visibility = View.VISIBLE
 
-        head_view_state.text = refreshingText
+        headViewState.text = refreshingText
 
         state = STATE.REFRESHING
         val anim = ValueAnimator.ofInt(nowOffset, 0)
@@ -201,10 +213,10 @@ class DragHeadView @JvmOverloads constructor(
 
     private fun recover() {
         state = STATE.RECOVER
-        head_view_arrow.setImageDrawable(beforeIc)
-        head_view_progress.visibility = View.INVISIBLE
-        head_view_arrow.visibility = View.VISIBLE
-        head_view_state.text = beforeRefreshText
+        headViewArrow.setImageDrawable(beforeIc)
+        headViewProgress.visibility = View.INVISIBLE
+        headViewArrow.visibility = View.VISIBLE
+        headViewState.text = beforeRefreshText
 
         val anim = ValueAnimator.ofInt(nowOffset, headViewHeight)
         anim.duration = 300L
@@ -225,6 +237,7 @@ class DragHeadView @JvmOverloads constructor(
             MotionEvent.ACTION_DOWN -> {
                 downY = ev.y
             }
+
             MotionEvent.ACTION_MOVE -> {
                 // 如果不能向下滚动了，说明到顶了，则进入滑动状态
                 if (rv?.canScrollVertically(-1) != true && state == STATE.NONE && ev.y - downY > 10) {

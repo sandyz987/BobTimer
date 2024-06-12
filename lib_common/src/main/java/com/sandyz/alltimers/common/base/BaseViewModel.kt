@@ -19,7 +19,11 @@ open class BaseViewModel : ViewModel() {
 
     fun Disposable.lifeCycle(): Disposable {
         disposableList.add(this)
-        return this@lifeCycle
+        return this
+    }
+
+    fun addLifeCycle(disposable: Disposable) {
+        disposableList.add(disposable)
     }
 
     fun toast(msg: String) {

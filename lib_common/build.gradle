@@ -40,3 +40,10 @@ dependencies {
 
 
 }
+
+android {
+    namespace 'com.sandyz.alltimers.common'
+    buildFeatures {
+        buildConfig true
+    }
+}

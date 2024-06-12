@@ -5,16 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.sandyz.alltimers.calendar.R
-import com.sandyz.alltimers.calendar.view.adapter.CalendarMonthPagerAdapter
+import com.sandyz.alltimers.calendar.databinding.CalendarFragmentMonthBinding
 import com.sandyz.alltimers.common.base.BaseFragment
-import com.sandyz.alltimers.common.utils.CalendarUtil
-import com.sandyz.alltimers.common.utils.toDateItem
-import kotlinx.android.synthetic.main.calendar_fragment_month.*
 
 class FragmentMonth : BaseFragment() {
 
+    private lateinit var binding: CalendarFragmentMonthBinding
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.calendar_fragment_month, container, false)
+        return CalendarFragmentMonthBinding.inflate(inflater, container, false).apply {
+            binding = this
+        }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

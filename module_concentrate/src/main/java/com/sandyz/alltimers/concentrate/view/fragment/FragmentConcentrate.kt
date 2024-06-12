@@ -19,10 +19,10 @@ import com.sandyz.alltimers.common.config.CONCENTRATE_ENTRY
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.common.widgets.dynamicdisplayview.drawer.TimerDrawerImpl
 import com.sandyz.alltimers.concentrate.R
+import com.sandyz.alltimers.concentrate.databinding.ConcentrateFragmentConcentrateBinding
 import com.sandyz.alltimers.concentrate.service.TimerService
 import com.sandyz.alltimers.concentrate.view.adapter.ConcentrateBackgroundAdapter
 import com.sandyz.alltimers.concentrate.view.costom.RollDiskView
-import kotlinx.android.synthetic.main.concentrate_fragment_concentrate.*
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import java.lang.ref.WeakReference
 
@@ -34,9 +34,12 @@ class FragmentConcentrate : BaseFragment() {
     private var isBind = false
     private var onSecondsChange: ((Int) -> Unit)? = null
     private var timerReceiver: TimerReceiver? = null
+    private lateinit var binding: ConcentrateFragmentConcentrateBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.concentrate_fragment_concentrate, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        return ConcentrateFragmentConcentrateBinding.inflate(inflater, container, false).also {
+            binding = it
+        }.root
     }
 
     override fun onAttach(context: Context) {
@@ -72,86 +75,90 @@ class FragmentConcentrate : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        concentrate_rv_bg.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
-        val bgAdapter = ConcentrateBackgroundAdapter(this, concentrate_rv_bg)
-        concentrate_rv_bg.adapter = bgAdapter
-        OverScrollDecoratorHelper.setUpOverScroll(concentrate_rv_bg, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL)
+        binding.apply {
+            concentrateRvBg.layoutManager = LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false)
+            val bgAdapter = ConcentrateBackgroundAdapter(this@FragmentConcentrate, concentrateRvBg)
+            concentrateRvBg.adapter = bgAdapter
+            OverScrollDecoratorHelper.setUpOverScroll(concentrateRvBg, OverScrollDecoratorHelper.ORIENTATION_HORIZONTAL)
 //        val snapHelper = LinearSnapHelper()
 //        snapHelper.attachToRecyclerView(concentrate_rv_bg)
 
 
-        concentrate_display.drawer = TimerDrawerImpl()
-        concentrate_roll_disk?.onTimeCountDownSetChange = { h, m ->
-            val hours = if (h <= 9) "0$h" else "$h"
-            val minutes = if (m <= 9) "0$m" else "$m"
-            concentrate_display?.mText = "${hours}时${minutes}分"
-            Log.e("sandyzhangtime", "${hours}时 ${minutes}分")
-        }
-        onSecondsChange = { s ->
-            concentrate_display?.mText = RollDiskView.getTimeStr(s)
-            concentrate_roll_disk?.setSeconds(s)
-        }
-        concentrate_iv_switch.setOnClickAction {
-            setCountDown(!concentrate_roll_disk.isCountDown)
-        }
-        concentrate_roll_disk.onStartEvent = { isStarted ->
-            concentrate_iv_switch.isEnabled = !isStarted
-            /**
-             * 设置布局变化
-             */
-            if (isStarted) {
-                startTimerAnim()
-            } else {
-                stopTimerAnim()
+            concentrateDisplay.drawer = TimerDrawerImpl()
+            concentrateRollDisk.onTimeCountDownSetChange = { h, m ->
+                val hours = if (h <= 9) "0$h" else "$h"
+                val minutes = if (m <= 9) "0$m" else "$m"
+                concentrateDisplay.mText = "${hours}时${minutes}分"
+                Log.e("sandyzhangtime", "${hours}时 ${minutes}分")
+            }
+            onSecondsChange = { s ->
+                concentrateDisplay.mText = RollDiskView.getTimeStr(s)
+                concentrateRollDisk.setSeconds(s)
+            }
+            concentrateIvSwitch.setOnClickAction {
+                setCountDown(!concentrateRollDisk.isCountDown)
+            }
+            concentrateRollDisk.onStartEvent = { isStarted ->
+                concentrateIvSwitch.isEnabled = !isStarted
+                /**
+                 * 设置布局变化
+                 */
+                if (isStarted) {
+                    startTimerAnim()
+                } else {
+                    stopTimerAnim()
+                }
+            }
+            concentrateIvStart.setOnClickAction {
+                switch(!concentrateRollDisk.isStarted)
             }
         }
-        concentrate_iv_start.setOnClickAction {
-            switch(!concentrate_roll_disk.isStarted)
-        }
-
 
     }
 
     fun setCountDown(countDown: Boolean) {
-        if (countDown == concentrate_roll_disk.isCountDown) return
+        if (countDown == binding.concentrateRollDisk.isCountDown) return
         if (!countDown) {
-            concentrate_iv_switch.text = "正计时"
-            concentrate_roll_disk.isCountDown = false
+            binding.concentrateIvSwitch.text = "正计时"
+            binding.concentrateRollDisk.isCountDown = false
             onSecondsChange?.invoke(0)
         } else {
-            concentrate_iv_switch.text = "倒计时"
+            binding.concentrateIvSwitch.text = "倒计时"
             onSecondsChange?.invoke(0)
-            concentrate_roll_disk.isCountDown = true
+            binding.concentrateRollDisk.isCountDown = true
         }
     }
 
     fun switch(start: Boolean) {
-        if (start == concentrate_roll_disk?.isStarted) return
-        if (!start) {
-            service?.stop()
-            concentrate_iv_start?.text = "开始专注"
-            concentrate_roll_disk?.isStarted = false
-            if (concentrate_roll_disk?.isCountDown != true) {
-                onSecondsChange?.invoke(0)
-            }
-        } else {
-            if (concentrate_roll_disk?.isCountDown == true) {
-                if (concentrate_roll_disk?.getCountDownTotalSeconds() != 0) {
-                    concentrate_iv_start?.text = "停止专注"
-                    concentrate_roll_disk?.isStarted = true
-                    concentrate_roll_disk?.setSeconds(concentrate_roll_disk.getCountDownTotalSeconds())
-                    concentrate_roll_disk?.getCountDownTotalSeconds()?.let { service?.startTimer(true, it) }
+        binding.apply {
+            if (start == concentrateRollDisk.isStarted) return
+            if (!start) {
+                service?.stop()
+                concentrateIvStart.text = "开始专注"
+                concentrateRollDisk.isStarted = false
+                if (concentrateRollDisk.isCountDown != true) {
+                    onSecondsChange?.invoke(0)
                 }
             } else {
-                service?.startTimer(false, 0)
-                concentrate_iv_start?.text = "停止专注"
-                concentrate_roll_disk?.isStarted = true
+                if (concentrateRollDisk.isCountDown == true) {
+                    if (concentrateRollDisk.getCountDownTotalSeconds() != 0) {
+                        concentrateIvStart.text = "停止专注"
+                        concentrateRollDisk.isStarted = true
+                        concentrateRollDisk.setSeconds(concentrateRollDisk.getCountDownTotalSeconds())
+                        concentrateRollDisk.getCountDownTotalSeconds().let { service?.startTimer(true, it) }
+                    }
+                } else {
+                    service?.startTimer(false, 0)
+                    concentrateIvStart.text = "停止专注"
+                    concentrateRollDisk.isStarted = true
+                }
             }
         }
+
     }
 
     fun setBackground(@DrawableRes id: Int) {
-        concentrate_cl_bg.setBackgroundResource(id)
+        binding.concentrateClBg.setBackgroundResource(id)
     }
 
 
@@ -190,11 +197,11 @@ class FragmentConcentrate : BaseFragment() {
         layoutAnimator = ValueAnimator.ofFloat(0.5f, 0.55f).apply {
             duration = 500
             addUpdateListener {
-                concentrate_rv_bg.alpha = 1 - it.animatedFraction
-                concentrate_guideline.setGuidelinePercent(it.animatedValue as Float)
+                binding.concentrateRvBg.alpha = 1 - it.animatedFraction
+                binding.concentrateGuideline.setGuidelinePercent(it.animatedValue as Float)
             }
             doOnEnd {
-                concentrate_rv_bg.visibility = View.GONE
+                binding.concentrateRvBg.visibility = View.GONE
             }
             start()
         }
@@ -202,12 +209,12 @@ class FragmentConcentrate : BaseFragment() {
 
     private fun stopTimerAnim() {
         layoutAnimator?.cancel()
-        concentrate_rv_bg.visibility = View.VISIBLE
+        binding.concentrateRvBg.visibility = View.VISIBLE
         layoutAnimator = ValueAnimator.ofFloat(0.55f, 0.5f).apply {
             duration = 500
             addUpdateListener {
-                concentrate_rv_bg.alpha = it.animatedFraction
-                concentrate_guideline.setGuidelinePercent(it.animatedValue as Float)
+                binding.concentrateRvBg.alpha = it.animatedFraction
+                binding.concentrateGuideline.setGuidelinePercent(it.animatedValue as Float)
             }
             start()
         }

@@ -114,7 +114,7 @@ class DynamicDisplayView @JvmOverloads constructor(
     }
 
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         // 当文本长度相同时才更新动画
         if (mText.length == preText.length) {

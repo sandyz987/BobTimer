@@ -121,14 +121,14 @@ class BottomNavConstraintLayout @JvmOverloads constructor(
     }
 
 
-    override fun draw(canvas: Canvas?) {
+    override fun draw(canvas: Canvas) {
         paint.color = Color.parseColor("#FCC5BE")
         paint.style = Paint.Style.FILL
-        fillPath?.let { canvas?.drawPath(it, paint) }
+        fillPath?.let { canvas.drawPath(it, paint) }
 
         paint.color = Color.parseColor("#FFFFFF")
         paint.style = Paint.Style.STROKE
-        strokePath?.let { canvas?.drawPath(it, paint) }
+        strokePath?.let { canvas.drawPath(it, paint) }
 
         super.draw(canvas)
     }

@@ -22,9 +22,9 @@ import com.sandyz.alltimers.common.widgets.KeyboardController
 import com.sandyz.alltimers.common.widgets.OptionalDialog
 import com.sandyz.alltimers.common.widgets.ProgressShowDialog
 import com.sandyz.module_community.R
+import com.sandyz.module_community.databinding.FragmentTalkEditBinding
 import com.sandyz.module_community.view.vm.CommunityViewModel
 import com.tbruyelle.rxpermissions2.RxPermissions
-import kotlinx.android.synthetic.main.fragment_talk_edit.*
 
 class FragmentTalkEdit : BaseFragment() {
 
@@ -36,11 +36,14 @@ class FragmentTalkEdit : BaseFragment() {
     private var upLoading = false
     private var imgUrl: String? = null
 
+    private lateinit var binding: FragmentTalkEditBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_talk_edit, container, false)
+        binding = FragmentTalkEditBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     @SuppressLint("RestrictedApi")
@@ -48,79 +51,82 @@ class FragmentTalkEdit : BaseFragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        binding.apply {
 
 
-        viewModel?.replyInfo?.value?.let {
-            if (it.replyId != -1) {
-                textViewReplyText.text = "回复：@${it.nickname}"
-            }
-        }
-
-
-        progressBar.indeterminateDrawable.setColorFilter(
-            resources.getColor(
-                R.color.colorLightRed,
-                null
-            ), PorterDuff.Mode.SRC_IN
-        )
-
-        imageViewPic.setOnClickListener {
-
-            RxPermissions(this).request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe {
-                if (it) {
-                    selectPic()
+            viewModel?.replyInfo?.value?.let {
+                if (it.replyId != -1) {
+                    textViewReplyText.text = "回复：@${it.nickname}"
                 }
             }
 
-        }
 
+            progressBar.indeterminateDrawable.setColorFilter(
+                resources.getColor(
+                    R.color.colorLightRed,
+                    null
+                ), PorterDuff.Mode.SRC_IN
+            )
 
-
-        textViewSend.setOnClickListener {
-            KeyboardController.hideInputKeyboard(requireContext(), it)
-
-            if (upLoading) {
-                Toast.makeText(requireContext(), "图片还没上传好鸭~", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
+            imageViewPic.setOnClickListener {
+                viewModel?.addLifeCycle(
+                    RxPermissions(this@FragmentTalkEdit).request(Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe {
+                        if (it) {
+                            selectPic()
+                        }
+                    }
+                )
             }
-            activity?.let { it1 -> ProgressShowDialog.show(it1, "请稍后", "正在上传~", false) }
-            if ((viewModel?.replyInfo?.value?.replyId ?: -1) == -1) {
-                // 发帖
-                if (imgUrl.isNullOrBlank()) {
-                    viewModel?.releaseDynamic(editTextTalk.text.toString(), "BOB")
+
+
+
+            textViewSend.setOnClickListener {
+                KeyboardController.hideInputKeyboard(requireContext(), it)
+
+                if (upLoading) {
+                    Toast.makeText(requireContext(), "图片还没上传好鸭~", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+                activity?.let { it1 -> ProgressShowDialog.show(it1, "请稍后", "正在上传~", false) }
+                if ((viewModel?.replyInfo?.value?.replyId ?: -1) == -1) {
+                    // 发帖
+                    if (imgUrl.isNullOrBlank()) {
+                        viewModel?.releaseDynamic(editTextTalk.text.toString(), "BOB")
+                    } else {
+                        viewModel?.releaseDynamic(editTextTalk.text.toString(), "BOB", listOf(imgUrl!!))
+                    }
                 } else {
-                    viewModel?.releaseDynamic(editTextTalk.text.toString(), "BOB", listOf(imgUrl!!))
+                    // 回复
+                    viewModel?.reply(editTextTalk.text.toString())
                 }
-            } else {
-                // 回复
-                viewModel?.reply(editTextTalk.text.toString())
             }
-        }
-        viewModel?.replyStatus?.observe {
-            ProgressShowDialog.hide()
-            if (it) {
-                viewModel?.refreshDynamic()
+            viewModel?.replyStatus?.observe {
+                ProgressShowDialog.hide()
+                if (it) {
+                    viewModel?.refreshDynamic()
 //                findNavController().popBackStack()
-                requireActivity().finish()
+                    requireActivity().finish()
+                }
             }
-        }
-        viewModel?.releaseDynamicStatus?.observe {
-            ProgressShowDialog.hide()
-            if (it) {
+            viewModel?.releaseDynamicStatus?.observe {
+                ProgressShowDialog.hide()
+                if (it) {
 //                val navController = findNavController()
 //                while (navController.backStack.size >= 1) {
 //                    navController.popBackStack()
 //                }
 //                navController.navigate(R.id.action_global_fragmentCommunity)
-                // TODO 返回
-                requireActivity().finish()
+                    // TODO 返回
+                    requireActivity().finish()
+                }
             }
-        }
 
-        iv_back.setOnClickAction {
-            OptionalDialog.show(requireContext(), "放弃发布吗？内容将不会保存", onDeny = {}) {
-                requireActivity().finish()
+            ivBack.setOnClickAction {
+                OptionalDialog.show(requireContext(), "放弃发布吗？内容将不会保存", onDeny = {}) {
+                    requireActivity().finish()
+                }
             }
+
         }
 
 
@@ -162,9 +168,9 @@ class FragmentTalkEdit : BaseFragment() {
 
 
             //imgPath?.let { LogW.d(it) }//===================================================
-            progressBar.visibility = View.VISIBLE
-            imageViewPic.visibility = View.GONE
-            imageViewPic.setImageBitmap(null)
+            binding.progressBar.visibility = View.VISIBLE
+            binding.imageViewPic.visibility = View.GONE
+            binding.imageViewPic.setImageBitmap(null)
 
             upLoading = true
 
@@ -176,9 +182,9 @@ class FragmentTalkEdit : BaseFragment() {
                 activity?.runOnUiThread {
                     if (it.picUrls.isNotEmpty()) {
                         imgUrl = it.picUrls[0]
-                        progressBar.visibility = View.GONE
-                        imageViewPic.visibility = View.VISIBLE
-                        Glide.with(this).load(it.picUrls[0]).into(imageViewPic)
+                        binding.progressBar.visibility = View.GONE
+                        binding.imageViewPic.visibility = View.VISIBLE
+                        Glide.with(this).load(it.picUrls[0]).into(binding.imageViewPic)
                         upLoading = false
                     }
                 }

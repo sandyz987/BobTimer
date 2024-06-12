@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.LifecycleOwner
@@ -14,13 +16,18 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.bigkoo.pickerview.utils.ChinaDate
 import com.bigkoo.pickerview.utils.LunarCalendar
 import com.sandyz.alltimers.api_schedule.IScheduleService
+import com.sandyz.alltimers.api_schedule.ScheduleSortData
 import com.sandyz.alltimers.api_schedule.ScheduleTimeHelper
 import com.sandyz.alltimers.calendar.R
+import com.sandyz.alltimers.calendar.view.custom.ViewCap
 import com.sandyz.alltimers.common.extensions.setOnClickAction
-import com.sandyz.alltimers.api_schedule.ScheduleSortData
-import com.sandyz.alltimers.common.utils.*
-import kotlinx.android.synthetic.main.calendar_item_day.view.*
-import java.util.*
+import com.sandyz.alltimers.common.utils.CalendarUtil
+import com.sandyz.alltimers.common.utils.DateItem
+import com.sandyz.alltimers.common.utils.getDay
+import com.sandyz.alltimers.common.utils.getMonth
+import com.sandyz.alltimers.common.utils.getYear
+import com.sandyz.alltimers.common.utils.toDateItem
+import java.util.Calendar
 
 /**
  *@author zhangzhe
@@ -107,10 +114,10 @@ class MonthAdapter(
     }
 
     inner class VH(v: View) : RecyclerView.ViewHolder(v) {
-        val tvDay = v.calendar_tv_day
-        val lunar = v.calendar_tv_lunar
-        val cap = v.calendar_view_cap
-        val bg = v.calendar_cl_bg
+        val tvDay = v.findViewById<TextView>(R.id.calendar_tv_day)
+        val lunar = v.findViewById<TextView>(R.id.calendar_tv_lunar)
+        val cap = v.findViewById<ViewCap>(R.id.calendar_view_cap)
+        val bg = v.findViewById<ConstraintLayout>(R.id.calendar_cl_bg)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {

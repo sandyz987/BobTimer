@@ -1,5 +1,6 @@
 package com.sandyz.alltimers.myhome.view.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.myhome.R
 import com.sandyz.alltimers.myhome.bean.SortData
-import kotlinx.android.synthetic.main.myhome_item_sort.view.*
 
 /**
  *@author zhangzhe
@@ -21,7 +21,7 @@ class SortAdapter(private val list: List<SortData>, private val rv: RecyclerView
     private var selectedPos: Int = 0
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val tvSort: ImageView = v.myhome_iv_sort
+        val tvSort: ImageView = v.findViewById(R.id.myhome_iv_sort)
     }
 
     var onSelected: ((String) -> Unit)? = null
@@ -31,7 +31,7 @@ class SortAdapter(private val list: List<SortData>, private val rv: RecyclerView
         return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, @SuppressLint("RecyclerView") position: Int) {
         if (selectedPos == position) {
             holder.tvSort.setImageResource(list[position].selectedIcon)
         } else {
@@ -39,7 +39,8 @@ class SortAdapter(private val list: List<SortData>, private val rv: RecyclerView
         }
         holder.itemView.setOnClickAction {
             if (selectedPos != position) {
-                rv.findViewHolderForAdapterPosition(selectedPos)?.itemView?.myhome_iv_sort?.setImageResource(list[selectedPos].noSelectedIcon)
+                rv.findViewHolderForAdapterPosition(selectedPos)?.itemView?.findViewById<ImageView>(R.id.myhome_iv_sort)
+                    ?.setImageResource(list[selectedPos].noSelectedIcon)
                 holder.tvSort.setImageResource(list[position].selectedIcon)
                 selectedPos = position
             }

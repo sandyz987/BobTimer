@@ -3,6 +3,8 @@ package com.sandyz.alltimers.myhome.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.myhome.R
@@ -10,7 +12,6 @@ import com.sandyz.alltimers.myhome.backgroundscroll.Rabbit
 import com.sandyz.alltimers.myhome.backgroundscroll.ScrollBackgroundView
 import com.sandyz.alltimers.myhome.bean.CommodityData
 import com.sandyz.alltimers.myhome.rabbit.RabbitSurfaceView
-import kotlinx.android.synthetic.main.myhome_item_widget.view.*
 
 class WearAdapter(scrollBackgroundView: ScrollBackgroundView, filter: String, private val commodityList: List<CommodityData>) :
     RecyclerView.Adapter<WearAdapter.ViewHolder>() {
@@ -55,10 +56,10 @@ class WearAdapter(scrollBackgroundView: ScrollBackgroundView, filter: String, pr
     }
 
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val name = v.myhome_tv_widget_name
-        val price = v.myhome_tv_widget__price
-        val pic = v.myhome_iv_widget_pic
-        val selected = v.myhome_iv_widget_select
+        val name = v.findViewById<TextView>(R.id.myhome_tv_widget_name)
+        val price = v.findViewById<TextView>(R.id.myhome_tv_widget__price)
+        val pic = v.findViewById<ImageView>(R.id.myhome_iv_widget_pic)
+        val selected = v.findViewById<ImageView>(R.id.myhome_iv_widget_select)
 
     }
 

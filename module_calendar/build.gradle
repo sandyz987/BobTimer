@@ -3,3 +3,7 @@ apply from: config
 dependencies {
     implementation project(':module_schedule:api_schedule')
 }
+
+android {
+    namespace 'com.sandyz.alltimers.calendar'
+}

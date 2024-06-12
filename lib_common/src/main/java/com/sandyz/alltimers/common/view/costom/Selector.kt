@@ -137,51 +137,51 @@ class Selector @JvmOverloads constructor(
         mHeight = h
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas?.save()
+        canvas.save()
 
         if (gravity == 1) {
-            canvas?.save()
-            canvas?.translate(padding, (mHeight - iconSize) / 2f)
-            canvas?.let { iconDrawable?.draw(it) }
-            canvas?.restore()
+            canvas.save()
+            canvas.translate(padding, (mHeight - iconSize) / 2f)
+            canvas.let { iconDrawable?.draw(it) }
+            canvas.restore()
 
-            canvas?.save()
-            canvas?.drawTextCenter(text, padding + if (iconDrawable != null) iconSize + margin else 0f, mHeight / 2f, paint, Paint.Align.LEFT)
-            canvas?.translate(mWidth - padding - iconSize, (mHeight - iconSize) / 2f)
+            canvas.save()
+            canvas.drawTextCenter(text, padding + if (iconDrawable != null) iconSize + margin else 0f, mHeight / 2f, paint, Paint.Align.LEFT)
+            canvas.translate(mWidth - padding - iconSize, (mHeight - iconSize) / 2f)
             if (isSelect) {
-                canvas?.let { selectDrawable?.draw(it) }
+                canvas.let { selectDrawable?.draw(it) }
             } else {
-                canvas?.let { unselectDrawable?.draw(it) }
+                canvas.let { unselectDrawable?.draw(it) }
             }
-            canvas?.restore()
+            canvas.restore()
         } else if (gravity == 2) {
             val textWidth = paint.measureText(text)
             if (iconDrawable != null) {
-                canvas?.translate((mWidth - textWidth - iconSize * 2 - margin * 2) / 2f, (mHeight - iconSize) / 2f)
+                canvas.translate((mWidth - textWidth - iconSize * 2 - margin * 2) / 2f, (mHeight - iconSize) / 2f)
                 if (isSelect) {
-                    canvas?.let { selectDrawable?.draw(it) }
+                    canvas.let { selectDrawable?.draw(it) }
                 } else {
-                    canvas?.let { unselectDrawable?.draw(it) }
+                    canvas.let { unselectDrawable?.draw(it) }
                 }
-                canvas?.translate(margin + iconSize, 0f)
-                canvas?.let { iconDrawable?.draw(it) }
-                canvas?.translate(margin + iconSize, -(mHeight - iconSize) / 2f)
-                canvas?.drawTextCenter(text, 0f, mHeight / 2f, paint, Paint.Align.LEFT)
+                canvas.translate(margin + iconSize, 0f)
+                canvas.let { iconDrawable?.draw(it) }
+                canvas.translate(margin + iconSize, -(mHeight - iconSize) / 2f)
+                canvas.drawTextCenter(text, 0f, mHeight / 2f, paint, Paint.Align.LEFT)
             } else {
-                canvas?.translate((mWidth - textWidth - iconSize - margin) / 2f, (mHeight - iconSize) / 2f)
+                canvas.translate((mWidth - textWidth - iconSize - margin) / 2f, (mHeight - iconSize) / 2f)
                 if (isSelect) {
-                    canvas?.let { selectDrawable?.draw(it) }
+                    canvas.let { selectDrawable?.draw(it) }
                 } else {
-                    canvas?.let { unselectDrawable?.draw(it) }
+                    canvas.let { unselectDrawable?.draw(it) }
                 }
-                canvas?.translate(margin + iconSize, -(mHeight - iconSize) / 2f)
-                canvas?.drawTextCenter(text, 0f, mHeight / 2f, paint, Paint.Align.LEFT)
+                canvas.translate(margin + iconSize, -(mHeight - iconSize) / 2f)
+                canvas.drawTextCenter(text, 0f, mHeight / 2f, paint, Paint.Align.LEFT)
             }
         }
 
-        canvas?.restore()
+        canvas.restore()
     }
 
 }

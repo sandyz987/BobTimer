@@ -2,10 +2,10 @@ package com.sandyz.alltimers.myhome.view.dialog
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AlertDialog
 import com.sandyz.alltimers.common.extensions.setOnClickAction
 import com.sandyz.alltimers.myhome.R
-import kotlinx.android.synthetic.main.myhome_dialog_mission.view.*
 
 object MissionDialog {
     fun show(context: Context) {
@@ -16,7 +16,7 @@ object MissionDialog {
         val dialog = builder.create()
         dialog.show()
 
-        view.myhome_tv_close.setOnClickAction {
+        view.findViewById<View>(R.id.myhome_tv_close).setOnClickAction {
             dialog.dismiss()
         }
     }

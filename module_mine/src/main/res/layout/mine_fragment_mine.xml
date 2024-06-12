@@ -1,393 +1,400 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFF9E8"
-    tools:context=".FragmentMine">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/mine_imageview"
-        android:layout_width="0dp"
-        android:layout_height="240dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/mine_ic_bg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF9E8"
+        tools:context=".FragmentMine">
+
+        <ImageView
+            android:id="@+id/mine_imageview"
+            android:layout_width="0dp"
+            android:layout_height="240dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/mine_ic_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/mine_guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
-
-    <View
-        android:id="@+id/mine_view"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="40dp"
-        android:background="@drawable/mine_shape_shadow"
-        app:layout_constraintBottom_toBottomOf="@+id/mine_linearlayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mine_linearlayout"
-        app:layout_constraintTop_toTopOf="@+id/mine_linearlayout" />
-
-    <LinearLayout
-        android:id="@+id/mine_linearlayout1"
-        android:layout_width="0dp"
-        android:layout_height="84dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginEnd="30dp"
-        android:background="@drawable/mine_shape_bg_3"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/mine_imageview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/mine_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/mine_imageview">
-
-        <TextView
-            android:id="@+id/mine_textview7"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/mine_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我的萝卜币"
-            android:textColor="#8A4F30"
-            android:textSize="16sp" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-        <TextView
-            android:id="@+id/mine_textview8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="#8A4F30"
-            android:textSize="28sp" />
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/mine_shape_bg_1"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
-        android:paddingStart="10dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="10dp"
-        android:paddingBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/mine_imageview3"
-        app:layout_constraintStart_toEndOf="@+id/mine_imageview3"
-        app:layout_constraintTop_toTopOf="@+id/mine_imageview3">
-
-        <TextView
-            android:id="@+id/mine_tv_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BOB家的游客"
-            android:textColor="#8A4F30"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/mine_tv_id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="ID：000000"
-            android:textColor="#8A4F30"
-            android:textSize="14sp" />
-    </LinearLayout>
-
-
-    <ImageView
-        android:id="@+id/mine_imageview3"
-        android:layout_width="90dp"
-        android:layout_height="82dp"
-        android:layout_marginStart="24dp"
-        android:src="@drawable/mine_ic_avatar"
-        app:layout_constraintBottom_toBottomOf="@+id/mine_imageview"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mine_imageview" />
-
-    <LinearLayout
-        android:id="@+id/mine_linearlayout"
-        android:layout_width="0dp"
-        android:layout_height="84dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="15dp"
-        android:background="@drawable/mine_shape_bg_2"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="@+id/mine_imageview"
-        app:layout_constraintEnd_toStartOf="@+id/mine_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mine_imageview">
-
-        <TextView
-            android:id="@+id/mine_textview3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="签到天数"
-            android:textColor="#8A4F30"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/mine_textview2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="#8A4F30"
-            android:textSize="28sp" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/mine_textview9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:layout_marginRight="24dp"
-        android:background="@drawable/common_btn_bg_1"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:text="编辑资料"
-        android:textColor="#8A4F30"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/mine_imageview" />
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:orientation="vertical"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mine_linearlayout">
+        <View
+            android:id="@+id/mine_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="40dp"
+            android:background="@drawable/mine_shape_shadow"
+            app:layout_constraintBottom_toBottomOf="@+id/mine_linearlayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mine_linearlayout"
+            app:layout_constraintTop_toTopOf="@+id/mine_linearlayout" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/mine_shape_bg_1"
+            android:id="@+id/mine_linearlayout1"
+            android:layout_width="0dp"
+            android:layout_height="84dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/mine_shape_bg_3"
+            android:gravity="center"
             android:orientation="vertical"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp">
+            app:layout_constraintBottom_toBottomOf="@+id/mine_imageview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/mine_guideline"
+            app:layout_constraintTop_toBottomOf="@+id/mine_imageview">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/mine_textview7"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:text="我的萝卜币"
+                android:textColor="#8A4F30"
+                android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/mine_ic_info" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="15"
-                    android:gravity="center_vertical"
-                    android:text="我的账户"
-                    android:textColor="#8A4F30"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/mine_ic_right" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/mine_textview8"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/mine_ic_crash" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="15"
-                    android:gravity="center_vertical"
-                    android:text="我的回收站"
-                    android:textColor="#8A4F30"
-                    android:textSize="16sp" />
-
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/mine_ic_right" />
-            </LinearLayout>
+                android:text="0"
+                android:textColor="#8A4F30"
+                android:textSize="28sp" />
         </LinearLayout>
 
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/mine_shape_bg_1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingStart="10dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/mine_imageview3"
+            app:layout_constraintStart_toEndOf="@+id/mine_imageview3"
+            app:layout_constraintTop_toTopOf="@+id/mine_imageview3">
+
+            <TextView
+                android:id="@+id/mine_tv_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BOB家的游客"
+                android:textColor="#8A4F30"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/mine_tv_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="ID：000000"
+                android:textColor="#8A4F30"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/mine_imageview3"
+            android:layout_width="90dp"
+            android:layout_height="82dp"
+            android:layout_marginStart="24dp"
+            android:src="@drawable/mine_ic_avatar"
+            app:layout_constraintBottom_toBottomOf="@+id/mine_imageview"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mine_imageview" />
+
+        <LinearLayout
+            android:id="@+id/mine_linearlayout"
+            android:layout_width="0dp"
+            android:layout_height="84dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/mine_shape_bg_2"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/mine_imageview"
+            app:layout_constraintEnd_toStartOf="@+id/mine_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mine_imageview">
+
+            <TextView
+                android:id="@+id/mine_textview3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="签到天数"
+                android:textColor="#8A4F30"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/mine_textview2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="#8A4F30"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/mine_textview9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:layout_marginRight="24dp"
+            android:background="@drawable/common_btn_bg_1"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="编辑资料"
+            android:textColor="#8A4F30"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/mine_imageview" />
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:background="@drawable/mine_shape_bg_1"
+            android:layout_marginBottom="20dp"
             android:orientation="vertical"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp">
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mine_linearlayout">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:background="@drawable/mine_shape_bg_1"
+                android:orientation="vertical"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/mine_ic_update" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="15"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="版本更新"
-                    android:textColor="#8A4F30"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/mine_ic_right" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/mine_ic_info" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="15"
+                        android:gravity="center_vertical"
+                        android:text="我的账户"
+                        android:textColor="#8A4F30"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/mine_ic_right" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/mine_ic_crash" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="15"
+                        android:gravity="center_vertical"
+                        android:text="我的回收站"
+                        android:textColor="#8A4F30"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/mine_ic_right" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                android:layout_marginTop="20dp"
+                android:background="@drawable/mine_shape_bg_1"
+                android:orientation="vertical"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/mine_ic_feedback" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="15"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="问题反馈"
-                    android:textColor="#8A4F30"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/mine_ic_right" />
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/mine_ic_update" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="15"
+                        android:gravity="center_vertical"
+                        android:text="版本更新"
+                        android:textColor="#8A4F30"
+                        android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/mine_ic_share" />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/mine_ic_right" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="15"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="分享APP"
-                    android:textColor="#8A4F30"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/mine_ic_right" />
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/mine_ic_feedback" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="15"
+                        android:gravity="center_vertical"
+                        android:text="问题反馈"
+                        android:textColor="#8A4F30"
+                        android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/mine_ic_about" />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/mine_ic_right" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="15"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="关于我们"
-                    android:textColor="#8A4F30"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/mine_ic_right" />
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/mine_ic_share" />
 
-            <LinearLayout
-                android:id="@+id/mine_ll_logout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="10dp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="15"
+                        android:gravity="center_vertical"
+                        android:text="分享APP"
+                        android:textColor="#8A4F30"
+                        android:textSize="16sp" />
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/mine_ic_logout" />
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/mine_ic_right" />
+                </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="15"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:text="退出登录"
-                    android:textColor="#8A4F30"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal"
+                    android:padding="10dp">
 
-                <ImageView
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
-                    android:src="@drawable/mine_ic_right" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/mine_ic_about" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="15"
+                        android:gravity="center_vertical"
+                        android:text="关于我们"
+                        android:textColor="#8A4F30"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/mine_ic_right" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mine_ll_logout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/mine_ic_logout" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="15"
+                        android:gravity="center_vertical"
+                        android:text="退出登录"
+                        android:textColor="#8A4F30"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:src="@drawable/mine_ic_right" />
+                </LinearLayout>
+
+
             </LinearLayout>
-
-
         </LinearLayout>
-    </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -2,10 +2,10 @@
  * 构建项目版本
  */
 def build_versions = [:]
-build_versions.compile_sdk = 30
+build_versions.compile_sdk = 33
 build_versions.build_tools = "30.0.3"
 build_versions.min_sdk = 21
-build_versions.target_sdk = 30
+build_versions.target_sdk = 33
 ext.build_versions = build_versions
 
 /**
@@ -14,9 +14,9 @@ ext.build_versions = build_versions
 // 基本依赖库
 def deps = [:]
 def kotlin = [:]
-kotlin.gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
-kotlin.runtime = "org.jetbrains.kotlin:kotlin-stdlib:1.5.10"
-kotlin.core = "androidx.core:core-ktx:1.6.0"
+kotlin.gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:2.0.0-Beta3"
+kotlin.runtime = "org.jetbrains.kotlin:kotlin-stdlib:2.0.0-Beta3"
+kotlin.core = "androidx.core:core-ktx:1.10.1"
 deps.kotlin = kotlin
 
 def arouter = [:]

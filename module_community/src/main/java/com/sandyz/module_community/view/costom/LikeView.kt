@@ -46,7 +46,7 @@ open class LikeView @JvmOverloads constructor(
 
     }
 
-    override fun onDraw(canvas: Canvas?) {
+    override fun onDraw(canvas: Canvas) {
 
 
         canvas?.translate(trX - (measuredWidth / 4), 0f)

@@ -14,20 +14,20 @@ import com.sandyz.alltimers.common.config.SCHEDULE_DETAILS
 import com.sandyz.alltimers.common.config.SCHEDULE_EDIT
 import com.sandyz.alltimers.common.config.SCHEDULE_ENTRY
 import com.sandyz.alltimers.common.extensions.dp2px
-import com.sandyz.alltimers.schedule.R
 import com.sandyz.alltimers.api_schedule.ScheduleData
+import com.sandyz.alltimers.schedule.databinding.ScheduleFragmentScheduleBinding
 import com.sandyz.alltimers.schedule.model.ScheduleReader
 import com.sandyz.alltimers.schedule.view.adapter.ScheduleMainAdapter
-import kotlinx.android.synthetic.main.schedule_fragment_schedule.*
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 
 @Route(path = SCHEDULE_ENTRY)
 class FragmentSchedule : BaseFragment() {
 
     private var list = mutableListOf<ScheduleData>()
+    private lateinit var binding: ScheduleFragmentScheduleBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.schedule_fragment_schedule, container, false)
+        return ScheduleFragmentScheduleBinding.inflate(inflater, container, false).also { binding = it }.root
     }
 
     private val adapter = ScheduleMainAdapter(list,
@@ -45,10 +45,11 @@ class FragmentSchedule : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        schedule_rv_list.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        schedule_rv_list.adapter = adapter
-        OverScrollDecoratorHelper.setUpOverScroll(schedule_rv_list, OverScrollDecoratorHelper.ORIENTATION_VERTICAL)
-        schedule_rv_list.addItemDecoration(object : RecyclerView.ItemDecoration() {
+        val rv = binding.scheduleRvList
+        rv.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        rv.adapter = adapter
+        OverScrollDecoratorHelper.setUpOverScroll(rv, OverScrollDecoratorHelper.ORIENTATION_VERTICAL)
+        rv.addItemDecoration(object : RecyclerView.ItemDecoration() {
             override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
                 when (parent.getChildAdapterPosition(view)) {
                     list.size - 1 -> {

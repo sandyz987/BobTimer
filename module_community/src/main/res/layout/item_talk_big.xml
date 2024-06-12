@@ -1,125 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="16dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.sandyz.module_community.view.costom.CommentCountView
-        android:id="@+id/imageViewTalk"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:background="?selectableItemBackgroundBorderless"
-        android:paddingTop="5dp"
-        android:visibility="gone"
-        android:paddingBottom="5dp"
-        app:community_reply_count_text="0"
-        app:community_reply_pic_src="@drawable/ic_comment"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewLike"
-        app:layout_constraintEnd_toStartOf="@+id/imageViewLike"
-        app:layout_constraintStart_toEndOf="@+id/imageViewUsrPic"
-        app:layout_constraintTop_toTopOf="@+id/imageViewLike" />
-
-    <ImageView
-        android:id="@+id/imageViewUsrPic"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_avatar" />
-
-    <TextView
-        android:id="@+id/textViewUsrName"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="5dp"
-        android:text="昵称"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toTopOf="@+id/textViewTime"
-        app:layout_constraintStart_toEndOf="@+id/imageViewUsrPic"
-        app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
+        android:paddingBottom="16dp">
 
-    <TextView
-        android:id="@+id/textViewTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:text="时间"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewUsrPic"
-        app:layout_constraintStart_toEndOf="@+id/imageViewUsrPic"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUsrName" />
+        <com.sandyz.module_community.view.costom.CommentCountView
+            android:id="@+id/imageViewTalk"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:paddingTop="5dp"
+            android:visibility="gone"
+            android:paddingBottom="5dp"
+            app:community_reply_count_text="0"
+            app:community_reply_pic_src="@drawable/ic_comment"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewLike"
+            app:layout_constraintEnd_toStartOf="@+id/imageViewLike"
+            app:layout_constraintStart_toEndOf="@+id/imageViewUsrPic"
+            app:layout_constraintTop_toTopOf="@+id/imageViewLike" />
 
-    <Button
-        android:id="@+id/buttonFollow"
-        android:layout_width="43dp"
-        android:layout_height="27dp"
-        android:visibility="gone"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/shape_show_status_layout"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:text="关注"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewUsrPic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
+        <ImageView
+            android:id="@+id/imageViewUsrPic"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_avatar" />
 
-    <TextView
-        android:id="@+id/textViewContent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="内容"
-        android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/textViewTime"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewUsrPic" />
+        <TextView
+            android:id="@+id/textViewUsrName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="5dp"
+            android:text="昵称"
+            android:textColor="#000000"
+            app:layout_constraintBottom_toTopOf="@+id/textViewTime"
+            app:layout_constraintStart_toEndOf="@+id/imageViewUsrPic"
+            app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
 
-    <TextView
-        android:id="@+id/textViewMore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="全文"
-        android:textColor="@color/colorLightBlue"
-        app:layout_constraintStart_toStartOf="@+id/textViewContent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewContent" />
+        <TextView
+            android:id="@+id/textViewTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="时间"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewUsrPic"
+            app:layout_constraintStart_toEndOf="@+id/imageViewUsrPic"
+            app:layout_constraintTop_toBottomOf="@+id/textViewUsrName" />
 
-    <ImageView
-        android:id="@+id/imageViewSex"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewUsrName"
-        app:layout_constraintStart_toEndOf="@+id/textViewUsrName"
-        app:layout_constraintTop_toTopOf="@+id/textViewUsrName" />
+        <Button
+            android:id="@+id/buttonFollow"
+            android:layout_width="43dp"
+            android:layout_height="27dp"
+            android:visibility="gone"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/shape_show_status_layout"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:text="关注"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewUsrPic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
 
-    <com.sandyz.module_community.view.costom.LikeViewSlim
-        android:id="@+id/imageViewLike"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginBottom="16dp"
-        android:background="?selectableItemBackgroundBorderless"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        app:community_like_count_text="0"
-        app:community_liked_src="@drawable/ic_like_checked"
-        app:community_no_liked_src="@drawable/ic_like_img"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewUsrPic"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
+        <TextView
+            android:id="@+id/textViewContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:text="内容"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textViewTime"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewUsrPic" />
 
-    <ImageView
-        android:id="@+id/imageViewPic"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="8dp"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="@+id/textViewMore"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMore" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textViewMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="全文"
+            android:textColor="@color/colorLightBlue"
+            app:layout_constraintStart_toStartOf="@+id/textViewContent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewContent" />
+
+        <ImageView
+            android:id="@+id/imageViewSex"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewUsrName"
+            app:layout_constraintStart_toEndOf="@+id/textViewUsrName"
+            app:layout_constraintTop_toTopOf="@+id/textViewUsrName" />
+
+        <com.sandyz.module_community.view.costom.LikeViewSlim
+            android:id="@+id/imageViewLike"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginBottom="16dp"
+            android:background="?selectableItemBackgroundBorderless"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            app:community_like_count_text="0"
+            app:community_liked_src="@drawable/ic_like_checked"
+            app:community_no_liked_src="@drawable/ic_like_img"
+            app:layout_constraintBottom_toBottomOf="@+id/imageViewUsrPic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageViewUsrPic" />
+
+        <ImageView
+            android:id="@+id/imageViewPic"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="8dp"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="@+id/textViewMore"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMore" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
