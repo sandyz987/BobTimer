@@ -40,7 +40,7 @@ class ActivityScheduleEdit : BaseActivity() {
     private val sortList = ScheduleSortData.list
     private val schedulePeriodLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == RESULT_OK) {
-            scheduleData?.period = it.data?.getStringExtra("periodStr") ?: "无"
+            scheduleData?.period = it.data?.getStringExtra("period_str") ?: "无"
             refresh()
         }
     }
@@ -76,7 +76,7 @@ class ActivityScheduleEdit : BaseActivity() {
 
             scheduleClPeriod.setOnClickAction {
                 schedulePeriodLauncher.launch(Intent(this@ActivityScheduleEdit, ActivitySchedulePeriod::class.java).apply {
-                    putExtra("periodStr", scheduleData?.period)
+                    putExtra("period_str", scheduleData?.period)
                 })
             }
 
