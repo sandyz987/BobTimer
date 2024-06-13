@@ -6,7 +6,7 @@ A fun timing app that can set target days, focus, and schedule, including furnit
 
 **注意：本开源项目仅供学习使用！内部图片UI均有版权，盗用必究。**
 
-[![Download](https://img.shields.io/github/v/release/sandyz987/AllTimers?label=Download)](https://github.com/sandyz987/XVirtualCamera/releases/latest)
+[![Download](https://img.shields.io/github/v/release/sandyz987/AllTimers?label=Download)](https://github.com/sandyz987/AllTimers/releases/latest)
 [![Stars](https://img.shields.io/github/stars/sandyz987/AllTimers?label=Stars)](https://github.com/sandyz987/AllTimers)
 [![License](https://img.shields.io/github/license/sandyz987/AllTimers?label=License)](https://choosealicense.com/licenses/gpl-3.0/)
 
