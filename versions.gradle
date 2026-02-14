@@ -20,8 +20,8 @@ kotlin.core = "androidx.core:core-ktx:1.10.1"
 deps.kotlin = kotlin
 
 def arouter = [:]
-arouter.api = "com.alibaba:arouter-api:1.5.0"
-arouter.compiler = "com.alibaba:arouter-compiler:1.2.2"
+arouter.api = "com.alibaba:arouter-api:1.5.2"
+arouter.compiler = "com.alibaba:arouter-compiler:1.5.2"
 deps.arouter = arouter
 
 def support = [:]
@@ -97,7 +97,7 @@ mpChart.runtime = "com.github.PhilJay:MPAndroidChart:v3.1.0"
 deps.mpChart = mpChart
 
 def pickerView = [:]
-pickerView.runtime = "com.contrarywind:Android-PickerView:4.1.9"
+pickerView.runtime = "com.github.Bigkoo:Android-PickerView:e200d8c063"
 deps.pickerView = pickerView
 
 def glide = [:]
@@ -110,11 +110,11 @@ realtimeblurview.runtime = "com.github.mmin18:realtimeblurview:1.2.1"
 deps.realtimeblurview = realtimeblurview
 
 def overscroll = [:]
-overscroll.runtime = "me.everything:overscroll-decor-android:1.0.4"
+overscroll.runtime = "io.github.everythingme:overscroll-decor-android:1.1.1"
 deps.overscroll = overscroll
 
 def viewpager3d = [:]
-viewpager3d.runtime = "com.bambootang:viewpager3d:1.4"
+viewpager3d.runtime = "com.bambootang:viewpager3d:229fe3966a"
 deps.viewpager3d = viewpager3d
 
 def navigation = [:]

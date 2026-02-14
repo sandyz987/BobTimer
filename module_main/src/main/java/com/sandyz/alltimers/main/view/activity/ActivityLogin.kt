@@ -38,22 +38,25 @@ class ActivityLogin : BaseViewModelActivity<LoginViewModel>() {
 //                finish()
 //            }
             }
+
             mainTvLogin.setOnClickAction {
-                if (checkContractions()) {
-                    ProgressShowDialog.show(this@ActivityLogin, "提示", "正在登录中", false)
-                    Config.userId = mainEtPhone.text.toString()
-                    Config.password = mainEtCode.text.toString()
-                    viewModel.checkLogin(this@ActivityLogin, {
-                        ProgressShowDialog.hide()
-                        toast("登录成功！欢迎回来！")
-                        this@ActivityLogin.finish()
-                        val intent = Intent(this@ActivityLogin, ActivityMain::class.java)
-                        startActivity(intent)
-                    }, {
-                        ProgressShowDialog.hide()
-                        toast("登录失败，请检查用户名或密码")
-                    })
-                }
+                startActivity(Intent(this@ActivityLogin, ActivityMain::class.java))
+
+//                if (checkContractions()) {
+//                    ProgressShowDialog.show(this@ActivityLogin, "提示", "正在登录中", false)
+//                    Config.userId = mainEtPhone.text.toString()
+//                    Config.password = mainEtCode.text.toString()
+//                    viewModel.checkLogin(this@ActivityLogin, {
+//                        ProgressShowDialog.hide()
+//                        toast("登录成功！欢迎回来！")
+//                        this@ActivityLogin.finish()
+//                        val intent = Intent(this@ActivityLogin, ActivityMain::class.java)
+//                        startActivity(intent)
+//                    }, {
+//                        ProgressShowDialog.hide()
+//                        toast("登录失败，请检查用户名或密码")
+//                    })
+//                }
             }
         }
 

@@ -53,6 +53,7 @@ class ActivitySplash : BaseViewModelActivity<LoginViewModel>() {
             mHandler.removeCallbacks(runnable)
 
             login()
+            binding.mainTvSkip.isEnabled = false
         }
 
         second.observe(this) {
